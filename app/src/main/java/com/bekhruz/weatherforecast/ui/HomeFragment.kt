@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val hourlyDetailsAdapter = HourlyDetailsAdapter(viewModel)
-        hourlyDetailsAdapter.submitList(viewModel.weather.value?.forecast?.forecastday?.get(0)?.hour)
         hourlyRecyclerView = binding.hourlyDetailsRecyclerview
         hourlyRecyclerView.adapter = hourlyDetailsAdapter
         hourlyRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
@@ -54,8 +53,7 @@ class HomeFragment : Fragment() {
                 currentTemperature.text = weather.current.temp_c.toString()
                 cityName.text = weather.location.name
                 currentStatusImageview.load(weather.current.condition.icon.toUri().buildUpon().scheme("https").build()){
-                    //TODO: ADD PLACEHOLDER, errorHandling FOR COIL
-                    Log.d("HOMEFRAGMENT", "ICON ISNT LOADED!!!")
+                    //TODO: ADD PLACEHOLDER, ERRORHANDLING FOR COIL
                 }
                 lastUpdatedDate.text = viewModel.getDate(weather.current.last_updated_epoch.toLong())
                 currentStatusTextview.text = weather.current.condition.text
@@ -64,6 +62,7 @@ class HomeFragment : Fragment() {
                 chanceOfRainTextview.text =
                     String.format("%d%%%nChance of rain",weather.forecast.forecastday[0].day.daily_chance_of_rain)
                 humidityTextview.text = String.format("%d%%%nHumidity", weather.current.humidity)
+                hourlyDetailsAdapter.submitList(viewModel.weather.value?.forecast?.forecastday?.get(0)?.hour)
             }
         }
         /* runBlocking{
