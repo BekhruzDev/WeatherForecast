@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Weather Forecast</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forecasts_for_7_days">Forecasts for 7 days</string>
+    <string name="search">Search your city</string>
+    <string name="manage_locations">Manage Locations</string>
+</resources>
