@@ -19,10 +19,13 @@ class HourlyDetailsAdapter( private val viewModel: WeatherViewModel) :
     ) : RecyclerView.ViewHolder(binding.root){
         fun bind(data:Hour, viewModel: WeatherViewModel){
             binding.apply {
-                hourTextview.text = viewModel.getTime(data.time_epoch.toLong())
-                icHourlyStatus.load(data.condition.icon.toUri().buildUpon().scheme("https").build())
-                hourlyTemperature.text = data.temp_c.toString()
-                chanceOfRainTextview.text = data.chance_of_rain.toString()
+                    hourTextview.text = viewModel.getTime(data.time_epoch.toLong(),false)
+                    icHourlyStatus.load(
+                        data.condition.icon.toUri().buildUpon().scheme("https").build()
+                    )
+                    hourlyTemperature.text = data.temp_c.toString()
+                    chanceOfRainTextview.text =
+                        String.format("%s%% Rain", data.chance_of_rain.toString())
             }
         }
     }

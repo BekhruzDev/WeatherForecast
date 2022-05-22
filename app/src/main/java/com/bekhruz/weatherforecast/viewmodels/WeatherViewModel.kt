@@ -65,15 +65,12 @@ class WeatherViewModel : ViewModel() {
         }
 
     }
-    fun getDate(epochSecond: Long): String {
-        val date = Date(epochSecond * 1000)
-        val dateFormat = SimpleDateFormat("EEEE | MMMM d", Locale.getDefault())
-        dateFormat.timeZone = TimeZone.getTimeZone("UTC")
-        return dateFormat.format(date)
-    }
-    fun getTime(epochSecond: Long):String{
+
+    fun getTime(epochSecond: Long, isDate:Boolean):String{
         val time = Date(epochSecond * 1000)
-        val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+        val timeFormat = if (isDate)
+            SimpleDateFormat("EEEE | MMMM d", Locale.getDefault())
+        else SimpleDateFormat("HH:mm", Locale.getDefault())
         timeFormat.timeZone = TimeZone.getTimeZone("UTC")
         return timeFormat.format(time)
     }

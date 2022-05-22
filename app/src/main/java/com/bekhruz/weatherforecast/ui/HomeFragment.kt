@@ -19,7 +19,6 @@ import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
 class HomeFragment : Fragment() {
-    //TODO:Work on the hourly weather data
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var hourlyRecyclerView:RecyclerView
     private var _binding: FragmentHomeBinding? = null
@@ -27,7 +26,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getDeviceLocationData(requireContext(), requireActivity())
+        viewModel.getDeviceLocationData(requireContext(),requireActivity())
     }
 
     override fun onCreateView(
@@ -55,14 +54,15 @@ class HomeFragment : Fragment() {
                 currentStatusImageview.load(weather.current.condition.icon.toUri().buildUpon().scheme("https").build()){
                     //TODO: ADD PLACEHOLDER, ERRORHANDLING FOR COIL
                 }
-                lastUpdatedDate.text = viewModel.getDate(weather.current.last_updated_epoch.toLong())
+                lastUpdatedDate.text = viewModel.getTime(weather.current.last_updated_epoch.toLong(),true)
+                lastUpdatedDate2.text = viewModel.getTime(weather.current.last_updated_epoch.toLong(),true)
                 currentStatusTextview.text = weather.current.condition.text
                 windSpeed.text = String.format("%s km/h%nWind", weather.current.wind_kph.toString())
                 pressureTextview.text = String.format("%s mbar%nPressure", weather.current.pressure_mb.toString())
                 chanceOfRainTextview.text =
                     String.format("%d%%%nChance of rain",weather.forecast.forecastday[0].day.daily_chance_of_rain)
                 humidityTextview.text = String.format("%d%%%nHumidity", weather.current.humidity)
-                hourlyDetailsAdapter.submitList(viewModel.weather.value?.forecast?.forecastday?.get(0)?.hour)
+                hourlyDetailsAdapter.submitList(weather.forecast.forecastday[0].hour)
             }
         }
         /* runBlocking{
