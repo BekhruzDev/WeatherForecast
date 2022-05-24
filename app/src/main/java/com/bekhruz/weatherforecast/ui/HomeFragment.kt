@@ -1,12 +1,10 @@
 package com.bekhruz.weatherforecast.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.HorizontalScrollView
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,18 +13,25 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.adapter.HourlyDetailsAdapter
+import com.bekhruz.weatherforecast.adapter.SevenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
+/** To check the networking:
+runBlocking{
+val current = Repositories.getSevenDayWeather("london").body()!!.current.temp_c
+Log.d("Weather in London", "Currently $current ")
+}*/
 class HomeFragment : Fragment() {
     private val viewModel: WeatherViewModel by activityViewModels()
-    private lateinit var hourlyRecyclerView:RecyclerView
+    private lateinit var hourlyRecyclerView: RecyclerView
+    private lateinit var sevenDayRecyclerView: RecyclerView
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getDeviceLocationData(requireContext(),requireActivity())
+        viewModel.getDeviceLocationData(requireContext(), requireActivity())
     }
 
     override fun onCreateView(
@@ -42,7 +47,13 @@ class HomeFragment : Fragment() {
         val hourlyDetailsAdapter = HourlyDetailsAdapter(viewModel)
         hourlyRecyclerView = binding.hourlyDetailsRecyclerview
         hourlyRecyclerView.adapter = hourlyDetailsAdapter
-        hourlyRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        hourlyRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val sevenDayDetailsAdapter = SevenDayDetailsAdapter(viewModel)
+        sevenDayRecyclerView = binding.sevenDayForecastRecyclerview
+        sevenDayRecyclerView.adapter = sevenDayDetailsAdapter
+        sevenDayRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.icPlus.setOnClickListener {
             goToManageLocationsFragment()
         }
@@ -51,24 +62,29 @@ class HomeFragment : Fragment() {
             binding.apply {
                 currentTemperature.text = weather.current.temp_c.toString()
                 cityName.text = weather.location.name
-                currentStatusImageview.load(weather.current.condition.icon.toUri().buildUpon().scheme("https").build()){
+                currentStatusImageview.load(
+                    weather.current.condition.icon.toUri().buildUpon().scheme("https").build()
+                ) {
                     //TODO: ADD PLACEHOLDER, ERRORHANDLING FOR COIL
                 }
-                lastUpdatedDate.text = viewModel.getTime(weather.current.last_updated_epoch.toLong(),true)
-                lastUpdatedDate2.text = viewModel.getTime(weather.current.last_updated_epoch.toLong(),true)
+                lastUpdatedDate.text =
+                    viewModel.getTime(weather.current.last_updated_epoch.toLong(), "date")
+                lastUpdatedDate2.text =
+                    viewModel.getTime(weather.current.last_updated_epoch.toLong(), "date")
                 currentStatusTextview.text = weather.current.condition.text
                 windSpeed.text = String.format("%s km/h%nWind", weather.current.wind_kph.toString())
-                pressureTextview.text = String.format("%s mbar%nPressure", weather.current.pressure_mb.toString())
+                pressureTextview.text =
+                    String.format("%s mbar%nPressure", weather.current.pressure_mb.toString())
                 chanceOfRainTextview.text =
-                    String.format("%d%%%nChance of rain",weather.forecast.forecastday[0].day.daily_chance_of_rain)
+                    String.format(
+                        "%d%%%nChance of rain",
+                        weather.forecast.forecastday[0].day.daily_chance_of_rain
+                    )
                 humidityTextview.text = String.format("%d%%%nHumidity", weather.current.humidity)
                 hourlyDetailsAdapter.submitList(weather.forecast.forecastday[0].hour)
+                sevenDayDetailsAdapter.submitList(weather.forecast.forecastday)
             }
         }
-        /* runBlocking{
-             val current = Repositories.getSevenDayWeather("london").body()!!.current.temp_c
-             Log.d("Weather in London", "Currently $current ")
-         }*/
     }
 
     private fun goToManageLocationsFragment() {
@@ -76,7 +92,6 @@ class HomeFragment : Fragment() {
             R.id.action_homeFragment_to_manageLocationsFragment
         )
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

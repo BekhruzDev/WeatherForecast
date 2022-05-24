@@ -19,7 +19,7 @@ class HourlyDetailsAdapter(private val viewModel: WeatherViewModel) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Hour, viewModel: WeatherViewModel) {
             binding.apply {
-                hourTextview.text = viewModel.getTime(data.time_epoch.toLong(), false)
+                hourTextview.text = viewModel.getTime(data.time_epoch.toLong(), "time")
                 icHourlyStatus.load(
                     data.condition.icon.toUri().buildUpon().scheme("https").build()
                 )

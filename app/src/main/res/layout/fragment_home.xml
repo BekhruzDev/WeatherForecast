@@ -218,7 +218,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/hourly_details_card"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -258,24 +258,24 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:padding="16dp"
+        android:background="@drawable/card_bg_color"
         app:layout_constraintTop_toBottomOf="@id/hourly_details_card">
 
         <TextView
             android:id="@+id/seven_day_forecast_textview"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="@string/forecasts_for_7_days"
             android:textColor="@color/curious_blue"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -298,7 +298,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/seven_day_forecast_textview"
-            tools:itemCount="7" />
+            tools:itemCount="7"
+            tools:listitem="@layout/item_seven_day_details"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
