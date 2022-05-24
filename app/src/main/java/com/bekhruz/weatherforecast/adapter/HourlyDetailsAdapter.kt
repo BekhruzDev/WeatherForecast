@@ -11,21 +11,21 @@ import com.bekhruz.weatherforecast.databinding.ItemHourlyDetailsBinding
 import com.bekhruz.weatherforecast.network.sevenday.Hour
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
-class HourlyDetailsAdapter( private val viewModel: WeatherViewModel) :
-    ListAdapter<Hour, HourlyDetailsAdapter.HourlyDetailsViewHolder>(DiffCallback){
+class HourlyDetailsAdapter(private val viewModel: WeatherViewModel) :
+    ListAdapter<Hour, HourlyDetailsAdapter.HourlyDetailsViewHolder>(DiffCallback) {
 
     class HourlyDetailsViewHolder(
         private val binding: ItemHourlyDetailsBinding
-    ) : RecyclerView.ViewHolder(binding.root){
-        fun bind(data:Hour, viewModel: WeatherViewModel){
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Hour, viewModel: WeatherViewModel) {
             binding.apply {
-                    hourTextview.text = viewModel.getTime(data.time_epoch.toLong(),false)
-                    icHourlyStatus.load(
-                        data.condition.icon.toUri().buildUpon().scheme("https").build()
-                    )
-                    hourlyTemperature.text = data.temp_c.toString()
-                    chanceOfRainTextview.text =
-                        String.format("%s%% Rain", data.chance_of_rain.toString())
+                hourTextview.text = viewModel.getTime(data.time_epoch.toLong(), false)
+                icHourlyStatus.load(
+                    data.condition.icon.toUri().buildUpon().scheme("https").build()
+                )
+                hourlyTemperature.text = data.temp_c.toString()
+                chanceOfRainTextview.text =
+                    String.format("%s%% Rain", data.chance_of_rain.toString())
             }
         }
     }
@@ -41,7 +41,7 @@ class HourlyDetailsAdapter( private val viewModel: WeatherViewModel) :
         holder.bind(elementOfHourlyDetails, viewModel)
     }
 
-    companion object DiffCallback: DiffUtil.ItemCallback<Hour>() {
+    companion object DiffCallback : DiffUtil.ItemCallback<Hour>() {
         override fun areItemsTheSame(oldItem: Hour, newItem: Hour): Boolean {
             return oldItem == newItem
         }
