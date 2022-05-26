@@ -1,6 +1,6 @@
 # WeatherForecast
 ==================================
-This is an ongoing project where I fetch all the weather data over two APIs containing both current, hourly weather and forecasts for 16 days.
+This is an ongoing project where I fetch all the weather data using Retrofit and Kotlin Coroutines over two APIs containing both current, hourly weather and forecasts for 16 days.
 
 To get the current and hourly weather data based on the device location i am using API of https://api.weatherapi.com/v1/
 
