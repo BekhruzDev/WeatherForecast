@@ -1,16 +1,20 @@
 package com.bekhruz.weatherforecast.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionManager
 import coil.load
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.adapter.HourlyDetailsAdapter
@@ -56,7 +60,7 @@ class HomeFragment : Fragment() {
         sixteenDayRecyclerView.adapter = sevenDayDetailsAdapter
         sixteenDayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
+        swipeUpAction()
 
         viewModel.currentWeatherData.observe(this.viewLifecycleOwner) { weather ->
             binding.apply {
@@ -94,6 +98,20 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun swipeUpAction() {
+        binding.forecastConstraintLayout.setOnTouchListener { _, motionEvent ->
+            if (motionEvent.action == MotionEvent.ACTION_UP){
+                val constraintSet = ConstraintSet()
+                constraintSet.clear(R.layout.fragment_home_v2)
+                TransitionManager.beginDelayedTransition(binding.root)
+                constraintSet.applyTo(binding.root)
+            }
+            true
+        }
+    }
+
+
     private fun goToManageLocationsFragment() {
         findNavController().navigate(
             R.id.action_homeFragment_to_manageLocationsFragment
@@ -103,7 +121,6 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
     companion object {
         private const val TAG = "HOME FRAGMENT"
     }

@@ -64,9 +64,9 @@
                 android:id="@+id/current_status_imageview"
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="68dp"
                 android:importantForAccessibility="no"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,23 +74,26 @@
                 android:id="@+id/last_updated_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="26dp"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/current_status_imageview"
+                app:layout_constraintStart_toEndOf="@+id/current_status_imageview"
+                app:layout_constraintTop_toBottomOf="@id/city_name"
                 tools:text="Sunday | Nov 14" />
 
             <TextView
                 android:id="@+id/current_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:textColor="@color/white"
                 android:textSize="72sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_updated_date"
+                app:layout_constraintEnd_toEndOf="@id/last_updated_date"
+                app:layout_constraintStart_toStartOf="@id/last_updated_date"
+                app:layout_constraintTop_toBottomOf="@id/last_updated_date"
                 tools:text="24" />
 
             <TextView
@@ -98,8 +101,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/current_temperature"
+                app:layout_constraintStart_toStartOf="@id/current_temperature"
                 app:layout_constraintTop_toBottomOf="@+id/current_temperature"
                 tools:text="Heavy Rain" />
 
@@ -229,7 +232,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/hourly_constraint_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="1dp"
             android:background="@drawable/card_bg_color"
             android:orientation="vertical">
 
@@ -264,10 +267,10 @@
         android:id="@+id/forecast_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/card_bg_color"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/hourly_details_card">
 
         <TextView
@@ -277,9 +280,8 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="@string/forecasts_for_16_days"
-            android:textColor="@color/curious_blue"
+            android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -298,13 +300,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sixteen_day_forecast_recyclerview"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sixteen_day_forecast_textview"
             tools:itemCount="16"
-            tools:listitem="@layout/item_sixteen_day_details"/>
+            tools:listitem="@layout/item_sixteen_day_details" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
