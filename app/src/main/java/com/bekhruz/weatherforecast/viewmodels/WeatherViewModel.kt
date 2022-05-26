@@ -9,38 +9,38 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bekhruz.weatherforecast.network.sevenday.SevenDayForecast
+import com.bekhruz.weatherforecast.network.currentweather.CurrentForecast
 import com.bekhruz.weatherforecast.repositories.Repositories
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import com.bekhruz.weatherforecast.network.sixteenday.SixteenDayForecast
+import com.bekhruz.weatherforecast.network.sixteendayweather.SixteenDayForecast
 import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
 import java.util.*
 
 class WeatherViewModel : ViewModel() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private val _weather = MutableLiveData<SevenDayForecast>()
-    val weather: LiveData<SevenDayForecast> = _weather
-    private val _sixteenDayData = MutableLiveData<SixteenDayForecast>()
-    val sixteenDayData:LiveData<SixteenDayForecast> = _sixteenDayData
+    private val _currentWeatherData = MutableLiveData<CurrentForecast>()
+    val currentWeatherData: LiveData<CurrentForecast> = _currentWeatherData
+    private val _sixteenDayWeatherData = MutableLiveData<SixteenDayForecast>()
+    val sixteenDayWeatherData:LiveData<SixteenDayForecast> = _sixteenDayWeatherData
 
-    fun getWeatherData(latLon: String) {
+    private fun getCurrentWeather(latLon: String) {
         viewModelScope.launch {
-            val response = Repositories.getSevenDayWeather(latLon)
+            val response = Repositories.getCurrentWeather(latLon)
             if (response.isSuccessful) {
-                _weather.value = response.body()
+                _currentWeatherData.value = response.body()
             }
         }
     }
-    fun getSixteenDayData(latitude:String, longitude:String){
+    private fun getSixteenDayWeather(latitude:String, longitude:String){
         viewModelScope.launch {
             val response = Repositories.getSixteenDayWeather(latitude, longitude)
-            Log.d("SIXTEENRESPONSE","IS SUCCESSFUL AND TEMP: ${response.body()}")
+            Log.d(TAG,"IS SUCCESSFUL AND TEMP: ${response.body()}")
             if (response.isSuccessful){
-                _sixteenDayData.value = response.body()
+                _sixteenDayWeatherData.value = response.body()
             }
         }
     }
@@ -72,11 +72,9 @@ class WeatherViewModel : ViewModel() {
             if (it != null){
                 val fullAddress = geoCoder.getFromLocation(it.latitude,it.longitude,1)
                 val currentCityName = fullAddress[0].getAddressLine(0)
-                val currentStateName = fullAddress[0].getAddressLine(1)
-                val currentCountryName = fullAddress[0].getAddressLine(2)
-                getWeatherData("${it.latitude},${it.longitude}")
-                getSixteenDayData(it.latitude.toString(), it.longitude.toString())
-                Log.d("HOME FRAGMENT","LOCATION IS $currentCityName, lat: ${it.latitude} and lon: ${it.longitude}")
+                getCurrentWeather("${it.latitude},${it.longitude}")
+                getSixteenDayWeather(it.latitude.toString(), it.longitude.toString())
+                Log.d(TAG,"LOCATION IS $currentCityName, lat: ${it.latitude} and lon: ${it.longitude}")
             }
         }
     }
@@ -90,5 +88,9 @@ class WeatherViewModel : ViewModel() {
         }
         timeFormat.timeZone = TimeZone.getTimeZone("UTC")
         return timeFormat.format(time)
+    }
+
+    companion object {
+        private const val TAG = "WEATHER VIEW MODEL"
     }
 }

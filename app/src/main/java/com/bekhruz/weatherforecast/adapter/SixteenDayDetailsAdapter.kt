@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bekhruz.weatherforecast.databinding.ItemSevenDayDetailsBinding
-import com.bekhruz.weatherforecast.network.sixteenday.Data
+import com.bekhruz.weatherforecast.databinding.ItemSixteenDayDetailsBinding
+import com.bekhruz.weatherforecast.network.sixteendayweather.Data
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
-class SevenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
-    ListAdapter<Data, SevenDayDetailsAdapter.SevenDayDetailsViewHolder>(DiffCallBack) {
+class SixteenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
+    ListAdapter<Data, SixteenDayDetailsAdapter.SixteenDayDetailsViewHolder>(DiffCallBack) {
 
-    class SevenDayDetailsViewHolder(private val binding: ItemSevenDayDetailsBinding) :
+    class SixteenDayDetailsViewHolder(private val binding: ItemSixteenDayDetailsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Data, viewModel: WeatherViewModel) {
             binding.apply {
@@ -22,7 +22,7 @@ class SevenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
                 iconWeekdaysStatus.load(
                     data.weather?.icon?.let { viewModel.getIconsOfSixteenDayData(it).toUri().buildUpon().scheme("https").build() }
                 ) {
-                    //TODO: ADD PLACEHOLDER, ERRORHANDLING FOR COIL
+                    //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
                 }
                 rainStatusWeekdaysTextview.text =
                     String.format("%d%% rain", data.pop)
@@ -32,14 +32,14 @@ class SevenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SevenDayDetailsViewHolder {
-        return SevenDayDetailsViewHolder(
-            ItemSevenDayDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SixteenDayDetailsViewHolder {
+        return SixteenDayDetailsViewHolder(
+            ItemSixteenDayDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
-    //TODO: NOT SHOWING 16 ITEMS FIX IT
-    override fun onBindViewHolder(holder: SevenDayDetailsViewHolder, position: Int) {
+
+    override fun onBindViewHolder(holder: SixteenDayDetailsViewHolder, position: Int) {
         val elementOfSevenDayDetails = getItem(position)
         holder.bind(elementOfSevenDayDetails, viewModel)
     }

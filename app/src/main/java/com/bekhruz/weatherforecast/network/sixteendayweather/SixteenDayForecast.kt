@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.network.sixteenday
+package com.bekhruz.weatherforecast.network.sixteendayweather
 
 data class SixteenDayForecast(
     val city_name: String,

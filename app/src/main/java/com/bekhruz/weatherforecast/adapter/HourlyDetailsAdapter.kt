@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.databinding.ItemHourlyDetailsBinding
-import com.bekhruz.weatherforecast.network.sevenday.Hour
+import com.bekhruz.weatherforecast.network.currentweather.Hour
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
 class HourlyDetailsAdapter(private val viewModel: WeatherViewModel) :

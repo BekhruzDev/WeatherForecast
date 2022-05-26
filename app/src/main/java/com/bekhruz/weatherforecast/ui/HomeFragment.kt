@@ -14,15 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.adapter.HourlyDetailsAdapter
-import com.bekhruz.weatherforecast.adapter.SevenDayDetailsAdapter
+import com.bekhruz.weatherforecast.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
 class HomeFragment : Fragment() {
-
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var hourlyRecyclerView: RecyclerView
-    private lateinit var sevenDayRecyclerView: RecyclerView
+    private lateinit var sixteenDayRecyclerView: RecyclerView
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -40,7 +39,7 @@ class HomeFragment : Fragment() {
         /** To check the networking:
         runBlocking{
         val current = Repositories.getSixteenDayWeather("london").body()?.data?.get(0)?.app_max_temp
-        Log.d("Weather in London", "Currently $current ")
+        Log.d(TAG, "Currently $current ")
         }*/
     }
 
@@ -52,23 +51,21 @@ class HomeFragment : Fragment() {
         hourlyRecyclerView.adapter = hourlyDetailsAdapter
         hourlyRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val sevenDayDetailsAdapter = SevenDayDetailsAdapter(viewModel)
-        sevenDayRecyclerView = binding.sevenDayForecastRecyclerview
-        sevenDayRecyclerView.adapter = sevenDayDetailsAdapter
-        sevenDayRecyclerView.layoutManager =
+        val sevenDayDetailsAdapter = SixteenDayDetailsAdapter(viewModel)
+        sixteenDayRecyclerView = binding.sixteenDayForecastRecyclerview
+        sixteenDayRecyclerView.adapter = sevenDayDetailsAdapter
+        sixteenDayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.icPlus.setOnClickListener {
-            goToManageLocationsFragment()
-        }
 
-        viewModel.weather.observe(this.viewLifecycleOwner) { weather ->
+
+        viewModel.currentWeatherData.observe(this.viewLifecycleOwner) { weather ->
             binding.apply {
                 currentTemperature.text = weather.current.temp_c.toString()
                 cityName.text = weather.location.name
                 currentStatusImageview.load(
                     weather.current.condition.icon.toUri().buildUpon().scheme("https").build()
                 ) {
-                    //TODO: ADD PLACEHOLDER, ERRORHANDLING FOR COIL
+                    //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
                 }
                 lastUpdatedDate.text =
                     viewModel.getTime(weather.current.last_updated_epoch.toLong(), "date")
@@ -87,9 +84,13 @@ class HomeFragment : Fragment() {
                 hourlyDetailsAdapter.submitList(weather.forecast.forecastday[0].hour)
             }
         }
-        viewModel.sixteenDayData.observe(this.viewLifecycleOwner){ sixteenDayData ->
-            Log.d("SIXTEEN DATA","${sixteenDayData?.data?.get(0)?.datetime}")
+        viewModel.sixteenDayWeatherData.observe(this.viewLifecycleOwner){ sixteenDayData ->
+            Log.d(TAG,"${sixteenDayData?.data?.size}")
+            //TODO: NOT SHOWING 16 ITEMS FIX IT
             sevenDayDetailsAdapter.submitList(sixteenDayData?.data)
+        }
+        binding.icPlus.setOnClickListener {
+            goToManageLocationsFragment()
         }
     }
 
@@ -101,5 +102,9 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "HOME FRAGMENT"
     }
 }

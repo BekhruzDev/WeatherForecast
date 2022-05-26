@@ -33,7 +33,8 @@
                 android:padding="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_akar_icons_plus" />
+                app:srcCompat="@drawable/ic_akar_icons_plus"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/city_name"
@@ -218,7 +219,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/hourly_details_card"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -267,13 +268,13 @@
         app:layout_constraintTop_toBottomOf="@id/hourly_details_card">
 
         <TextView
-            android:id="@+id/seven_day_forecast_textview"
+            android:id="@+id/sixteen_day_forecast_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:text="@string/forecasts_for_7_days"
-            android:textColor="@color/curious_blue"
+            android:text="@string/forecasts_for_16_days"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -285,21 +286,21 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:importantForAccessibility="no"
-            app:layout_constraintBottom_toBottomOf="@id/seven_day_forecast_textview"
-            app:layout_constraintStart_toEndOf="@id/seven_day_forecast_textview"
-            app:layout_constraintTop_toTopOf="@id/seven_day_forecast_textview"
+            app:layout_constraintBottom_toBottomOf="@id/sixteen_day_forecast_textview"
+            app:layout_constraintStart_toEndOf="@id/sixteen_day_forecast_textview"
+            app:layout_constraintTop_toTopOf="@id/sixteen_day_forecast_textview"
             app:srcCompat="@drawable/ic_down_arrow" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/seven_day_forecast_recyclerview"
+            android:id="@+id/sixteen_day_forecast_recyclerview"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seven_day_forecast_textview"
+            app:layout_constraintTop_toBottomOf="@id/sixteen_day_forecast_textview"
             tools:itemCount="16"
-            tools:listitem="@layout/item_seven_day_details"/>
+            tools:listitem="@layout/item_sixteen_day_details"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

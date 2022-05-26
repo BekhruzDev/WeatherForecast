@@ -2,17 +2,17 @@ package com.bekhruz.weatherforecast.repositories
 
 
 import com.bekhruz.weatherforecast.network.SixteenDayForecastApi
-import com.bekhruz.weatherforecast.network.WeatherApi
-import com.bekhruz.weatherforecast.network.sevenday.SevenDayForecast
-import com.bekhruz.weatherforecast.network.sixteenday.SixteenDayForecast
-import com.bekhruz.weatherforecast.utils.Constants.API_KEY
-import com.bekhruz.weatherforecast.utils.Constants.API_KEY_SIXTEENDAYS
+import com.bekhruz.weatherforecast.network.CurrentWeatherApi
+import com.bekhruz.weatherforecast.network.currentweather.CurrentForecast
+import com.bekhruz.weatherforecast.network.sixteendayweather.SixteenDayForecast
+import com.bekhruz.weatherforecast.utils.Constants.API_KEY_CURRENT_WEATHER
+import com.bekhruz.weatherforecast.utils.Constants.API_KEY_SIXTEEN_DAY_WEATHER
 import retrofit2.Response
 
 object Repositories {
-    suspend fun getSevenDayWeather(latLon: String): Response<SevenDayForecast> {
-        return WeatherApi.retrofitService.getSevenDayWeather(
-            API_KEY,
+    suspend fun getCurrentWeather(latLon: String): Response<CurrentForecast> {
+        return CurrentWeatherApi.retrofitService.getCurrentWeather(
+            API_KEY_CURRENT_WEATHER,
             latLon,
         )
     }
@@ -21,7 +21,7 @@ object Repositories {
         return SixteenDayForecastApi.retrofitService.getSixteenDayWeather(
             latitude,
             longitude,
-            API_KEY_SIXTEENDAYS
+            API_KEY_SIXTEEN_DAY_WEATHER
         )
     }
 }

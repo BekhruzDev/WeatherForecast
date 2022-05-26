@@ -1,8 +1,7 @@
 package com.bekhruz.weatherforecast.network
 
-import com.bekhruz.weatherforecast.network.sevenday.SevenDayForecast
-import com.bekhruz.weatherforecast.network.sixteenday.SixteenDayForecast
-import com.bekhruz.weatherforecast.utils.Constants.BASE_URL
+import com.bekhruz.weatherforecast.network.currentweather.CurrentForecast
+import com.bekhruz.weatherforecast.utils.Constants.BASE_URL_CURRENT_WEATHER
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Response
@@ -24,23 +23,23 @@ private val moshi = Moshi
 //retrofit object
 private val retrofit = Retrofit
     .Builder()
-    .baseUrl(BASE_URL)
+    .baseUrl(BASE_URL_CURRENT_WEATHER)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .build()
 
-interface WeatherApiService {
+interface CurrentWeatherApiService {
     @GET("forecast.json")
-    suspend fun getSevenDayWeather(
+    suspend fun getCurrentWeather(
         @Query("key") apiKey:String,
         @Query("q") latLon:String,
         @Query("days") days:Int = 3,
         @Query("aqi") airQuality:String = "no",
         @Query("alerts") alerts:String = "no",
-    ):Response<SevenDayForecast>
+    ):Response<CurrentForecast>
 }
 
-object WeatherApi{
-    val retrofitService:WeatherApiService by lazy {
-        retrofit.create(WeatherApiService::class.java)
+object CurrentWeatherApi{
+    val retrofitService:CurrentWeatherApiService by lazy {
+        retrofit.create(CurrentWeatherApiService::class.java)
     }
 }

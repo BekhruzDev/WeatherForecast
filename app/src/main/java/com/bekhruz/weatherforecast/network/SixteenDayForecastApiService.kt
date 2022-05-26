@@ -1,6 +1,6 @@
 package com.bekhruz.weatherforecast.network
 
-import com.bekhruz.weatherforecast.network.sixteenday.SixteenDayForecast
+import com.bekhruz.weatherforecast.network.sixteendayweather.SixteenDayForecast
 import com.bekhruz.weatherforecast.utils.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -19,7 +19,7 @@ private val moshi = Moshi
 //retrofit object
 private val retrofit = Retrofit
     .Builder()
-    .baseUrl(Constants.BASE_URL_SIXTEENDAYS)
+    .baseUrl(Constants.BASE_URL_SIXTEEN_DAY_WEATHER)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .build()
 

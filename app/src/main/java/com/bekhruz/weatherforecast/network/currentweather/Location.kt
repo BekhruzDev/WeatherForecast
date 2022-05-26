@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.network.sevenday
+package com.bekhruz.weatherforecast.network.currentweather
 
 data class Location(
     val country: String,
