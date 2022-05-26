@@ -15,6 +15,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import com.bekhruz.weatherforecast.network.sixteenday.SixteenDayForecast
 import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,14 +24,28 @@ class WeatherViewModel : ViewModel() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val _weather = MutableLiveData<SevenDayForecast>()
     val weather: LiveData<SevenDayForecast> = _weather
+    private val _sixteenDayData = MutableLiveData<SixteenDayForecast>()
+    val sixteenDayData:LiveData<SixteenDayForecast> = _sixteenDayData
 
-    fun getWeatherData(location: String) {
+    fun getWeatherData(latLon: String) {
         viewModelScope.launch {
-            val response = Repositories.getSevenDayWeather(location)
+            val response = Repositories.getSevenDayWeather(latLon)
             if (response.isSuccessful) {
                 _weather.value = response.body()
             }
         }
+    }
+    fun getSixteenDayData(latitude:String, longitude:String){
+        viewModelScope.launch {
+            val response = Repositories.getSixteenDayWeather(latitude, longitude)
+            Log.d("SIXTEENRESPONSE","IS SUCCESSFUL AND TEMP: ${response.body()}")
+            if (response.isSuccessful){
+                _sixteenDayData.value = response.body()
+            }
+        }
+    }
+    fun getIconsOfSixteenDayData(iconId:String):String{
+       return String.format("https://www.weatherbit.io/static/img/icons/$iconId.png")
     }
      fun getDeviceLocationData(context: Context,activity: Activity){
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
@@ -59,11 +74,11 @@ class WeatherViewModel : ViewModel() {
                 val currentCityName = fullAddress[0].getAddressLine(0)
                 val currentStateName = fullAddress[0].getAddressLine(1)
                 val currentCountryName = fullAddress[0].getAddressLine(2)
-                getWeatherData(currentCityName)
+                getWeatherData("${it.latitude},${it.longitude}")
+                getSixteenDayData(it.latitude.toString(), it.longitude.toString())
                 Log.d("HOME FRAGMENT","LOCATION IS $currentCityName, lat: ${it.latitude} and lon: ${it.longitude}")
             }
         }
-
     }
 
     fun getTime(epochSecond: Long, type:String):String{
@@ -71,7 +86,7 @@ class WeatherViewModel : ViewModel() {
         val timeFormat = when (type) {
             "date" -> SimpleDateFormat("EEEE | MMMM d", Locale.getDefault())
             "time" -> SimpleDateFormat("HH:mm", Locale.getDefault())
-            else -> SimpleDateFormat("EEE", Locale.getDefault())
+            else -> SimpleDateFormat("MMMM d", Locale.getDefault())
         }
         timeFormat.timeZone = TimeZone.getTimeZone("UTC")
         return timeFormat.format(time)

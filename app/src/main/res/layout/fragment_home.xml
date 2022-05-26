@@ -261,7 +261,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/card_bg_color"
@@ -293,14 +292,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/seven_day_forecast_recyclerview"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/seven_day_forecast_textview"
-            tools:itemCount="7"
+            tools:itemCount="16"
             tools:listitem="@layout/item_seven_day_details"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

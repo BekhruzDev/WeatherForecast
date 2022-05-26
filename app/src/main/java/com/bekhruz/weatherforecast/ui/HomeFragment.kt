@@ -1,6 +1,7 @@
 package com.bekhruz.weatherforecast.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +18,8 @@ import com.bekhruz.weatherforecast.adapter.SevenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
-/** To check the networking:
-runBlocking{
-val current = Repositories.getSevenDayWeather("london").body()!!.current.temp_c
-Log.d("Weather in London", "Currently $current ")
-}*/
 class HomeFragment : Fragment() {
+
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var hourlyRecyclerView: RecyclerView
     private lateinit var sevenDayRecyclerView: RecyclerView
@@ -40,7 +37,13 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+        /** To check the networking:
+        runBlocking{
+        val current = Repositories.getSixteenDayWeather("london").body()?.data?.get(0)?.app_max_temp
+        Log.d("Weather in London", "Currently $current ")
+        }*/
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,8 +85,11 @@ class HomeFragment : Fragment() {
                     )
                 humidityTextview.text = String.format("%d%%%nHumidity", weather.current.humidity)
                 hourlyDetailsAdapter.submitList(weather.forecast.forecastday[0].hour)
-                sevenDayDetailsAdapter.submitList(weather.forecast.forecastday)
             }
+        }
+        viewModel.sixteenDayData.observe(this.viewLifecycleOwner){ sixteenDayData ->
+            Log.d("SIXTEEN DATA","${sixteenDayData?.data?.get(0)?.datetime}")
+            sevenDayDetailsAdapter.submitList(sixteenDayData?.data)
         }
     }
 

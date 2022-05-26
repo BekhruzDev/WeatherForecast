@@ -1,6 +1,7 @@
 package com.bekhruz.weatherforecast.network
 
 import com.bekhruz.weatherforecast.network.sevenday.SevenDayForecast
+import com.bekhruz.weatherforecast.network.sixteenday.SixteenDayForecast
 import com.bekhruz.weatherforecast.utils.Constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -11,9 +12,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * Sample Call:
+ * Sample Call for Current Weather data
  * https://api.weatherapi.com/v1/forecast.json?key=2024618787f64a0b816101809221805&q=London&days=7&aqi=no&alerts=no
  */
+
 //moshi object
 private val moshi = Moshi
     .Builder()
@@ -30,8 +32,8 @@ interface WeatherApiService {
     @GET("forecast.json")
     suspend fun getSevenDayWeather(
         @Query("key") apiKey:String,
-        @Query("q") location:String,
-        @Query("days") days:Int = 7,
+        @Query("q") latLon:String,
+        @Query("days") days:Int = 3,
         @Query("aqi") airQuality:String = "no",
         @Query("alerts") alerts:String = "no",
     ):Response<SevenDayForecast>
