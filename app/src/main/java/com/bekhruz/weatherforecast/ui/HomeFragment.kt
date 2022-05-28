@@ -1,11 +1,9 @@
 package com.bekhruz.weatherforecast.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
@@ -92,24 +90,22 @@ class HomeFragment : Fragment() {
             Log.d(TAG,"${sixteenDayData?.data?.size}")
             //TODO: NOT SHOWING 16 ITEMS FIX IT
             sevenDayDetailsAdapter.submitList(sixteenDayData?.data)
+            Log.d(TAG,"MAX TEMP:${sixteenDayData?.data?.get(0)?.app_max_temp}")
+
         }
         binding.icPlus.setOnClickListener {
             goToManageLocationsFragment()
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun swipeUpAction() {
-        binding.forecastConstraintLayout.setOnTouchListener { _, motionEvent ->
-            if (motionEvent.action == MotionEvent.ACTION_UP){
-                val constraintSet = ConstraintSet()
-                constraintSet.clear(R.layout.fragment_home_v2)
-                TransitionManager.beginDelayedTransition(binding.root)
-                constraintSet.applyTo(binding.root)
-            }
-            true
-        }
-    }
+     private fun swipeUpAction() {
+         binding.sixteenDayForecastTextview.setOnClickListener {
+             val constraintSet = ConstraintSet()
+             constraintSet.clone(requireContext(), R.layout.fragment_home_v2)
+             TransitionManager.beginDelayedTransition(binding.root)
+             constraintSet.applyTo(binding.root)
+         }
+     }
 
 
     private fun goToManageLocationsFragment() {
