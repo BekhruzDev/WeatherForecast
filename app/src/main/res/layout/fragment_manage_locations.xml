@@ -50,16 +50,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="37dp"
                 android:hint="@string/search"
+                app:startIconDrawable="@drawable/custom_ic_search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/manage_location_textview"
-                app:startIconDrawable="@drawable/custom_ic_search">
+                app:layout_constraintTop_toBottomOf="@id/manage_location_textview">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:background="@drawable/custom_text_field"
-
                     />
             </com.google.android.material.textfield.TextInputLayout>
 

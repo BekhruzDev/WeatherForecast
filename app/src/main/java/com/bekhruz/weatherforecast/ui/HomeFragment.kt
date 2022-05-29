@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
         sixteenDayRecyclerView.adapter = sevenDayDetailsAdapter
         sixteenDayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        swipeUpAction()
+        swipeForSixteenDayForecast()
 
         viewModel.currentWeatherData.observe(this.viewLifecycleOwner) { weather ->
             binding.apply {
@@ -88,22 +88,24 @@ class HomeFragment : Fragment() {
         }
         viewModel.sixteenDayWeatherData.observe(this.viewLifecycleOwner){ sixteenDayData ->
             Log.d(TAG,"${sixteenDayData?.data?.size}")
-            //TODO: NOT SHOWING 16 ITEMS FIX IT
             sevenDayDetailsAdapter.submitList(sixteenDayData?.data)
-            Log.d(TAG,"MAX TEMP:${sixteenDayData?.data?.get(0)?.app_max_temp}")
-
         }
         binding.icPlus.setOnClickListener {
             goToManageLocationsFragment()
         }
     }
 
-     private fun swipeUpAction() {
+     private fun swipeForSixteenDayForecast() {
+         var set = false
+         val startingConstraintSet = ConstraintSet()
+         startingConstraintSet.clone(binding.root)
+         val finishingConstraintSet = ConstraintSet()
+         finishingConstraintSet.clone(requireContext(), R.layout.fragment_home_v2)
          binding.sixteenDayForecastTextview.setOnClickListener {
-             val constraintSet = ConstraintSet()
-             constraintSet.clone(requireContext(), R.layout.fragment_home_v2)
-             TransitionManager.beginDelayedTransition(binding.root)
-             constraintSet.applyTo(binding.root)
+                 TransitionManager.beginDelayedTransition(binding.root)
+                 val constraintSet = if (set) startingConstraintSet else finishingConstraintSet
+                 constraintSet.applyTo(binding.root)
+                 set = !set
          }
      }
 
