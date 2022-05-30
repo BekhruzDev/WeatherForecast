@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ManageLocationsFragment">
+    tools:context=".ui.ExploreWeatherFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -32,11 +32,11 @@
                 app:srcCompat="@drawable/ic_arrow_left" />
 
             <TextView
-                android:id="@+id/manage_location_textview"
+                android:id="@+id/explore_weathers_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="@string/manage_locations"
+                android:text="@string/explore_weather"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/ic_navigate_up_button"
@@ -44,19 +44,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/ic_navigate_up_button" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cities_weather_status_recyclerview"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_cities_text_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="37dp"
+                android:hint="@string/search"
+                app:startIconDrawable="@drawable/custom_ic_search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/manage_location_textview"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_city_weather"
-                tools:spanCount="3" />
+                app:layout_constraintTop_toBottomOf="@id/explore_weathers_textview">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:background="@drawable/custom_text_field"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

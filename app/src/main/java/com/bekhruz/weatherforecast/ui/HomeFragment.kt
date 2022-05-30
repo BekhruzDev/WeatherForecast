@@ -38,11 +38,6 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-        /** To check the networking:
-        runBlocking{
-        val current = Repositories.getSixteenDayWeather("london").body()?.data?.get(0)?.app_max_temp
-        Log.d(TAG, "Currently $current ")
-        }*/
     }
 
 
@@ -91,6 +86,9 @@ class HomeFragment : Fragment() {
             sevenDayDetailsAdapter.submitList(sixteenDayData?.data)
         }
         binding.icPlus.setOnClickListener {
+            goToExploreWeatherFragment()
+        }
+        binding.icMenu.setOnClickListener {
             goToManageLocationsFragment()
         }
     }
@@ -113,6 +111,11 @@ class HomeFragment : Fragment() {
     private fun goToManageLocationsFragment() {
         findNavController().navigate(
             R.id.action_homeFragment_to_manageLocationsFragment
+        )
+    }
+    private fun goToExploreWeatherFragment() {
+        findNavController().navigate(
+            R.id.action_homeFragment_to_exploreWeatherFragment
         )
     }
     override fun onDestroy() {
