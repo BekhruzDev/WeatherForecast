@@ -27,9 +27,7 @@ class ManageLocationsFragment : Fragment() {
     }
 
     private fun goBackToHome() {
-        findNavController().navigate(
-            R.id.action_manageLocationsFragment_to_homeFragment
-        )
+        findNavController().navigateUp()
     }
 
     override fun onDestroyView() {

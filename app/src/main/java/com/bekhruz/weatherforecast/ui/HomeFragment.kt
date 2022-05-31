@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
             Log.d(TAG,"${sixteenDayData?.data?.size}")
             sevenDayDetailsAdapter.submitList(sixteenDayData?.data)
         }
-        binding.icPlus.setOnClickListener {
+        binding.icAdd.setOnClickListener {
             goToExploreWeatherFragment()
         }
         binding.icMenu.setOnClickListener {

@@ -28,37 +28,36 @@
             android:paddingBottom="16dp">
 
             <ImageView
-                android:id="@+id/ic_plus"
+                android:id="@+id/ic_menu"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:importantForAccessibility="no"
                 android:padding="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_akar_icons_plus"
+                app:srcCompat="@drawable/ic_outline_menu_24"
                 tools:ignore="ImageContrastCheck" />
-
             <TextView
                 android:id="@+id/city_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@id/ic_plus"
+                app:layout_constraintBottom_toBottomOf="@id/ic_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ic_plus"
+                app:layout_constraintTop_toTopOf="@id/ic_menu"
                 tools:text="Tashkent" />
 
             <ImageView
-                android:id="@+id/ic_menu"
+                android:id="@+id/ic_add"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:importantForAccessibility="no"
                 android:padding="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ic_plus"
-                app:srcCompat="@drawable/ic_carbon_overflow_menu_vertical" />
+                app:layout_constraintTop_toTopOf="@id/ic_menu"
+                app:srcCompat="@drawable/ic_baseline_add_24" />
 
             <ImageView
                 android:id="@+id/current_status_imageview"

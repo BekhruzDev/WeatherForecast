@@ -28,9 +28,7 @@ class ExploreWeatherFragment : Fragment() {
     }
 
     private fun goBackToHome() {
-        findNavController().navigate(
-            R.id.action_exploreWeatherFragment_to_homeFragment
-        )
+        findNavController().navigateUp()
     }
 
     override fun onDestroyView() {
