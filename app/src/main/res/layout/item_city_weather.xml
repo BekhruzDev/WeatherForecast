@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:padding="16dp">
         <TextView
-            android:id="@+id/searched_city_textview"
+            android:id="@+id/searched_location_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
             <TextView
-                android:id="@+id/searched_city_temperature_textview"
+                android:id="@+id/searched_location_info_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="20"
@@ -34,16 +34,16 @@
                 android:textColor="@color/black_coral_pearl"
                 android:textSize="12sp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintStart_toStartOf="@id/searched_city_textview"
-                app:layout_constraintTop_toBottomOf="@id/searched_city_textview"
+                app:layout_constraintStart_toStartOf="@id/searched_location_textview"
+                app:layout_constraintTop_toBottomOf="@id/searched_location_textview"
                 app:layout_constraintBottom_toBottomOf="parent"/>
             <ImageView
                 android:id="@+id/ic_degree"
                 android:layout_width="4dp"
                 android:layout_height="4dp"
                 android:importantForAccessibility="no"
-                app:layout_constraintStart_toEndOf="@id/searched_city_temperature_textview"
-                app:layout_constraintTop_toTopOf="@id/searched_city_temperature_textview"
+                app:layout_constraintStart_toEndOf="@id/searched_location_info_textview"
+                app:layout_constraintTop_toTopOf="@id/searched_location_info_textview"
                 app:srcCompat="@drawable/ic_degree_coloured" />
             <ImageView
                 android:id="@+id/ic_searched_city_status"
