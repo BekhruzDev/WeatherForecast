@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
 
 class ExploreWeatherFragment : Fragment() {
