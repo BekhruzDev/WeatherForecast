@@ -15,6 +15,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import com.bekhruz.weatherforecast.network.geocoding.Location
 import com.bekhruz.weatherforecast.network.sixteendayweather.SixteenDayForecast
 import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
@@ -26,6 +27,8 @@ class WeatherViewModel : ViewModel() {
     val currentWeatherData: LiveData<CurrentForecast> = _currentWeatherData
     private val _sixteenDayWeatherData = MutableLiveData<SixteenDayForecast>()
     val sixteenDayWeatherData:LiveData<SixteenDayForecast> = _sixteenDayWeatherData
+    private val _searchedLocation = MutableLiveData<Location>()
+    val searchedLocation:LiveData<Location> = _searchedLocation
 
     private fun getCurrentWeather(latLon: String) {
         viewModelScope.launch {
@@ -38,12 +41,22 @@ class WeatherViewModel : ViewModel() {
     private fun getSixteenDayWeather(latitude:String, longitude:String){
         viewModelScope.launch {
             val response = Repositories.getSixteenDayWeather(latitude, longitude)
-            Log.d(TAG,"IS SUCCESSFUL AND TEMP: ${response.body()}")
             if (response.isSuccessful){
                 _sixteenDayWeatherData.value = response.body()
             }
         }
     }
+    //TODO(Add synchronized searching)
+    fun getSearchedLocationInfo(searchedLocation:String){
+        viewModelScope.launch {
+            val response = Repositories.getFullLocationInfo(searchedLocation)
+            if (response.isSuccessful){
+                _searchedLocation.value = response.body()
+            }
+        }
+    }
+
+
     fun getIconsOfSixteenDayData(iconId:String):String{
        return String.format("https://www.weatherbit.io/static/img/icons/$iconId.png")
     }

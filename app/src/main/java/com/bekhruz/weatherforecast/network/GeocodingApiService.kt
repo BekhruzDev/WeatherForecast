@@ -1,7 +1,7 @@
 package com.bekhruz.weatherforecast.network
 
-import com.bekhruz.weatherforecast.network.currentweather.CurrentForecast
-import com.bekhruz.weatherforecast.utils.Constants.BASE_URL_CURRENT_WEATHER
+import com.bekhruz.weatherforecast.network.geocoding.Location
+import com.bekhruz.weatherforecast.utils.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -13,21 +13,21 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * Sample Call for Current Weather data
- * https://api.weatherapi.com/v1/forecast.json?key=2024618787f64a0b816101809221805&q=London&days=7&aqi=no&alerts=no
+ * Sample call: https://api.geoapify.com/v1/geocode/search?text=
+tashkent&lang=en&limit=5&format=json&apiKey=5615726daad74e0e979da3b753d3aad9
  */
-interface CurrentWeatherApiService {
-    @GET("forecast.json")
-    suspend fun getCurrentWeather(
-        @Query("key") apiKey:String,
-        @Query("q") latLon:String,
-        @Query("days") days:Int,
-        @Query("aqi") airQuality:String,
-        @Query("alerts") alerts:String,
-    ):Response<CurrentForecast>
+interface GeocodingApiService {
+    @GET("geocode/search")
+    suspend fun getFullLocationInfo(
+        @Query("text") searchedLocation:String,
+        @Query("lang") language:String,
+        @Query("limit") resultsLimit:Int,
+        @Query("format") responseFormat:String,
+        @Query("apiKey") apiKey: String
+    ):Response<Location>
 }
 
-object CurrentWeatherApi{
+object GeocodingApi{
     //logging interceptor
     private val interceptor = run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -35,24 +35,24 @@ object CurrentWeatherApi{
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         }
     }
-    //OkHttpClient
+//OkHttpClient
     private val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-    //moshi object
+//moshi object
     private val moshi = Moshi
         .Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
-    //retrofit object
+
+//retrofit object
     private val retrofit = Retrofit
         .Builder()
-        .baseUrl(BASE_URL_CURRENT_WEATHER)
+        .baseUrl(Constants.BASE_URL_GEOCODING)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(okHttpClient)
         .build()
-
     //retrofit service
-    val retrofitService:CurrentWeatherApiService by lazy {
-        retrofit.create(CurrentWeatherApiService::class.java)
+    val retrofitService: GeocodingApiService by lazy {
+        retrofit.create(GeocodingApiService::class.java)
     }
 }
