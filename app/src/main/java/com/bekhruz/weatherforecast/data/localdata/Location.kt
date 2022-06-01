@@ -8,10 +8,11 @@ import androidx.room.PrimaryKey
 data class Location(
     @PrimaryKey(autoGenerate = true)
     val id:Int,
-    @ColumnInfo(name = "location_name")
-    val locationName:String,
+    @ColumnInfo(name = "hourly_time_epoch")
+    val hourlyTimeEpoch:String,
     @ColumnInfo(name = "latitude")
     val latitude:String,
     @ColumnInfo(name = "longitude")
     val longitude:String
+
 )

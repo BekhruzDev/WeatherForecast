@@ -1,6 +1,5 @@
 package com.bekhruz.weatherforecast.data.localdata
 
-import android.content.ClipData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
