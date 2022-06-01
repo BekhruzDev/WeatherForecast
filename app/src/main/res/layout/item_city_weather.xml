@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
             <TextView
-                android:id="@+id/searched_location_info_textview"
+                android:id="@+id/avg_temperature_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="20"
@@ -42,11 +42,11 @@
                 android:layout_width="4dp"
                 android:layout_height="4dp"
                 android:importantForAccessibility="no"
-                app:layout_constraintStart_toEndOf="@id/searched_location_info_textview"
-                app:layout_constraintTop_toTopOf="@id/searched_location_info_textview"
+                app:layout_constraintStart_toEndOf="@id/avg_temperature_textview"
+                app:layout_constraintTop_toTopOf="@id/avg_temperature_textview"
                 app:srcCompat="@drawable/ic_degree_coloured" />
             <ImageView
-                android:id="@+id/ic_searched_city_status"
+                android:id="@+id/ic_weather_status"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 app:srcCompat = "@drawable/ic_rain_showers_day_outlined"
@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="15dp"/>
             <TextView
-                android:id="@+id/searched_city_status_textview"
+                android:id="@+id/weather_status_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
@@ -62,7 +62,7 @@
                 tools:text="Heavy rain"
                 android:layout_marginTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ic_searched_city_status"/>
+                app:layout_constraintTop_toBottomOf="@id/ic_weather_status"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

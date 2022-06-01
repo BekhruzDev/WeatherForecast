@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -36,8 +37,7 @@ android {
 }
 
 dependencies {
-    def nav_version = "2.4.2"
-    def lifecycle_version = "2.4.1"
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
@@ -71,5 +71,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:19.0.1'
     //Logging interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    // Room libraries
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
 }
