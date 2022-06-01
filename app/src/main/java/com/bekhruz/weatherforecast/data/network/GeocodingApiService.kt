@@ -22,6 +22,7 @@ interface GeocodingApiService {
         @Query("text") searchedLocation:String,
         @Query("lang") language:String,
         @Query("limit") resultsLimit:Int,
+        @Query("type") type:String,
         @Query("format") responseFormat:String,
         @Query("apiKey") apiKey: String
     ):Response<Location>

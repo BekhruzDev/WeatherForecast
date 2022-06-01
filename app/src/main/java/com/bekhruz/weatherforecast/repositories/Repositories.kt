@@ -23,7 +23,10 @@ object Repositories {
         )
     }
 
-    suspend fun getSixteenDayWeather(latitude:String, longitude:String): Response<SixteenDayForecast> {
+    suspend fun getSixteenDayWeather(
+        latitude: String,
+        longitude: String
+    ): Response<SixteenDayForecast> {
         return SixteenDayForecastApi.retrofitService.getSixteenDayWeather(
             latitude,
             longitude,
@@ -31,12 +34,14 @@ object Repositories {
         )
     }
 
-    suspend fun getFullLocationInfo(location:String):Response<Location>{
+    suspend fun getFullLocationInfo(location: String): Response<Location> {
         return GeocodingApi.retrofitService.getFullLocationInfo(
             location,
-        "en",
-        10,
-        "json",
-        API_KEY_GEOCODING)
+            "en",
+            10,
+            "city",
+            "json",
+            API_KEY_GEOCODING
+        )
     }
 }

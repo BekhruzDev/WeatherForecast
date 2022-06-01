@@ -12,8 +12,8 @@ class SearchedLocationsAdapter(private val onItemClick:(Result) -> Unit):ListAda
     class SearchedLocationsViewHolder(private val binding: ItemSearchedCityBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(data:Result){
             binding.apply {
-                searchedLocationTextview.text = data.name
-                searchedLocationInfoTextview.text = String.format("%s, %s",data.city,data.country)
+                searchedLocationTextview.text = data.name ?: data.address_line1
+                searchedLocationInfoTextview.text = String.format("%s, %s",data.address_line1,data.country)
             }
         }
     }
