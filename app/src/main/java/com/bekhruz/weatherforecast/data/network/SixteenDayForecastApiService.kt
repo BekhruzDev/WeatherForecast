@@ -1,6 +1,6 @@
-package com.bekhruz.weatherforecast.network
+package com.bekhruz.weatherforecast.data.network
 
-import com.bekhruz.weatherforecast.network.sixteendayweather.SixteenDayForecast
+import com.bekhruz.weatherforecast.data.network.sixteendayweather.SixteenDayForecast
 import com.bekhruz.weatherforecast.utils.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

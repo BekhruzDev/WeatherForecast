@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 <item android:state_enabled="true" android:state_focused="true">
     <shape android:shape="rectangle">
-        <solid android:color="@color/light_red"/>
+        <solid android:color="?attr/colorTertiary"/>
         <corners android:radius="30dp"/>
         <stroke android:color="@drawable/card_bg_color"
             android:width="1dp"/>
@@ -10,7 +10,7 @@
 </item>
     <item android:state_enabled="true">
     <shape android:shape="rectangle">
-        <solid android:color="@color/light_red"/>
+        <solid android:color="?attr/colorTertiary"/>
         <corners android:radius="30dp"/>
         <stroke android:color="@color/gray"
             android:width="1dp"/>

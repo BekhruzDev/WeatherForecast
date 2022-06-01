@@ -1,6 +1,6 @@
-package com.bekhruz.weatherforecast.network
+package com.bekhruz.weatherforecast.data.network
 
-import com.bekhruz.weatherforecast.network.currentweather.CurrentForecast
+import com.bekhruz.weatherforecast.data.network.currentweather.CurrentForecast
 import com.bekhruz.weatherforecast.utils.Constants.BASE_URL_CURRENT_WEATHER
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

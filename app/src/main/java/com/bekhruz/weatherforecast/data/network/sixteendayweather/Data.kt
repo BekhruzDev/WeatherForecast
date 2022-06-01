@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.network.sixteendayweather
+package com.bekhruz.weatherforecast.data.network.sixteendayweather
 
 data class Data(
     val app_max_temp: Double?,

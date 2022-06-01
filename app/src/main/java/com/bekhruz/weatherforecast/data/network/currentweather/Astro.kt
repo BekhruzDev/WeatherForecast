@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.network.currentweather
+package com.bekhruz.weatherforecast.data.network.currentweather
 
 data class Astro(
     val moon_illumination: String,

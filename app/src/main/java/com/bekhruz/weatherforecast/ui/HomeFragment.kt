@@ -19,6 +19,7 @@ import com.bekhruz.weatherforecast.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
+import kotlinx.coroutines.runBlocking
 
 class HomeFragment : Fragment() {
     private val viewModel: WeatherViewModel by activityViewModels()
@@ -43,6 +44,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       /* runBlocking {
+            viewModel.getSearchedLocationInfo("london")
+            Log.d("EXPLORE LOCATIONS","SEARCHED LOCATION: ${viewModel.searchedLocation.value?.results?.get(0)?.city}")
+        }*/
         val hourlyDetailsAdapter = HourlyDetailsAdapter(viewModel)
         hourlyRecyclerView = binding.hourlyDetailsRecyclerview
         hourlyRecyclerView.adapter = hourlyDetailsAdapter
@@ -53,6 +58,7 @@ class HomeFragment : Fragment() {
         sixteenDayRecyclerView.adapter = sevenDayDetailsAdapter
         sixteenDayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
         swipeForSixteenDayForecast()
 
         viewModel.currentWeatherData.observe(this.viewLifecycleOwner) { weather ->

@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.network.sixteendayweather
+package com.bekhruz.weatherforecast.data.network.sixteendayweather
 
 data class Weather(
     val code: Int,

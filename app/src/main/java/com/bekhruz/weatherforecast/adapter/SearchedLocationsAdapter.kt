@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bekhruz.weatherforecast.databinding.ItemSearchedCityBinding
-import com.bekhruz.weatherforecast.network.geocoding.Result
+import com.bekhruz.weatherforecast.data.network.geocoding.Result
 
 class SearchedLocationsAdapter(private val onItemClick:(Result) -> Unit):ListAdapter<Result, SearchedLocationsAdapter.SearchedLocationsViewHolder>(DiffCall) {
     class SearchedLocationsViewHolder(private val binding: ItemSearchedCityBinding):RecyclerView.ViewHolder(binding.root){

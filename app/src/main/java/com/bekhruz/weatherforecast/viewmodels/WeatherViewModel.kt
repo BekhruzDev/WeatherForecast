@@ -9,14 +9,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bekhruz.weatherforecast.network.currentweather.CurrentForecast
+import com.bekhruz.weatherforecast.data.network.currentweather.CurrentForecast
 import com.bekhruz.weatherforecast.repositories.Repositories
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import com.bekhruz.weatherforecast.network.geocoding.Location
-import com.bekhruz.weatherforecast.network.sixteendayweather.SixteenDayForecast
+import com.bekhruz.weatherforecast.data.network.geocoding.Location
+import com.bekhruz.weatherforecast.data.network.sixteendayweather.SixteenDayForecast
 import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,14 +46,14 @@ class WeatherViewModel : ViewModel() {
             }
         }
     }
-    //TODO(Add synchronized searching)
-    fun getSearchedLocationInfo(searchedLocation:String){
+    fun getSearchedLocationInfo(searchedLocation:String):LiveData<Location>{
         viewModelScope.launch {
             val response = Repositories.getFullLocationInfo(searchedLocation)
             if (response.isSuccessful){
                 _searchedLocation.value = response.body()
             }
         }
+        return _searchedLocation
     }
 
 

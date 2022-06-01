@@ -1,12 +1,12 @@
 package com.bekhruz.weatherforecast.repositories
 
 
-import com.bekhruz.weatherforecast.network.SixteenDayForecastApi
-import com.bekhruz.weatherforecast.network.CurrentWeatherApi
-import com.bekhruz.weatherforecast.network.GeocodingApi
-import com.bekhruz.weatherforecast.network.currentweather.CurrentForecast
-import com.bekhruz.weatherforecast.network.geocoding.Location
-import com.bekhruz.weatherforecast.network.sixteendayweather.SixteenDayForecast
+import com.bekhruz.weatherforecast.data.network.SixteenDayForecastApi
+import com.bekhruz.weatherforecast.data.network.CurrentWeatherApi
+import com.bekhruz.weatherforecast.data.network.GeocodingApi
+import com.bekhruz.weatherforecast.data.network.currentweather.CurrentForecast
+import com.bekhruz.weatherforecast.data.network.geocoding.Location
+import com.bekhruz.weatherforecast.data.network.sixteendayweather.SixteenDayForecast
 import com.bekhruz.weatherforecast.utils.Constants.API_KEY_CURRENT_WEATHER
 import com.bekhruz.weatherforecast.utils.Constants.API_KEY_GEOCODING
 import com.bekhruz.weatherforecast.utils.Constants.API_KEY_SIXTEEN_DAY_WEATHER

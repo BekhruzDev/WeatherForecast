@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.databinding.ItemSixteenDayDetailsBinding
-import com.bekhruz.weatherforecast.network.sixteendayweather.Data
+import com.bekhruz.weatherforecast.data.network.sixteendayweather.Data
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
 class SixteenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
