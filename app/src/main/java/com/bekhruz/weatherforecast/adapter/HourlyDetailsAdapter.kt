@@ -32,7 +32,7 @@ class HourlyDetailsAdapter(private val viewModel: WeatherViewModel) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyDetailsViewHolder {
         return HourlyDetailsViewHolder(
-            ItemHourlyDetailsBinding.inflate(LayoutInflater.from(parent.context))
+            ItemHourlyDetailsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 

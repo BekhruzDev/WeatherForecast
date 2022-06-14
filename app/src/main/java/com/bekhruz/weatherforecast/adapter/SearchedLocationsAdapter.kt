@@ -13,7 +13,7 @@ class SearchedLocationsAdapter(private val onItemClick:(Result) -> Unit):ListAda
         fun bind(data:Result){
             binding.apply {
                 searchedLocationTextview.text = data.name ?: data.address_line1
-                searchedLocationInfoTextview.text = String.format("%s, %s",data.address_line1,data.country)
+                avgTemperatureTextview.text = String.format("%s, %s",data.address_line1,data.country)
             }
         }
     }

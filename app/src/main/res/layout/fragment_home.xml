@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:elevation="8dp"
-        app:cardBackgroundColor="@drawable/card_bg_color"
         app:cardCornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +66,8 @@
                 android:importantForAccessibility="no"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat = "@drawable/ic_fluent_weather_partly_cloudy_day_24_filled"/>
 
             <TextView
                 android:id="@+id/last_updated_date"
@@ -265,6 +265,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_bg_color"
         android:padding="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hourly_details_card">

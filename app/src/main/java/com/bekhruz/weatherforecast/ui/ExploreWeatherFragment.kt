@@ -1,16 +1,11 @@
 package com.bekhruz.weatherforecast.ui
 
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.inputmethodservice.InputMethodService
 import android.os.Bundle
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,7 +39,7 @@ class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.locationsSearchview.isSubmitButtonEnabled = true
 
         binding.icNavigateUpButton.setOnClickListener {
-            goBackToHome()
+            goBackHome()
         }
     }
 
@@ -74,7 +69,7 @@ class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
             }
     }
 
-    private fun goBackToHome() {
+    private fun goBackHome() {
         findNavController().navigateUp()
     }
     override fun onDestroyView() {
