@@ -2,52 +2,53 @@ package com.bekhruz.weatherforecast.viewmodels
 
 import android.Manifest
 import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.bekhruz.weatherforecast.data.network.currentweather.CurrentForecast
 import com.bekhruz.weatherforecast.repositories.Repositories
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.*
-import com.bekhruz.weatherforecast.application.WeatherForecastApplication
 import com.bekhruz.weatherforecast.data.network.geocoding.Location
 import com.bekhruz.weatherforecast.data.network.sixteendayweather.SixteenDayForecast
 import com.google.android.gms.location.LocationServices
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherViewModel(application: Application) : AndroidViewModel(application){
-    private val repositories = Repositories((application as WeatherForecastApplication).database.locationDao())
-    private val allData = repositories.databaseItems
+class WeatherViewModel : ViewModel() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private val _currentWeatherData = MutableLiveData<CurrentForecast>(
-        allData.value?.get(0)?.currentForecast
-    )
+    private val _currentWeatherData = MutableLiveData<CurrentForecast>()
     val currentWeatherData: LiveData<CurrentForecast> = _currentWeatherData
-
-    private val _sixteenDayWeatherData = MutableLiveData<SixteenDayForecast>(
-        allData.value?.get(0)?.sixteenDayForecast
-    )
+    private val _sixteenDayWeatherData = MutableLiveData<SixteenDayForecast>()
     val sixteenDayWeatherData:LiveData<SixteenDayForecast> = _sixteenDayWeatherData
-
     private val _searchedLocation = MutableLiveData<Location>()
     val searchedLocation:LiveData<Location> = _searchedLocation
 
-    fun getRemoteDataIntoDatabase(latLon: String, latitude: String,
-                                  longitude: String){
+    private fun getCurrentWeather(latLon: String) {
         viewModelScope.launch {
-            repositories.fetchRemoteDataIntoDatabase(latLon, latitude, longitude)
+            val response = Repositories.getCurrentWeather(latLon)
+            if (response.isSuccessful) {
+                _currentWeatherData.value = response.body()
+            }
         }
     }
-
-
+    private fun getSixteenDayWeather(latitude:String, longitude:String){
+        viewModelScope.launch {
+            val response = Repositories.getSixteenDayWeather(latitude, longitude)
+            if (response.isSuccessful){
+                _sixteenDayWeatherData.value = response.body()
+            }
+        }
+    }
     fun getSearchedLocationInfo(searchedLocation:String):LiveData<Location>{
         viewModelScope.launch {
-            val response = repositories.getFullLocationInfo(searchedLocation)
+            val response = Repositories.getFullLocationInfo(searchedLocation)
             if (response.isSuccessful){
                 _searchedLocation.value = response.body()
             }
@@ -57,9 +58,9 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
 
 
     fun getIconsOfSixteenDayData(iconId:String):String{
-        return String.format("https://www.weatherbit.io/static/img/icons/$iconId.png")
+       return String.format("https://www.weatherbit.io/static/img/icons/$iconId.png")
     }
-    fun getDeviceLocationData(context: Context,activity: Activity){
+     fun getDeviceLocationData(context: Context,activity: Activity){
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
         val task = fusedLocationProviderClient.lastLocation
         if (ActivityCompat.checkSelfPermission(
@@ -84,15 +85,13 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
             if (it != null){
                 val fullAddress = geoCoder.getFromLocation(it.latitude,it.longitude,1)
                 val currentCityName = fullAddress[0].getAddressLine(0)
-                getRemoteDataIntoDatabase("${it.latitude},${it.longitude}",
-                    it.latitude.toString(),
-                    it.longitude.toString())
+                getCurrentWeather("${it.latitude},${it.longitude}")
+                getSixteenDayWeather(it.latitude.toString(), it.longitude.toString())
                 Log.d(TAG,"LOCATION IS $currentCityName, lat: ${it.latitude} and lon: ${it.longitude}")
             }
         }
     }
 
-    //TODO: CONVERT THE TYPE INTO A CONSTANT
     fun getTime(epochSecond: Long, type:String):String{
         val time = Date(epochSecond * 1000)
         val timeFormat = when (type) {
@@ -106,36 +105,5 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
 
     companion object {
         private const val TAG = "WEATHER VIEW MODEL"
-    }
-}
-
-
-/*private fun getCurrentWeather(latLon: String) {
-    viewModelScope.launch {
-        val response = Repositories.getCurrentWeather(latLon)
-        if (response.isSuccessful) {
-            _currentWeatherData.value = response.body()
-        }
-    }
-}
-private fun getSixteenDayWeather(latitude:String, longitude:String){
-    viewModelScope.launch {
-        val response = Repositories.getSixteenDayWeather(latitude, longitude)
-        if (response.isSuccessful){
-            _sixteenDayWeatherData.value = response.body()
-        }
-    }
-}*/
-
-/**
- * Factory for constructing WeatherViewModel with parameter
- */
-class Factory(val app: Application) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(WeatherViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return WeatherViewModel(app) as T
-        }
-        throw IllegalArgumentException("Unable to construct viewmodel")
     }
 }

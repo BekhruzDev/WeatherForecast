@@ -11,15 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bekhruz.weatherforecast.adapter.SearchedLocationsAdapter
-import com.bekhruz.weatherforecast.application.WeatherForecastApplication
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
-import com.bekhruz.weatherforecast.viewmodels.Factory
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
 
 class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
-    private val viewModel: WeatherViewModel by activityViewModels{
-        Factory(activity?.application as WeatherForecastApplication)
-    }
+    private val viewModel: WeatherViewModel by activityViewModels()
     private var _binding: FragmentExploreWeatherBinding? = null
     private val binding get() = _binding!!
     private lateinit var searchedLocationsRecyclerView: RecyclerView

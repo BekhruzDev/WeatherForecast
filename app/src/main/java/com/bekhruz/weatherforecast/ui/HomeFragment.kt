@@ -17,15 +17,12 @@ import coil.load
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.adapter.SixteenDayDetailsAdapter
-import com.bekhruz.weatherforecast.application.WeatherForecastApplication
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
-import com.bekhruz.weatherforecast.viewmodels.Factory
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
+import kotlinx.coroutines.runBlocking
 
 class HomeFragment : Fragment() {
-    private val viewModel: WeatherViewModel by activityViewModels{
-        Factory(activity?.application as WeatherForecastApplication)
-    }
+    private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var hourlyRecyclerView: RecyclerView
     private lateinit var sixteenDayRecyclerView: RecyclerView
     private var _binding: FragmentHomeBinding? = null
