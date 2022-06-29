@@ -11,9 +11,19 @@ import com.bekhruz.weatherforecast.utils.Constants.API_KEY_CURRENT_WEATHER
 import com.bekhruz.weatherforecast.utils.Constants.API_KEY_GEOCODING
 import com.bekhruz.weatherforecast.utils.Constants.API_KEY_SIXTEEN_DAY_WEATHER
 import retrofit2.Response
+import javax.inject.Inject
 
-object Repositories {
-    suspend fun getCurrentWeather(latLon: String): Response<CurrentForecast> {
+interface WeatherRepository{
+    suspend fun getCurrentWeather(latLon: String): Response<CurrentForecast>
+    suspend fun getSixteenDayWeather(
+        latitude: String,
+        longitude: String
+    ): Response<SixteenDayForecast>
+    suspend fun getFullLocationInfo(location: String): Response<Location>
+
+}
+class WeatherRepositoryImpl @Inject constructor():WeatherRepository  {
+    override suspend fun getCurrentWeather(latLon: String): Response<CurrentForecast> {
         return CurrentWeatherApi.retrofitService.getCurrentWeather(
             API_KEY_CURRENT_WEATHER,
             latLon,
@@ -23,7 +33,7 @@ object Repositories {
         )
     }
 
-    suspend fun getSixteenDayWeather(
+    override suspend fun getSixteenDayWeather(
         latitude: String,
         longitude: String
     ): Response<SixteenDayForecast> {
@@ -34,7 +44,7 @@ object Repositories {
         )
     }
 
-    suspend fun getFullLocationInfo(location: String): Response<Location> {
+    override suspend fun getFullLocationInfo(location: String): Response<Location> {
         return GeocodingApi.retrofitService.getFullLocationInfo(
             location,
             "en",

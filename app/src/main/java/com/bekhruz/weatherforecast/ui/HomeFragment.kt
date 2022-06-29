@@ -19,8 +19,9 @@ import com.bekhruz.weatherforecast.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var hourlyRecyclerView: RecyclerView

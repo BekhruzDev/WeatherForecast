@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bekhruz.weatherforecast.adapter.SearchedLocationsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
 import com.bekhruz.weatherforecast.viewmodels.WeatherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
     private val viewModel: WeatherViewModel by activityViewModels()
     private var _binding: FragmentExploreWeatherBinding? = null

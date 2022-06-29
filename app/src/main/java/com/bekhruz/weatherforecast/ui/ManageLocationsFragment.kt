@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.bekhruz.weatherforecast.databinding.FragmentManageLocationsBinding
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class ManageLocationsFragment : Fragment() {
     private var _binding: FragmentManageLocationsBinding? = null
     private val binding get() = _binding!!
