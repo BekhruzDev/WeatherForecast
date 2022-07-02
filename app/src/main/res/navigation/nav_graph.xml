@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.bekhruz.weatherforecast.ui.HomeFragment"
+        android:name="com.bekhruz.weatherforecast.presentation.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageLocationsFragment"
-        android:name="com.bekhruz.weatherforecast.ui.ManageLocationsFragment"
+        android:name="com.bekhruz.weatherforecast.presentation.ui.ManageLocationsFragment"
         android:label="fragment_manage_locations"
         tools:layout="@layout/fragment_manage_locations" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/exploreWeatherFragment"
-        android:name="com.bekhruz.weatherforecast.ui.ExploreWeatherFragment"
+        android:name="com.bekhruz.weatherforecast.presentation.ui.ExploreWeatherFragment"
         android:label="ExploreWeatherFragment" >
         <action
             android:id="@+id/action_exploreWeatherFragment_to_homeFragment"

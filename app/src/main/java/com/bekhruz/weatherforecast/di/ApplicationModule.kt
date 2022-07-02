@@ -1,7 +1,7 @@
 package com.bekhruz.weatherforecast.di
 
-import com.bekhruz.weatherforecast.repositories.WeatherRepository
-import com.bekhruz.weatherforecast.repositories.WeatherRepositoryImpl
+import com.bekhruz.weatherforecast.data.remotedata.repositories.WeatherRepository
+import com.bekhruz.weatherforecast.data.remotedata.repositories.WeatherRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ExploreWeatherFragment">
+    tools:context=".presentation.ui.ExploreWeatherFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
