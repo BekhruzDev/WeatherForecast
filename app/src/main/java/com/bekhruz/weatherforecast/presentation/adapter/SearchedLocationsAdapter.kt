@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bekhruz.weatherforecast.databinding.ItemSearchedCityBinding
-import com.bekhruz.weatherforecast.data.remote.dto.geocodingdto.Result
-import com.bekhruz.weatherforecast.domain.models.SearchedLocationResults
+import com.bekhruz.weatherforecast.domain.models.geocoding.SearchedLocationResults
 
 class SearchedLocationsAdapter(private val onItemClick:(SearchedLocationResults) -> Unit):ListAdapter<SearchedLocationResults, SearchedLocationsAdapter.SearchedLocationsViewHolder>(DiffCall) {
     class SearchedLocationsViewHolder(private val binding: ItemSearchedCityBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(data:SearchedLocationResults){
+        fun bind(data: SearchedLocationResults){
             binding.apply {
                 searchedLocationTextview.text = data.name
                 avgTemperatureTextview.text = String.format("%s, %s",data.addressLine1,data.country)

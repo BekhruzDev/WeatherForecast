@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.databinding.ItemSixteenDayDetailsBinding
-import com.bekhruz.weatherforecast.domain.models.SixteenDayData
+import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
 import com.bekhruz.weatherforecast.presentation.utils.Icons.getIconsOfSixteenDayData
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormat.getTime
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*

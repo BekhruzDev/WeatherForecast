@@ -9,24 +9,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepository
-import com.bekhruz.weatherforecast.domain.models.SearchedLocation
-import com.bekhruz.weatherforecast.domain.models.SixteenDay
-import com.bekhruz.weatherforecast.domain.models.Weather
-import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType
+import com.bekhruz.weatherforecast.domain.models.geocoding.SearchedLocation
+import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDay
+import com.bekhruz.weatherforecast.domain.models.currentweather.Weather
 import com.bekhruz.weatherforecast.utils.FusedLocationLibrary
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Date
 import javax.inject.Inject
-@HiltViewModel
 
+
+@HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {

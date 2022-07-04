@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import coil.load
 import com.bekhruz.weatherforecast.R
-import com.bekhruz.weatherforecast.data.remote.dto.currentweatherdto.asDomain
-import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.asDomain
+import com.bekhruz.weatherforecast.data.remote.dto.currentweather.asDomain
+import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweather.asDomain
 import com.bekhruz.weatherforecast.presentation.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.presentation.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding

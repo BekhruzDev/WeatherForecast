@@ -1,7 +1,6 @@
 package com.bekhruz.weatherforecast.data.remote.api
 
-import com.bekhruz.weatherforecast.data.remote.dto.geocodingdto.Location
-import retrofit2.Response
+import com.bekhruz.weatherforecast.data.remote.dto.geocoding.Location
 import retrofit2.http.GET
 import retrofit2.http.Query
 
