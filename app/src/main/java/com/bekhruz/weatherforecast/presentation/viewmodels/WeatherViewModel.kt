@@ -91,18 +91,6 @@ class WeatherViewModel @Inject constructor(
             }
         }
     }
-
-    fun getTime(epochSecond: Long, type:TimeFormattingType):String{
-        val givenTime = Date(epochSecond * 1000)
-        val timeFormat = when (type) {
-            dateWithWeekday -> SimpleDateFormat("EEEE | MMMM d", Locale.getDefault())
-            time -> SimpleDateFormat("HH:mm", Locale.getDefault())
-            date -> SimpleDateFormat("MMMM d", Locale.getDefault())
-        }
-        timeFormat.timeZone = TimeZone.getTimeZone("UTC")
-        return timeFormat.format(givenTime)
-    }
-
     companion object {
         private const val TAG = "WEATHER VIEW MODEL"
     }

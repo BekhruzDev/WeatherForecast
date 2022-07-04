@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.databinding.ItemSixteenDayDetailsBinding
 import com.bekhruz.weatherforecast.domain.models.SixteenDayData
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormat.getTime
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 
@@ -19,7 +20,7 @@ class SixteenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: SixteenDayData, viewModel: WeatherViewModel) {
             binding.apply {
-                weekDaysTextview.text = viewModel.getTime(
+                weekDaysTextview.text = getTime(
                     data.timeEpoch.toLong(),
                     date
                 )

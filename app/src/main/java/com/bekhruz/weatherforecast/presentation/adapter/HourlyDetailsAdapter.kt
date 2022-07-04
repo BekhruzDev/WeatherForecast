@@ -9,19 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.databinding.ItemHourlyDetailsBinding
 import com.bekhruz.weatherforecast.domain.models.Hourly
-import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormat.getTime
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*
-import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
-
-class HourlyDetailsAdapter(private val viewModel: WeatherViewModel) :
+class HourlyDetailsAdapter :
     ListAdapter<Hourly, HourlyDetailsAdapter.HourlyDetailsViewHolder>(DiffCallback) {
 
     class HourlyDetailsViewHolder(
         private val binding: ItemHourlyDetailsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Hourly, viewModel: WeatherViewModel) {
+        fun bind(data: Hourly) {
             binding.apply {
-                hourTextview.text = viewModel.getTime(data.timeEpoch.toLong(), time
+                hourTextview.text = getTime(data.timeEpoch.toLong(), time
                 )
                 icHourlyStatus.load(
                     data.icon.toUri().buildUpon().scheme("https").build()
@@ -41,7 +39,7 @@ class HourlyDetailsAdapter(private val viewModel: WeatherViewModel) :
 
     override fun onBindViewHolder(holder: HourlyDetailsViewHolder, position: Int) {
         val elementOfHourlyDetails = getItem(position)
-        holder.bind(elementOfHourlyDetails, viewModel)
+        holder.bind(elementOfHourlyDetails)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Hourly>() {

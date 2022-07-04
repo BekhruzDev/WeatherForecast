@@ -20,6 +20,7 @@ import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.asDomain
 import com.bekhruz.weatherforecast.presentation.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.presentation.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormat.getTime
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
              viewModel.getSearchedLocationInfo("london")
              Log.d("EXPLORE LOCATIONS","SEARCHED LOCATION: ${viewModel.searchedLocation.value?.results?.get(0)?.city}")
          }*/
-        val hourlyDetailsAdapter = HourlyDetailsAdapter(viewModel)
+        val hourlyDetailsAdapter = HourlyDetailsAdapter()
         hourlyRecyclerView = binding.hourlyDetailsRecyclerview
         hourlyRecyclerView.adapter = hourlyDetailsAdapter
         hourlyRecyclerView.layoutManager =
@@ -74,12 +75,12 @@ class HomeFragment : Fragment() {
                     //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
                 }
                 lastUpdatedDate.text =
-                    viewModel.getTime(
+                    getTime(
                         weather.current.asDomain().lastUpdatedEpoch.toLong(),
                         dateWithWeekday
                     )
                 lastUpdatedDate2.text =
-                    viewModel.getTime(
+                    getTime(
                         weather.current.asDomain().lastUpdatedEpoch.toLong(),
                         dateWithWeekday
                     )
