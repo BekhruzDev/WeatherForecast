@@ -1,8 +1,7 @@
 package com.bekhruz.weatherforecast.di
 
 import android.content.Context
-import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepository
-import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepositoryImpl
+import com.bekhruz.weatherforecast.data.repositories.*
 import com.bekhruz.weatherforecast.utils.FusedLocationLibrary
 import com.bekhruz.weatherforecast.utils.FusedLocationLibraryImpl
 import dagger.Module
@@ -17,8 +16,18 @@ import javax.inject.Singleton
 object ApplicationModule {
     @Singleton
     @Provides
-     fun providesWeatherRepository():WeatherRepository{
-         return WeatherRepositoryImpl()
+     fun providesCurrentWeatherRepository(): CurrentWeatherRepository {
+         return CurrentWeatherRepositoryImpl()
+     }
+    @Singleton
+    @Provides
+     fun providesGeocodingLocationRepository(): GeocodingLocationRepository {
+         return GeocodingLocationRepositoryImpl()
+     }
+    @Singleton
+    @Provides
+     fun providesSixteenDayWeatherRepository():SixteenDayWeatherRepository{
+         return SixteenDayWeatherRepositoryImpl()
      }
 
     @Provides
