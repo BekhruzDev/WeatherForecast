@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bekhruz.weatherforecast.data.remote.utils.Constants.HTTPS
 import com.bekhruz.weatherforecast.databinding.ItemHourlyDetailsBinding
 import com.bekhruz.weatherforecast.domain.models.Hourly
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormat.getTime
@@ -22,7 +23,7 @@ class HourlyDetailsAdapter :
                 hourTextview.text = getTime(data.timeEpoch.toLong(), time
                 )
                 icHourlyStatus.load(
-                    data.icon.toUri().buildUpon().scheme("https").build()
+                    data.icon.toUri().buildUpon().scheme(HTTPS).build()
                 )
                 hourlyTemperature.text = data.tempC.toString()
                 chanceOfRainTextview.text =

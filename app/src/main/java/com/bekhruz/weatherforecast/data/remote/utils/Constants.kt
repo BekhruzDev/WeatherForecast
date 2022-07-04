@@ -7,4 +7,5 @@ object Constants {
     const val BASE_URL_CURRENT_WEATHER = "https://api.weatherapi.com/v1/"
     const val BASE_URL_SIXTEEN_DAY_WEATHER = "https://api.weatherbit.io/v2.0/"
     const val BASE_URL_GEOCODING = "https://api.geoapify.com/v1/"
+    const val HTTPS = "https"
 }
