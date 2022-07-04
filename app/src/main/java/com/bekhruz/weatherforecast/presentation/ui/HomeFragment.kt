@@ -1,7 +1,6 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import coil.load
 import com.bekhruz.weatherforecast.R
+import com.bekhruz.weatherforecast.data.remote.dto.currentweatherdto.asDomain
+import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.asDomain
 import com.bekhruz.weatherforecast.presentation.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.presentation.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
@@ -64,33 +65,32 @@ class HomeFragment : Fragment() {
 
         viewModel.currentWeatherData.observe(this.viewLifecycleOwner) { weather ->
             binding.apply {
-                currentTemperature.text = weather.current.temp_c.toString()
-                cityName.text = weather.location.name
+                currentTemperature.text = weather.current.asDomain().tempC.toString()
+                cityName.text = weather.location.asDomain().name
                 currentStatusImageview.load(
-                    weather.current.condition.icon.toUri().buildUpon().scheme("https").build()
+                    weather.current.asDomain().icon.toUri().buildUpon().scheme("https").build()
                 ) {
                     //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
                 }
                 lastUpdatedDate.text =
-                    viewModel.getTime(weather.current.last_updated_epoch.toLong(), "date")
+                    viewModel.getTime(weather.current.asDomain().lastUpdatedEpoch.toLong(), "date")
                 lastUpdatedDate2.text =
-                    viewModel.getTime(weather.current.last_updated_epoch.toLong(), "date")
-                currentStatusTextview.text = weather.current.condition.text
-                windSpeed.text = String.format("%s km/h%nWind", weather.current.wind_kph.toString())
+                    viewModel.getTime(weather.current.asDomain().lastUpdatedEpoch.toLong(), "date")
+                currentStatusTextview.text = weather.current.asDomain().text
+                windSpeed.text = String.format("%s km/h%nWind", weather.current.asDomain().windKph.toString())
                 pressureTextview.text =
-                    String.format("%s mbar%nPressure", weather.current.pressure_mb.toString())
+                    String.format("%s mbar%nPressure", weather.current.asDomain().pressureMb.toString())
                 chanceOfRainTextview.text =
                     String.format(
                         "%d%%%nChance of rain",
-                        weather.forecast.forecastday[0].day.daily_chance_of_rain
+                        weather.forecastDay[0].asDomain().dailyChanceOfRain
                     )
                 humidityTextview.text = String.format("%d%%%nHumidity", weather.current.humidity)
-                hourlyDetailsAdapter.submitList(weather.forecast.forecastday[0].hour)
+                hourlyDetailsAdapter.submitList(weather.forecastDay[0].asDomain().hour.asDomain())
             }
         }
-        viewModel.sixteenDayWeatherData.observe(this.viewLifecycleOwner){ sixteenDayData ->
-            Log.d(TAG,"${sixteenDayData?.data?.size}")
-            sevenDayDetailsAdapter.submitList(sixteenDayData?.data)
+        viewModel.sixteenDayWeatherData.observe(this.viewLifecycleOwner){ sixteenDay ->
+            sevenDayDetailsAdapter.submitList(sixteenDay.data.asDomain())
         }
         binding.icAdd.setOnClickListener {
             goToExploreWeatherFragment()

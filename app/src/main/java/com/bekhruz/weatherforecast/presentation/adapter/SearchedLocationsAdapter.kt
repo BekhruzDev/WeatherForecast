@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bekhruz.weatherforecast.databinding.ItemSearchedCityBinding
-import com.bekhruz.weatherforecast.data.remotedata.dto.geocodingdto.Result
+import com.bekhruz.weatherforecast.data.remote.dto.geocodingdto.Result
+import com.bekhruz.weatherforecast.domain.models.SearchedLocationResults
 
-class SearchedLocationsAdapter(private val onItemClick:(Result) -> Unit):ListAdapter<Result, SearchedLocationsAdapter.SearchedLocationsViewHolder>(DiffCall) {
+class SearchedLocationsAdapter(private val onItemClick:(SearchedLocationResults) -> Unit):ListAdapter<SearchedLocationResults, SearchedLocationsAdapter.SearchedLocationsViewHolder>(DiffCall) {
     class SearchedLocationsViewHolder(private val binding: ItemSearchedCityBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(data:Result){
+        fun bind(data:SearchedLocationResults){
             binding.apply {
-                searchedLocationTextview.text = data.name ?: data.address_line1
-                avgTemperatureTextview.text = String.format("%s, %s",data.address_line1,data.country)
+                searchedLocationTextview.text = data.name
+                avgTemperatureTextview.text = String.format("%s, %s",data.addressLine1,data.country)
             }
         }
     }
@@ -31,13 +32,13 @@ class SearchedLocationsAdapter(private val onItemClick:(Result) -> Unit):ListAda
         }
         holder.bind(item)
     }
-    companion object DiffCall : DiffUtil.ItemCallback<Result>() {
-        override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
+    companion object DiffCall : DiffUtil.ItemCallback<SearchedLocationResults>() {
+        override fun areItemsTheSame(oldItem: SearchedLocationResults, newItem: SearchedLocationResults): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
-            return oldItem.city == newItem.city
+        override fun areContentsTheSame(oldItem: SearchedLocationResults, newItem: SearchedLocationResults): Boolean {
+            return oldItem.country == newItem.country
         }
     }
 }

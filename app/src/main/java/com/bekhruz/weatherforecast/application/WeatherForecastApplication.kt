@@ -1,7 +1,7 @@
 package com.bekhruz.weatherforecast.application
 
 import android.app.Application
-import com.bekhruz.weatherforecast.data.localdata.LocationDatabase
+import com.bekhruz.weatherforecast.data.local.LocationDatabase
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

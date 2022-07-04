@@ -8,31 +8,31 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.databinding.ItemHourlyDetailsBinding
-import com.bekhruz.weatherforecast.data.remotedata.dto.currentweatherdto.Hour
+import com.bekhruz.weatherforecast.domain.models.Hourly
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 
 class HourlyDetailsAdapter(private val viewModel: WeatherViewModel) :
-    ListAdapter<Hour, HourlyDetailsAdapter.HourlyDetailsViewHolder>(DiffCallback) {
+    ListAdapter<Hourly, HourlyDetailsAdapter.HourlyDetailsViewHolder>(DiffCallback) {
 
     class HourlyDetailsViewHolder(
         private val binding: ItemHourlyDetailsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Hour, viewModel: WeatherViewModel) {
+        fun bind(data: Hourly, viewModel: WeatherViewModel) {
             binding.apply {
-                hourTextview.text = viewModel.getTime(data.time_epoch.toLong(), "time")
+                hourTextview.text = viewModel.getTime(data.timeEpoch.toLong(), "time")
                 icHourlyStatus.load(
-                    data.condition.icon.toUri().buildUpon().scheme("https").build()
+                    data.icon.toUri().buildUpon().scheme("https").build()
                 )
-                hourlyTemperature.text = data.temp_c.toString()
+                hourlyTemperature.text = data.tempC.toString()
                 chanceOfRainTextview.text =
-                    String.format("%s%% Rain", data.chance_of_rain.toString())
+                    String.format("%s%% Rain", data.chanceOfRain.toString())
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyDetailsViewHolder {
         return HourlyDetailsViewHolder(
-            ItemHourlyDetailsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            ItemHourlyDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -41,13 +41,13 @@ class HourlyDetailsAdapter(private val viewModel: WeatherViewModel) :
         holder.bind(elementOfHourlyDetails, viewModel)
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Hour>() {
-        override fun areItemsTheSame(oldItem: Hour, newItem: Hour): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<Hourly>() {
+        override fun areItemsTheSame(oldItem: Hourly, newItem: Hourly): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Hour, newItem: Hour): Boolean {
-            return oldItem.time_epoch == newItem.time_epoch
+        override fun areContentsTheSame(oldItem: Hourly, newItem: Hourly): Boolean {
+            return oldItem.timeEpoch == newItem.timeEpoch
         }
     }
 }

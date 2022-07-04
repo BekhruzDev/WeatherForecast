@@ -9,14 +9,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bekhruz.weatherforecast.data.remotedata.dto.currentweatherdto.CurrentForecast
+import com.bekhruz.weatherforecast.data.remote.dto.currentweatherdto.CurrentForecast
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import com.bekhruz.weatherforecast.data.remotedata.dto.geocodingdto.Location
-import com.bekhruz.weatherforecast.data.remotedata.dto.sixteendayweatherdto.SixteenDayForecast
-import com.bekhruz.weatherforecast.data.remotedata.repositories.WeatherRepository
+import com.bekhruz.weatherforecast.data.remote.dto.geocodingdto.Location
+import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.SixteenDayForecast
+import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepository
+import com.bekhruz.weatherforecast.domain.models.SearchedLocation
+import com.bekhruz.weatherforecast.domain.models.SixteenDay
+import com.bekhruz.weatherforecast.domain.models.Weather
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
@@ -27,35 +30,29 @@ class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private val _currentWeatherData = MutableLiveData<CurrentForecast>()
-    val currentWeatherData: LiveData<CurrentForecast> = _currentWeatherData
-    private val _sixteenDayWeatherData = MutableLiveData<SixteenDayForecast>()
-    val sixteenDayWeatherData:LiveData<SixteenDayForecast> = _sixteenDayWeatherData
-    private val _searchedLocation = MutableLiveData<Location>()
-    val searchedLocation:LiveData<Location> = _searchedLocation
+    private val _currentWeatherData = MutableLiveData<Weather>()
+    val currentWeatherData: LiveData<Weather> = _currentWeatherData
+    private val _sixteenDayWeatherData = MutableLiveData<SixteenDay>()
+    val sixteenDayWeatherData:LiveData<SixteenDay> = _sixteenDayWeatherData
+    private val _searchedLocation = MutableLiveData<SearchedLocation>()
+    val searchedLocation:LiveData<SearchedLocation> = _searchedLocation
 
     private fun getCurrentWeather(latLon: String) {
         viewModelScope.launch {
-            val response = weatherRepository.getCurrentWeather(latLon)
-            if (response.isSuccessful) {
-                _currentWeatherData.value = response.body()
-            }
+           val response =  weatherRepository.getCurrentWeather(latLon)
+                _currentWeatherData.value = response
         }
     }
     private fun getSixteenDayWeather(latitude:String, longitude:String){
         viewModelScope.launch {
             val response = weatherRepository.getSixteenDayWeather(latitude, longitude)
-            if (response.isSuccessful){
-                _sixteenDayWeatherData.value = response.body()
-            }
+                _sixteenDayWeatherData.value = response
         }
     }
-    fun getSearchedLocationInfo(searchedLocation:String):LiveData<Location>{
+    fun getSearchedLocationInfo(searchedLocation:String):LiveData<SearchedLocation>{
         viewModelScope.launch {
             val response = weatherRepository.getFullLocationInfo(searchedLocation)
-            if (response.isSuccessful){
-                _searchedLocation.value = response.body()
-            }
+                _searchedLocation.value = response
         }
         return _searchedLocation
     }

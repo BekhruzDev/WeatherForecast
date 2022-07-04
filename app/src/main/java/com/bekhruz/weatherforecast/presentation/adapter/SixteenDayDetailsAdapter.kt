@@ -8,26 +8,28 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.databinding.ItemSixteenDayDetailsBinding
-import com.bekhruz.weatherforecast.data.remotedata.dto.sixteendayweatherdto.Data
+import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.Data
+import com.bekhruz.weatherforecast.domain.models.SearchedLocationResults
+import com.bekhruz.weatherforecast.domain.models.SixteenDayData
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 
 class SixteenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
-    ListAdapter<Data, SixteenDayDetailsAdapter.SixteenDayDetailsViewHolder>(DiffCallBack) {
+    ListAdapter<SixteenDayData, SixteenDayDetailsAdapter.SixteenDayDetailsViewHolder>(DiffCallBack) {
 
     class SixteenDayDetailsViewHolder(private val binding: ItemSixteenDayDetailsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Data, viewModel: WeatherViewModel) {
+        fun bind(data: SixteenDayData, viewModel: WeatherViewModel) {
             binding.apply {
-                weekDaysTextview.text = data.ts?.toLong()?.let { viewModel.getTime(it, "weekday") }
+                weekDaysTextview.text = viewModel.getTime(data.timeEpoch.toLong(), "weekday")
                 iconWeekdaysStatus.load(
-                    data.weather?.icon?.let { viewModel.getIconsOfSixteenDayData(it).toUri().buildUpon().scheme("https").build() }
+                    viewModel.getIconsOfSixteenDayData(data.icon).toUri().buildUpon().scheme("https").build()
                 ) {
                     //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
                 }
                 rainStatusWeekdaysTextview.text =
-                    String.format("%d%% rain", data.pop)
-                lowTempWeekdaysTextview.text = data.min_temp.toString()
-                highTempWeekdaysTextview.text = String.format(" / %s",data.max_temp.toString())
+                    String.format("%d%% rain", data.rainStatus)
+                lowTempWeekdaysTextview.text = data.minTemp.toString()
+                highTempWeekdaysTextview.text = String.format(" / %s",data.maxTemp.toString())
             }
         }
     }
@@ -44,13 +46,13 @@ class SixteenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
         holder.bind(elementOfSevenDayDetails, viewModel)
     }
 
-    companion object DiffCallBack : DiffUtil.ItemCallback<Data>() {
-        override fun areItemsTheSame(oldItem: Data, newItem: Data): Boolean {
+    companion object DiffCallBack : DiffUtil.ItemCallback<SixteenDayData>() {
+        override fun areItemsTheSame(oldItem: SixteenDayData, newItem: SixteenDayData): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Data, newItem: Data): Boolean {
-            return oldItem.temp == newItem.temp
+        override fun areContentsTheSame(oldItem: SixteenDayData, newItem: SixteenDayData): Boolean {
+            return oldItem.icon == newItem.icon
         }
     }
 }

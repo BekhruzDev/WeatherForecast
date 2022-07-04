@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bekhruz.weatherforecast.data.remote.dto.geocodingdto.asDomain
 import com.bekhruz.weatherforecast.presentation.adapter.SearchedLocationsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
@@ -48,7 +49,7 @@ class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onQueryTextSubmit(query: String?): Boolean {
         binding.locationsSearchview.findViewById<View>(androidx.appcompat.R.id.search_close_btn).visibility = View.GONE
         binding.locationsSearchview.findViewById<View>(androidx.appcompat.R.id.search_go_btn).visibility = View.GONE
-        if (query != null) {
+        if (query != null && query.isNotEmpty() && query.isNotBlank()) {
             searchRemoteData(query)
         }
         binding.locationsSearchview.clearFocus()
@@ -58,7 +59,7 @@ class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         binding.locationsSearchview.findViewById<View>(androidx.appcompat.R.id.search_close_btn).visibility = View.GONE
         binding.locationsSearchview.findViewById<View>(androidx.appcompat.R.id.search_go_btn).visibility = View.GONE
-        if (newText != null) {
+        if (newText != null && newText.isNotEmpty() && newText.isNotBlank()) {
             searchRemoteData(newText)
         }
         return true
@@ -67,7 +68,7 @@ class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchRemoteData(queryLocation: String) {
         viewModel.getSearchedLocationInfo(queryLocation)
             .observe(this.viewLifecycleOwner) { location ->
-                location.let { searchedLocationsAdapter.submitList(it.results) }
+                location.let { searchedLocationsAdapter.submitList(it.results.asDomain()) }
             }
     }
 
