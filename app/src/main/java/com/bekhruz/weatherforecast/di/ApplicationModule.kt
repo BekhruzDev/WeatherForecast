@@ -1,8 +1,8 @@
 package com.bekhruz.weatherforecast.di
 
 import android.content.Context
-import com.bekhruz.weatherforecast.data.repositories.WeatherRepository
-import com.bekhruz.weatherforecast.data.repositories.WeatherRepositoryImpl
+import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepository
+import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepositoryImpl
 import com.bekhruz.weatherforecast.utils.FusedLocationLibrary
 import com.bekhruz.weatherforecast.utils.FusedLocationLibraryImpl
 import dagger.Module

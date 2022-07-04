@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.data.repositories
+package com.bekhruz.weatherforecast.data.remote.repositories
 
 
 import com.bekhruz.weatherforecast.data.remote.retrofitservice.SixteenDayForecastApi
