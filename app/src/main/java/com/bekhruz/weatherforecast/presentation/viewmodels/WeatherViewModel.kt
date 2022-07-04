@@ -20,16 +20,19 @@ import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepository
 import com.bekhruz.weatherforecast.domain.models.SearchedLocation
 import com.bekhruz.weatherforecast.domain.models.SixteenDay
 import com.bekhruz.weatherforecast.domain.models.Weather
+import com.bekhruz.weatherforecast.utils.FusedLocationLibrary
 import com.google.android.gms.location.LocationServices
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 @HiltViewModel
+
 class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    @Inject lateinit var fusedLocationProviderClient: FusedLocationLibrary
     private val _currentWeatherData = MutableLiveData<Weather>()
     val currentWeatherData: LiveData<Weather> = _currentWeatherData
     private val _sixteenDayWeatherData = MutableLiveData<SixteenDay>()
@@ -62,8 +65,7 @@ class WeatherViewModel @Inject constructor(
        return String.format("https://www.weatherbit.io/static/img/icons/$iconId.png")
     }
      fun getDeviceLocationData(context: Context,activity: Activity){
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
-        val task = fusedLocationProviderClient.lastLocation
+        val task = fusedLocationProviderClient.getFusedLocationProviderClient().lastLocation
         if (ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
