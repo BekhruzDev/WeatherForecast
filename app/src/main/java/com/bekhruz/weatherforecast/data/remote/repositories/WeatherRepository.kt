@@ -4,11 +4,8 @@ package com.bekhruz.weatherforecast.data.remote.repositories
 import com.bekhruz.weatherforecast.data.remote.retrofitservice.SixteenDayForecastApi
 import com.bekhruz.weatherforecast.data.remote.retrofitservice.CurrentWeatherApi
 import com.bekhruz.weatherforecast.data.remote.retrofitservice.GeocodingApi
-import com.bekhruz.weatherforecast.data.remote.dto.currentweatherdto.CurrentForecast
 import com.bekhruz.weatherforecast.data.remote.dto.currentweatherdto.asDomain
-import com.bekhruz.weatherforecast.data.remote.dto.geocodingdto.Location
 import com.bekhruz.weatherforecast.data.remote.dto.geocodingdto.asDomain
-import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.SixteenDayForecast
 import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.asDomain
 import com.bekhruz.weatherforecast.data.remote.utils.Constants.API_KEY_CURRENT_WEATHER
 import com.bekhruz.weatherforecast.data.remote.utils.Constants.API_KEY_GEOCODING
@@ -16,7 +13,6 @@ import com.bekhruz.weatherforecast.data.remote.utils.Constants.API_KEY_SIXTEEN_D
 import com.bekhruz.weatherforecast.domain.models.SearchedLocation
 import com.bekhruz.weatherforecast.domain.models.SixteenDay
 import com.bekhruz.weatherforecast.domain.models.Weather
-import retrofit2.Response
 import javax.inject.Inject
 
 interface WeatherRepository{

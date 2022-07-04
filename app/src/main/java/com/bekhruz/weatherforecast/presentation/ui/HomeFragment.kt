@@ -48,16 +48,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /* runBlocking {
-             viewModel.getSearchedLocationInfo("london")
-             Log.d("EXPLORE LOCATIONS","SEARCHED LOCATION: ${viewModel.searchedLocation.value?.results?.get(0)?.city}")
-         }*/
         val hourlyDetailsAdapter = HourlyDetailsAdapter()
         hourlyRecyclerView = binding.hourlyDetailsRecyclerview
         hourlyRecyclerView.adapter = hourlyDetailsAdapter
         hourlyRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val sevenDayDetailsAdapter = SixteenDayDetailsAdapter(viewModel)
+        val sevenDayDetailsAdapter = SixteenDayDetailsAdapter()
         sixteenDayRecyclerView = binding.sixteenDayForecastRecyclerview
         sixteenDayRecyclerView.adapter = sevenDayDetailsAdapter
         sixteenDayRecyclerView.layoutManager =

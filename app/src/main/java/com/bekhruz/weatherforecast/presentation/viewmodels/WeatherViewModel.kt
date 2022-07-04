@@ -20,6 +20,7 @@ import com.bekhruz.weatherforecast.domain.models.Weather
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType
 import com.bekhruz.weatherforecast.utils.FusedLocationLibrary
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Date
@@ -57,11 +58,7 @@ class WeatherViewModel @Inject constructor(
         return _searchedLocation
     }
 
-
-    fun getIconsOfSixteenDayData(iconId:String):String{
-       return String.format("https://www.weatherbit.io/static/img/icons/$iconId.png")
-    }
-     fun getDeviceLocationData(context: Context,activity: Activity){
+     fun getDeviceLocationData(context: Context, activity: Activity){
         val task = fusedLocationProviderClient.getFusedLocationProviderClient().lastLocation
         if (ActivityCompat.checkSelfPermission(
                 context,
