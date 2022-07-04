@@ -12,7 +12,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepository
+import com.bekhruz.weatherforecast.data.repositories.WeatherRepository
 import com.bekhruz.weatherforecast.domain.models.geocoding.SearchedLocation
 import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDay
 import com.bekhruz.weatherforecast.domain.models.currentweather.Weather
