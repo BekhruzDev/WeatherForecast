@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
@@ -46,10 +47,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       /* runBlocking {
-            viewModel.getSearchedLocationInfo("london")
-            Log.d("EXPLORE LOCATIONS","SEARCHED LOCATION: ${viewModel.searchedLocation.value?.results?.get(0)?.city}")
-        }*/
+        /* runBlocking {
+             viewModel.getSearchedLocationInfo("london")
+             Log.d("EXPLORE LOCATIONS","SEARCHED LOCATION: ${viewModel.searchedLocation.value?.results?.get(0)?.city}")
+         }*/
         val hourlyDetailsAdapter = HourlyDetailsAdapter(viewModel)
         hourlyRecyclerView = binding.hourlyDetailsRecyclerview
         hourlyRecyclerView.adapter = hourlyDetailsAdapter
@@ -73,13 +74,23 @@ class HomeFragment : Fragment() {
                     //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
                 }
                 lastUpdatedDate.text =
-                    viewModel.getTime(weather.current.asDomain().lastUpdatedEpoch.toLong(), "date")
+                    viewModel.getTime(
+                        weather.current.asDomain().lastUpdatedEpoch.toLong(),
+                        dateWithWeekday
+                    )
                 lastUpdatedDate2.text =
-                    viewModel.getTime(weather.current.asDomain().lastUpdatedEpoch.toLong(), "date")
+                    viewModel.getTime(
+                        weather.current.asDomain().lastUpdatedEpoch.toLong(),
+                        dateWithWeekday
+                    )
                 currentStatusTextview.text = weather.current.asDomain().text
-                windSpeed.text = String.format("%s km/h%nWind", weather.current.asDomain().windKph.toString())
+                windSpeed.text =
+                    String.format("%s km/h%nWind", weather.current.asDomain().windKph.toString())
                 pressureTextview.text =
-                    String.format("%s mbar%nPressure", weather.current.asDomain().pressureMb.toString())
+                    String.format(
+                        "%s mbar%nPressure",
+                        weather.current.asDomain().pressureMb.toString()
+                    )
                 chanceOfRainTextview.text =
                     String.format(
                         "%d%%%nChance of rain",
@@ -89,7 +100,7 @@ class HomeFragment : Fragment() {
                 hourlyDetailsAdapter.submitList(weather.forecastDay[0].asDomain().hour.asDomain())
             }
         }
-        viewModel.sixteenDayWeatherData.observe(this.viewLifecycleOwner){ sixteenDay ->
+        viewModel.sixteenDayWeatherData.observe(this.viewLifecycleOwner) { sixteenDay ->
             sevenDayDetailsAdapter.submitList(sixteenDay.data.asDomain())
         }
         binding.icAdd.setOnClickListener {
@@ -100,19 +111,19 @@ class HomeFragment : Fragment() {
         }
     }
 
-     private fun swipeForSixteenDayForecast() {
-         var set = false
-         val startingConstraintSet = ConstraintSet()
-         startingConstraintSet.clone(binding.root)
-         val finishingConstraintSet = ConstraintSet()
-         finishingConstraintSet.clone(requireContext(), R.layout.fragment_home_v2)
-         binding.sixteenDayForecastTextview.setOnClickListener {
-                 TransitionManager.beginDelayedTransition(binding.root)
-                 val constraintSet = if (set) startingConstraintSet else finishingConstraintSet
-                 constraintSet.applyTo(binding.root)
-                 set = !set
-         }
-     }
+    private fun swipeForSixteenDayForecast() {
+        var set = false
+        val startingConstraintSet = ConstraintSet()
+        startingConstraintSet.clone(binding.root)
+        val finishingConstraintSet = ConstraintSet()
+        finishingConstraintSet.clone(requireContext(), R.layout.fragment_home_v2)
+        binding.sixteenDayForecastTextview.setOnClickListener {
+            TransitionManager.beginDelayedTransition(binding.root)
+            val constraintSet = if (set) startingConstraintSet else finishingConstraintSet
+            constraintSet.applyTo(binding.root)
+            set = !set
+        }
+    }
 
 
     private fun goToManageLocationsFragment() {
@@ -120,15 +131,18 @@ class HomeFragment : Fragment() {
             R.id.action_homeFragment_to_manageLocationsFragment
         )
     }
+
     private fun goToExploreWeatherFragment() {
         findNavController().navigate(
             R.id.action_homeFragment_to_exploreWeatherFragment
         )
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
     companion object {
         private const val TAG = "HOME FRAGMENT"
     }

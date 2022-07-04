@@ -9,23 +9,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bekhruz.weatherforecast.data.remote.dto.currentweatherdto.CurrentForecast
-import com.google.android.gms.location.FusedLocationProviderClient
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*
 import kotlinx.coroutines.launch
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import com.bekhruz.weatherforecast.data.remote.dto.geocodingdto.Location
-import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.SixteenDayForecast
 import com.bekhruz.weatherforecast.data.remote.repositories.WeatherRepository
 import com.bekhruz.weatherforecast.domain.models.SearchedLocation
 import com.bekhruz.weatherforecast.domain.models.SixteenDay
 import com.bekhruz.weatherforecast.domain.models.Weather
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType
 import com.bekhruz.weatherforecast.utils.FusedLocationLibrary
-import com.google.android.gms.location.LocationServices
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Date
 import javax.inject.Inject
 @HiltViewModel
 
@@ -95,15 +92,15 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun getTime(epochSecond: Long, type:String):String{
-        val time = Date(epochSecond * 1000)
+    fun getTime(epochSecond: Long, type:TimeFormattingType):String{
+        val givenTime = Date(epochSecond * 1000)
         val timeFormat = when (type) {
-            "date" -> SimpleDateFormat("EEEE | MMMM d", Locale.getDefault())
-            "time" -> SimpleDateFormat("HH:mm", Locale.getDefault())
-            else -> SimpleDateFormat("MMMM d", Locale.getDefault())
+            dateWithWeekday -> SimpleDateFormat("EEEE | MMMM d", Locale.getDefault())
+            time -> SimpleDateFormat("HH:mm", Locale.getDefault())
+            date -> SimpleDateFormat("MMMM d", Locale.getDefault())
         }
         timeFormat.timeZone = TimeZone.getTimeZone("UTC")
-        return timeFormat.format(time)
+        return timeFormat.format(givenTime)
     }
 
     companion object {

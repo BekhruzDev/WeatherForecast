@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.databinding.ItemSixteenDayDetailsBinding
-import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweatherdto.Data
-import com.bekhruz.weatherforecast.domain.models.SearchedLocationResults
 import com.bekhruz.weatherforecast.domain.models.SixteenDayData
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 
 class SixteenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
@@ -20,16 +19,20 @@ class SixteenDayDetailsAdapter(private val viewModel: WeatherViewModel) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: SixteenDayData, viewModel: WeatherViewModel) {
             binding.apply {
-                weekDaysTextview.text = viewModel.getTime(data.timeEpoch.toLong(), "weekday")
+                weekDaysTextview.text = viewModel.getTime(
+                    data.timeEpoch.toLong(),
+                    date
+                )
                 iconWeekdaysStatus.load(
-                    viewModel.getIconsOfSixteenDayData(data.icon).toUri().buildUpon().scheme("https").build()
+                    viewModel.getIconsOfSixteenDayData(data.icon).toUri().buildUpon()
+                        .scheme("https").build()
                 ) {
                     //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
                 }
                 rainStatusWeekdaysTextview.text =
                     String.format("%d%% rain", data.rainStatus)
                 lowTempWeekdaysTextview.text = data.minTemp.toString()
-                highTempWeekdaysTextview.text = String.format(" / %s",data.maxTemp.toString())
+                highTempWeekdaysTextview.text = String.format(" / %s", data.maxTemp.toString())
             }
         }
     }
