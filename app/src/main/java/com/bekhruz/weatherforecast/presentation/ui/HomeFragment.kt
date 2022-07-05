@@ -9,6 +9,7 @@ import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,31 +21,23 @@ import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweather.asDomain
 import com.bekhruz.weatherforecast.presentation.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.presentation.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
+import com.bekhruz.weatherforecast.domain.models.home.HomeWeatherData
+import com.bekhruz.weatherforecast.presentation.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormat.getTime
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
+import com.bekhruz.weatherforecast.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var hourlyRecyclerView: RecyclerView
     private lateinit var sixteenDayRecyclerView: RecyclerView
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getDeviceLocationData(requireContext(), requireActivity())
+        viewModel.getDeviceLocationData()
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,21 +53,20 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         swipeForSixteenDayForecast()
-
         viewModel.currentWeatherData.observe(this.viewLifecycleOwner) { weather ->
             binding.apply {
-                currentTemperature.text = weather.current.asDomain().tempC.toString()
-                cityName.text = weather.location.asDomain().name
-                currentStatusImageview.load(
-                    weather.current.asDomain().icon.toUri().buildUpon().scheme("https").build()
-                ) {
-                    //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
-                }
-                lastUpdatedDate.text =
-                    getTime(
-                        weather.current.asDomain().lastUpdatedEpoch.toLong(),
-                        dateWithWeekday
-                    )
+//                currentTemperature.text = weather.current.asDomain().tempC.toString()
+//                cityName.text = weather.location.asDomain().name
+//                currentStatusImageview.load(
+//                    weather.current.asDomain().icon.toUri().buildUpon().scheme("https").build()
+//                ) {
+//                    //TODO: ADD PLACEHOLDER, ERROR HANDLING FOR COIL
+//                }
+//                lastUpdatedDate.text =
+//                    getTime(
+//                        weather.current.asDomain().lastUpdatedEpoch.toLong(),
+//                        dateWithWeekday
+//                    )
                 lastUpdatedDate2.text =
                     getTime(
                         weather.current.asDomain().lastUpdatedEpoch.toLong(),
@@ -106,6 +98,19 @@ class HomeFragment : Fragment() {
         binding.icMenu.setOnClickListener {
             goToManageLocationsFragment()
         }
+
+        viewModel.homeWeatherData.observe(viewLifecycleOwner, Observer {
+
+        })
+
+        observe(viewModel.homeWeatherData, ::onHomeWeatherDataLoaded)
+    }
+
+    private fun onHomeWeatherDataLoaded(data: HomeWeatherData) {
+        binding.currentTemperature.text = data.temperature
+        binding.cityName.text = data.cityName
+        binding.currentStatusImageview.load(data.imageLink)
+        binding.lastUpdatedDate.text = data.lastUpdateDate
     }
 
     private fun swipeForSixteenDayForecast() {
@@ -135,12 +140,4 @@ class HomeFragment : Fragment() {
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-    companion object {
-        private const val TAG = "HOME FRAGMENT"
-    }
 }

@@ -27,10 +27,12 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/item_searched_city.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/item_seven_day_details.xml" value="0.72" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/item_sixteen_day_details.xml" value="0.536" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
+        <entry key="app/src/main/res/layout/fragment_home_v2.xml" value="0.20625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
