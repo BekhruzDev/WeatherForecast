@@ -3,7 +3,6 @@ package com.bekhruz.weatherforecast.presentation.core
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,14 +15,19 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.bekhruz.weatherforecast.R
+import com.bekhruz.weatherforecast.presentation.core.BaseFragment.LocationPermissionInterface
 import com.bekhruz.weatherforecast.utils.Inflate
+import com.bekhruz.weatherforecast.utils.viewExt.showDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment() {
 
-abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment(){
-
+    //TODO: LEARN MORE ABOUT BINDING HERE
     private var _binding: VB? = null
     val binding get() = _binding!!
     val bindingSafe get() = _binding
+    lateinit var locationPermissionCallback: LocationPermissionInterface
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +43,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         _binding = null
     }
 
-
-
+    //TODO: ASK THIS!
     @RequiresApi(api = Build.VERSION_CODES.M)
     private fun setSystemBarTheme(isStatusBarFontDark: Boolean) {
         // Fetch the current flags.
@@ -49,86 +52,63 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         requireActivity().window.decorView.systemUiVisibility =
             if (isStatusBarFontDark) lFlags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv() else lFlags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
-
-
+    //TODO: LEARN THIS!
     open fun handleError(throwable: Throwable) {
         when (throwable) {
             //showErrorDialog
         }
     }
 
-    private var beforeClickPermissionRat = false
-    private var afterClickPermissionRat = false
-    private val CODE_PERMISSION_CALL_PHONE: Int = 1021
-    val requestPhonePermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result: MutableMap<String, Boolean> ->
-            val deniedList: List<String> = result.filter {
-                !it.value
-            }.map {
-                it.key
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                locationPermissionCallback.onLocationGranted()
+            } else {
+                //Permission was denied
+                showPermissionDeniedDialog()
+                //TODO:showInContextUI(...) explaining the user that the location should be granted
             }
+        }
 
-            when {
-                deniedList.isNotEmpty() -> {
-                    val map = deniedList.groupBy { permission ->
-                        if (shouldShowRequestPermissionRationale(permission)) PermissionActions.DENIED else PermissionActions.EXPLAINED
-                    }
-                    map[PermissionActions.DENIED]?.let {
-//
-                    }
-                    map[PermissionActions.EXPLAINED]?.let {
-                        //request denied ,send to settings
-
-                    }
-
+    fun askLocationPermission() {
+        when {
+                ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED -> {
+                    locationPermissionCallback.onLocationGranted()
+                }
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                    showPermissionDeniedDialog()
                 }
                 else -> {
-                    requestCallAction(isCallActionWithUssd)
+                    //Directly asking for the Location in the System Dialog
+                    requestPermissionLauncher.launch(
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
                 }
-            }
         }
-
-    private var isCallActionWithUssd = false
-    open fun requestCallAction(isCallActionWithUssd: Boolean = false) {
-        this.isCallActionWithUssd = isCallActionWithUssd
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.CALL_PHONE
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                val encodedHash = Uri.encode("#")
-                val ussd = if (isCallActionWithUssd) "*107$encodedHash" else "712051548"
-                val intent = Intent("android.intent.action.CALL", Uri.parse("tel:$ussd"))
-                try {
-                    startActivity(intent)
-                } catch (e: SecurityException) {
-                    e.printStackTrace()
-                }
-            }
-            shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE) -> {
-
-            }
-
-            else -> {
-                // You can directly ask for the permission.
-                requestPhonePermissionLauncher.launch(arrayOf(Manifest.permission.CALL_PHONE))
-            }
-        }
-
-
     }
 
+    interface LocationPermissionInterface {
+        fun onLocationGranted()
+    }
+
+    private fun showPermissionDeniedDialog(){
+        return showDialog(
+            context = requireContext(),
+            title = resources.getString(R.string.attention_dialog_title),
+            message = resources.getString(R.string.location_permission_denied),
+            //negativeBtnText = resources.getString(R.string.decline),
+            positiveBtnText = resources.getString(R.string.accept),
+            positiveBtnAction = openSettings()
+        )}
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", requireContext().applicationContext.packageName, null)
         intent.data = uri
-        startActivityForResult(intent, CODE_PERMISSION_CALL_PHONE)
+        startActivity(intent)
     }
-
-    enum class PermissionActions {
-        DENIED,
-        EXPLAINED
-    }
-
-
 }

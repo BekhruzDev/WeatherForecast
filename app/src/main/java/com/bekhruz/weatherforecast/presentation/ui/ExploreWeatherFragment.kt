@@ -66,7 +66,7 @@ class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun searchRemoteData(queryLocation: String) {
-        viewModel.getSearchedLocationInfo(queryLocation)
+        viewModel.getSearchedLocation(queryLocation)
             .observe(this.viewLifecycleOwner) { location ->
                 location.let { searchedLocationsAdapter.submitList(it.results.asDomain()) }
             }

@@ -7,4 +7,9 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="explore_weather">Explore Weather</string>
+    <string name="location_permission_denied">This app is heavily based on a location service
+         If you would like to proceed, please allow us to get your location:)</string>
+    <string name="attention_dialog_title">Attention!</string>
+    <string name="decline">No, thanks)</string>
+    <string name="accept">Ok</string>
 </resources>
