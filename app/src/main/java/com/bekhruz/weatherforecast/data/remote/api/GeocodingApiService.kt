@@ -1,6 +1,6 @@
 package com.bekhruz.weatherforecast.data.remote.api
 
-import com.bekhruz.weatherforecast.data.remote.dto.geocoding.Location
+import com.bekhruz.weatherforecast.data.remote.dto.geocoding_response.GeocodingResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -17,5 +17,5 @@ interface GeocodingApiService {
         @Query("type") type:String,
         @Query("format") responseFormat:String,
         @Query("apiKey") apiKey: String
-    ):Location
+    ):GeocodingResponse
 }

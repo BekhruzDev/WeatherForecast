@@ -1,6 +1,8 @@
-package com.bekhruz.weatherforecast.data.remote.dto.sixteendayweather
+package com.bekhruz.weatherforecast.data.remote.dto.sixteenday_weather_response
 
-import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
+import com.bekhruz.weatherforecast.domain.models.sixteendayweather.DailyForecast
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormat.getTime
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType
 
 data class Data(
     val app_max_temp: Double?,
@@ -43,16 +45,16 @@ data class Data(
     val wind_spd: Double?
 )
 
-fun Data.asDomain(): SixteenDayData {
-    return SixteenDayData(
-        maxTemp = max_temp ?: 0.0,
-        minTemp = min_temp ?: 0.0,
-        rainStatus = pop ?: 0,
-        timeEpoch = ts ?: 0,
+fun Data.asDomain(): DailyForecast {
+    return DailyForecast(
+        maxTemp = String.format(" / %.1f", max_temp?:0.0),
+        minTemp = min_temp?.toString()?:"",
+        rainStatus = String.format("%d%% rain", pop ?: 0),
+        time = getTime(ts?.toLong()?:0, TimeFormattingType.date),
         icon = weather?.icon ?: ""
     )
 }
-fun List<Data>.asDomain():List<SixteenDayData>{
+fun List<Data>.asDomain():List<DailyForecast>{
     return map{
         it.asDomain()
     }

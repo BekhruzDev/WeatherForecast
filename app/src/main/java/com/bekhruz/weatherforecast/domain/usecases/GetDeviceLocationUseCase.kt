@@ -2,15 +2,15 @@ package com.bekhruz.weatherforecast.domain.usecases
 
 
 import android.annotation.SuppressLint
-import com.bekhruz.weatherforecast.domain.models.home.CurrentWeatherData
-import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDay
+import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
+import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 
 interface GetDeviceLocationUseCase {
-    suspend operator fun invoke(): Pair<CurrentWeatherData, SixteenDay>
+    suspend operator fun invoke(): Pair<CurrentWeatherData, SixteenDayData>
 }
 
 class GetDeviceLocationUseCaseImpl
@@ -21,7 +21,7 @@ class GetDeviceLocationUseCaseImpl
 ) : GetDeviceLocationUseCase {
 
     @SuppressLint("MissingPermission")
-    override suspend operator fun invoke(): Pair<CurrentWeatherData, SixteenDay> {
+    override suspend operator fun invoke(): Pair<CurrentWeatherData, SixteenDayData> {
         val result = fusedLocationProviderClient.lastLocation.await()
         val currentWeather = getCurrentWeatherUseCase("${result.latitude},${result.longitude}")
         val sixteenDayWeather = getSixteenDayWeatherUseCase(result.latitude.toString(), result.longitude.toString())

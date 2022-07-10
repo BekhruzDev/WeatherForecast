@@ -1,9 +1,9 @@
 package com.bekhruz.weatherforecast.data.repositories
 
-import com.bekhruz.weatherforecast.data.remote.dto.currentweather.asDomain
+import com.bekhruz.weatherforecast.data.remote.dto.current_weather_response.asDomain
 import com.bekhruz.weatherforecast.data.remote.retrofitservice.CurrentWeatherApi
 import com.bekhruz.weatherforecast.data.remote.utils.Constants
-import com.bekhruz.weatherforecast.domain.models.home.CurrentWeatherData
+import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
 import javax.inject.Inject
 
 interface CurrentWeatherRepository {

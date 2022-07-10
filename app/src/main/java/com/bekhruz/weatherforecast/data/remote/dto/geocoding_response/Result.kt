@@ -1,6 +1,6 @@
-package com.bekhruz.weatherforecast.data.remote.dto.geocoding
+package com.bekhruz.weatherforecast.data.remote.dto.geocoding_response
 
-import com.bekhruz.weatherforecast.domain.models.geocoding.SearchedLocationResults
+import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 
 data class Result(
     val address_line1: String?,
@@ -26,16 +26,15 @@ data class Result(
     val street: String?,
     val suburb: String?
 )
-fun Result.asDomain(): SearchedLocationResults {
-        return SearchedLocationResults(
-            addressLine1 = address_line1?:"",
-            country = country?:"",
-            name = name?:address_line1?:" ",
+fun Result.asDomain(): LocationResult {
+        return LocationResult(
+            locationInfo = String.format("%s, %s",address_line1?:"",country?:""),
+            locationName = name?:address_line1?:"",
             lat = lat?:0.0,
             lon = lon?:0.0
         )
     }
-fun List<Result>.asDomain():List<SearchedLocationResults>{
+fun List<Result>.asDomain():List<LocationResult>{
     return map{
         it.asDomain()
     }

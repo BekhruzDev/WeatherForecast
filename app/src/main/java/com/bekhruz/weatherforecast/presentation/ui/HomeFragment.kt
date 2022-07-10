@@ -15,7 +15,7 @@ import com.bekhruz.weatherforecast.data.remote.utils.Constants.HTTPS
 import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
 import com.bekhruz.weatherforecast.presentation.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.presentation.adapter.SixteenDayDetailsAdapter
-import com.bekhruz.weatherforecast.domain.models.home.CurrentWeatherData
+import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
 import com.bekhruz.weatherforecast.presentation.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe

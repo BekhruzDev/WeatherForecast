@@ -1,16 +1,16 @@
 package com.bekhruz.weatherforecast.data.repositories
 
-import com.bekhruz.weatherforecast.data.remote.dto.sixteendayweather.asDomain
+import com.bekhruz.weatherforecast.data.remote.dto.sixteenday_weather_response.asDomain
 import com.bekhruz.weatherforecast.data.remote.retrofitservice.SixteenDayForecastApi
 import com.bekhruz.weatherforecast.data.remote.utils.Constants
-import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDay
+import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
 import javax.inject.Inject
 
 interface SixteenDayWeatherRepository {
     suspend fun fetchSixteenDayWeather(
         latitude: String,
         longitude: String
-    ): SixteenDay
+    ): SixteenDayData
 }
 
 class SixteenDayWeatherRepositoryImpl
@@ -18,7 +18,7 @@ class SixteenDayWeatherRepositoryImpl
     override suspend fun fetchSixteenDayWeather(
         latitude: String,
         longitude: String
-    ): SixteenDay {
+    ): SixteenDayData {
         return SixteenDayForecastApi.retrofitService.getSixteenDayWeather(
             latitude,
             longitude,

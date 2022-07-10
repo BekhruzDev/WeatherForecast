@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.data.remote.utils.Constants.HTTPS
 import com.bekhruz.weatherforecast.databinding.ItemHourlyDetailsBinding
-import com.bekhruz.weatherforecast.domain.models.home.Hourly
+import com.bekhruz.weatherforecast.domain.models.currentweather.Hourly
 class HourlyDetailsAdapter :
     ListAdapter<Hourly, HourlyDetailsAdapter.HourlyDetailsViewHolder>(DiffCallback) {
 

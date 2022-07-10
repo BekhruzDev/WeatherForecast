@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.data.remote.dto.geocoding
+package com.bekhruz.weatherforecast.data.remote.dto.geocoding_response
 
 data class Rank(
     val confidence: Double?,

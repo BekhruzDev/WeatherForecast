@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bekhruz.weatherforecast.data.remote.dto.geocoding.asDomain
 import com.bekhruz.weatherforecast.presentation.adapter.SearchedLocationsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
@@ -68,7 +67,7 @@ class ExploreWeatherFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchRemoteData(queryLocation: String) {
         viewModel.getSearchedLocation(queryLocation)
             .observe(this.viewLifecycleOwner) { location ->
-                location.let { searchedLocationsAdapter.submitList(it.results.asDomain()) }
+                location.let { searchedLocationsAdapter.submitList(it.locationResults) }
             }
     }
 
