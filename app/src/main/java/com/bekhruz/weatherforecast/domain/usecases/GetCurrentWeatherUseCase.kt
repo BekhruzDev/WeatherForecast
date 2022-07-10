@@ -1,7 +1,7 @@
 package com.bekhruz.weatherforecast.domain.usecases
 
 import com.bekhruz.weatherforecast.data.repositories.CurrentWeatherRepository
-import com.bekhruz.weatherforecast.domain.models.home.CurrentWeatherData
+import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
 import javax.inject.Inject
 
 interface GetCurrentWeatherUseCase {

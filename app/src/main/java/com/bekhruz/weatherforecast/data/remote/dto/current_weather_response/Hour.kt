@@ -1,6 +1,6 @@
-package com.bekhruz.weatherforecast.data.remote.dto.currentweather
+package com.bekhruz.weatherforecast.data.remote.dto.current_weather_response
 
-import com.bekhruz.weatherforecast.domain.models.home.Hourly
+import com.bekhruz.weatherforecast.domain.models.currentweather.Hourly
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormat
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType
 

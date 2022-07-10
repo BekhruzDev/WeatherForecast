@@ -1,16 +1,16 @@
-package com.bekhruz.weatherforecast.data.remote.dto.currentweather
+package com.bekhruz.weatherforecast.data.remote.dto.current_weather_response
 
-import com.bekhruz.weatherforecast.domain.models.home.CurrentWeatherData
+import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormat
 import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType
 
-data class CurrentForecast(
+data class CurrentForecastResponse(
     val current: Current,
     val forecast: Forecast,
     val location: Location
 )
 
-fun CurrentForecast.asDomain(): CurrentWeatherData =
+fun CurrentForecastResponse.asDomain(): CurrentWeatherData =
     CurrentWeatherData(
         tempC = current.temp_c?.toString()?:"",
         name = location.name?:"",

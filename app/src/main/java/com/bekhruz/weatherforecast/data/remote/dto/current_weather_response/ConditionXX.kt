@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.data.remote.dto.currentweather
+package com.bekhruz.weatherforecast.data.remote.dto.current_weather_response
 
 data class ConditionXX(
     val code: Int?,

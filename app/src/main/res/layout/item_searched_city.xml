@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
             <TextView
-                android:id="@+id/avg_temperature_textview"
+                android:id="@+id/searched_location_info_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Tashkent, Uzbekistan"

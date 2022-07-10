@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.domain.models.home
+package com.bekhruz.weatherforecast.domain.models.currentweather
 
 data class CurrentWeatherData(
     val icon: String,
