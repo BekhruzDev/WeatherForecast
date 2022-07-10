@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bekhruz.weatherforecast.data.remote.utils.Constants.HTTPS
 import com.bekhruz.weatherforecast.databinding.ItemHourlyDetailsBinding
-import com.bekhruz.weatherforecast.domain.models.currentweather.Hourly
-import com.bekhruz.weatherforecast.presentation.utils.TimeFormat.getTime
-import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType.*
+import com.bekhruz.weatherforecast.domain.models.home.Hourly
 class HourlyDetailsAdapter :
     ListAdapter<Hourly, HourlyDetailsAdapter.HourlyDetailsViewHolder>(DiffCallback) {
 
@@ -20,14 +18,12 @@ class HourlyDetailsAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Hourly) {
             binding.apply {
-                hourTextview.text = getTime(data.timeEpoch.toLong(), time
-                )
+                hourTextview.text = data.time
                 icHourlyStatus.load(
                     data.icon.toUri().buildUpon().scheme(HTTPS).build()
                 )
-                hourlyTemperature.text = data.tempC.toString()
-                chanceOfRainTextview.text =
-                    String.format("%s%% Rain", data.chanceOfRain.toString())
+                hourlyTemperature.text = data.tempC
+                chanceOfRainTextview.text = data.chanceOfRain
             }
         }
     }
@@ -49,7 +45,7 @@ class HourlyDetailsAdapter :
         }
 
         override fun areContentsTheSame(oldItem: Hourly, newItem: Hourly): Boolean {
-            return oldItem.timeEpoch == newItem.timeEpoch
+            return oldItem.time == newItem.time
         }
     }
 }

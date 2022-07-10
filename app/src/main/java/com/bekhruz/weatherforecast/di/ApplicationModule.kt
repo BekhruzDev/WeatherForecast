@@ -2,8 +2,8 @@ package com.bekhruz.weatherforecast.di
 
 import android.content.Context
 import com.bekhruz.weatherforecast.data.repositories.*
-import com.bekhruz.weatherforecast.utils.FusedLocationLibrary
-import com.bekhruz.weatherforecast.utils.FusedLocationLibraryImpl
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +33,7 @@ object ApplicationModule {
     @Provides
     fun providesFusedLocationProviderClient(
         @ApplicationContext appContext: Context
-    ): FusedLocationLibrary {
-        return FusedLocationLibraryImpl(appContext)
+    ): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(appContext)
     }
 }

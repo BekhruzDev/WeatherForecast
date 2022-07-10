@@ -1,6 +1,8 @@
 package com.bekhruz.weatherforecast.data.remote.dto.currentweather
 
-import com.bekhruz.weatherforecast.domain.models.currentweather.Hourly
+import com.bekhruz.weatherforecast.domain.models.home.Hourly
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormat
+import com.bekhruz.weatherforecast.presentation.utils.TimeFormattingType
 
 data class Hour(
     val chance_of_rain: Int?,
@@ -38,17 +40,17 @@ data class Hour(
     val windchill_f: Double?
 )
 
-fun Hour.asDomain(): Hourly {
+fun Hour.toHourly(): Hourly{
     return Hourly(
-        timeEpoch = time_epoch ?: 0,
-        icon = condition?.icon ?: "",
-        tempC = temp_c ?: 0.0,
-        chanceOfRain = chance_of_rain ?: 0
+        time = TimeFormat.getTime(time_epoch?.toLong()?:0L, TimeFormattingType.time),
+        icon = condition?.icon?:"",
+        tempC = temp_c?.toString()?:"",
+        chanceOfRain = String.format("%d%% Rain", chance_of_rain?:0)
     )
 }
 
-fun List<Hour>.asDomain(): List<Hourly> {
+fun List<Hour>.toHourly(): List<Hourly> {
     return map {
-        it.asDomain()
+        it.toHourly()
     }
 }
