@@ -9,16 +9,16 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 
-interface GetDeviceLocationUseCase {
+interface GetDeviceLocationWeatherUseCase {
     suspend operator fun invoke(): Pair<CurrentWeatherData, SixteenDayData>
 }
 
-class GetDeviceLocationUseCaseImpl
+class GetDeviceLocationWeatherUseCaseImpl
 @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
     private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
     private val getSixteenDayWeatherUseCase: GetSixteenDayWeatherUseCase
-) : GetDeviceLocationUseCase {
+) : GetDeviceLocationWeatherUseCase {
 
     @SuppressLint("MissingPermission")
     override suspend operator fun invoke(): Pair<CurrentWeatherData, SixteenDayData> {
