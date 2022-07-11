@@ -4,14 +4,12 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -40,15 +38,6 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         _binding = null
     }
 
-    //TODO: ASK THIS!
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private fun setSystemBarTheme(isStatusBarFontDark: Boolean) {
-        // Fetch the current flags.
-        val lFlags = requireActivity().window.decorView.systemUiVisibility
-        // Update the SystemUiVisibility depending on whether we want a Light or Dark theme.
-        requireActivity().window.decorView.systemUiVisibility =
-            if (isStatusBarFontDark) lFlags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv() else lFlags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
     //TODO: LEARN THIS!
     open fun handleError(throwable: Throwable) {
         when (throwable) {
