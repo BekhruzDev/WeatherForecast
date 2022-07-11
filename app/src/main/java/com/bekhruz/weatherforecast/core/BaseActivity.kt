@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.presentation.core
+package com.bekhruz.weatherforecast.core
 
 import android.content.Intent
 import android.content.res.Configuration
