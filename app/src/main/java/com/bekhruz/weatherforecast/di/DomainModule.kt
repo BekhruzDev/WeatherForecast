@@ -13,8 +13,8 @@ abstract class DomainModule {
     @Singleton
     @Binds
     abstract fun bindGetCurrentWeatherUseCase(
-        impl:GetCurrentWeatherUseCaseImpl
-    ):GetCurrentWeatherUseCase
+        impl: GetCurrentWeatherUseCaseImpl
+    ): GetCurrentWeatherUseCase
 
     @Singleton
     @Binds
@@ -26,11 +26,18 @@ abstract class DomainModule {
     @Binds
     abstract fun bindGetGeocodingLocationUseCase(
         impl: GetGeocodingLocationUseCaseImpl
-    ):GetGeocodingLocationUseCase
+    ): GetGeocodingLocationUseCase
 
     @Singleton
     @Binds
-    abstract fun bindGetDeviceLocationUseCase(
-        impl:GetDeviceLocationUseCaseImpl
-    ):GetDeviceLocationUseCase
+    abstract fun bindGetDeviceLocationWeatherUseCase(
+        impl: GetDeviceLocationWeatherUseCaseImpl
+    ): GetDeviceLocationWeatherUseCase
+
+    @Singleton
+    @Binds
+    abstract fun bindGetSearchedLocationWeatherUseCase(
+        impl: GetSearchedLocationWeatherUseCaseImpl
+    ): GetSearchedLocationWeatherUseCase
+
 }

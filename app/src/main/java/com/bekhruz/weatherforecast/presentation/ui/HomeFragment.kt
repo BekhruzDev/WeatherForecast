@@ -96,7 +96,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun onLocationGranted() {
-        viewModel.getDeviceLocationData()
+        viewModel.applyDeviceLocationWeatherData()
     }
 
     private fun goToManageLocationsFragment() {

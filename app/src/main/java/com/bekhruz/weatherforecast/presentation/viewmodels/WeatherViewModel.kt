@@ -6,10 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.bekhruz.weatherforecast.domain.models.geocoding.SearchedLocationData
 import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
 import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
-import com.bekhruz.weatherforecast.domain.usecases.GetCurrentWeatherUseCase
-import com.bekhruz.weatherforecast.domain.usecases.GetDeviceLocationUseCase
-import com.bekhruz.weatherforecast.domain.usecases.GetGeocodingLocationUseCase
-import com.bekhruz.weatherforecast.domain.usecases.GetSixteenDayWeatherUseCase
+import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
+import com.bekhruz.weatherforecast.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.bekhruz.weatherforecast.presentation.core.BaseViewModel
 import javax.inject.Inject
@@ -18,11 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor() : BaseViewModel() {
     //useCases
-    @Inject lateinit var getCurrentWeatherUseCase: GetCurrentWeatherUseCase
-    @Inject lateinit var getGeocodingLocationUseCase: GetGeocodingLocationUseCase
-    @Inject lateinit var getSixteenDayWeatherUseCase: GetSixteenDayWeatherUseCase
-    @Inject lateinit var getDeviceLocationUseCase: GetDeviceLocationUseCase
-
+    @Inject lateinit var getDeviceLocationWeatherUseCase: GetDeviceLocationWeatherUseCase
+    @Inject lateinit var getSearchedLocationWeatherUseCase: GetSearchedLocationWeatherUseCase
     private val _sixteenDayWeatherData = MutableLiveData<SixteenDayData>()
     val sixteenDayWeatherData: LiveData<SixteenDayData> = _sixteenDayWeatherData
     private val _searchedLocation = MutableLiveData<SearchedLocationData>()
@@ -30,33 +25,32 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
     private val _currentWeatherData = MutableLiveData<CurrentWeatherData>()
     val currentWeatherData: LiveData<CurrentWeatherData> = _currentWeatherData
 
-    private fun getCurrentWeather(latLon: String) {
-        vmScope.loadingLaunch {
-            val response = getCurrentWeatherUseCase(latLon)
-            _currentWeatherData.postValue(response)
-        }
-    }
 
-    private fun getSixteenDayWeather(latitude: String, longitude: String) {
+    fun getSearchedLocationData(searchedLocation: String): LiveData<SearchedLocationData> {
         vmScope.loadingLaunch {
-            val response = getSixteenDayWeatherUseCase(latitude, longitude)
-            _sixteenDayWeatherData.postValue(response)
-        }
-    }
-
-    fun getSearchedLocation(searchedLocation: String): LiveData<SearchedLocationData> {
-        vmScope.loadingLaunch {
-            val response = getGeocodingLocationUseCase(searchedLocation)
+            val response = getSearchedLocationWeatherUseCase.getSearchedLocationResults(searchedLocation)
             _searchedLocation.postValue(response)
         }
         return _searchedLocation
     }
 
-    @SuppressLint("MissingPermission")
-    fun getDeviceLocationData() {
+    fun applySelectedLocationWeatherData(selectedLocation: LocationResult){
         vmScope.loadingLaunch {
-            val currentWeatherAtDeviceLocation = getDeviceLocationUseCase().first
-            val sixteenDayWeatherAtDeviceLocation = getDeviceLocationUseCase().second
+            val weatherData = getSearchedLocationWeatherUseCase(selectedLocation)
+            val currentWeatherAtSelectedLocation = weatherData.first
+            val sixteenDayWeatherAtSelectedLocation = weatherData.second
+            _currentWeatherData.postValue(currentWeatherAtSelectedLocation)
+            _sixteenDayWeatherData.postValue(sixteenDayWeatherAtSelectedLocation)
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    fun applyDeviceLocationWeatherData() {
+        vmScope.loadingLaunch {
+            val weatherData = getDeviceLocationWeatherUseCase()
+            val currentWeatherAtDeviceLocation = weatherData.first
+            val sixteenDayWeatherAtDeviceLocation = weatherData.second
             _currentWeatherData.postValue(currentWeatherAtDeviceLocation)
             _sixteenDayWeatherData.postValue(sixteenDayWeatherAtDeviceLocation)
         }
