@@ -29,6 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private lateinit var sixteenDayRecyclerView: RecyclerView
     private lateinit var sixteenDayDetailsAdapter: SixteenDayDetailsAdapter
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //before asking for the location, set locationPermissionCallback to HomeFragment
@@ -96,7 +97,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun onLocationGranted() {
-        viewModel.applyDeviceLocationWeatherData()
+            viewModel.applyDeviceLocationWeatherData()
     }
 
     private fun goToManageLocationsFragment() {
