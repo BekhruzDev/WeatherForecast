@@ -23,7 +23,7 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
     private val _searchedLocation = MutableLiveData<SearchedLocationData>()
     private val _currentWeatherData = MutableLiveData<CurrentWeatherData>()
     val currentWeatherData: LiveData<CurrentWeatherData> = _currentWeatherData
-    var showingDeviceLocationWeather: Boolean = true
+    private var showingDeviceLocationWeather: Boolean = true
 
     fun getSearchedLocationData(searchedLocation: String): LiveData<SearchedLocationData> {
         vmScope.loadingLaunch {
