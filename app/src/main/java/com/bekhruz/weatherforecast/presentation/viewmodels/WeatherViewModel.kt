@@ -21,10 +21,9 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
     private val _sixteenDayWeatherData = MutableLiveData<SixteenDayData>()
     val sixteenDayWeatherData: LiveData<SixteenDayData> = _sixteenDayWeatherData
     private val _searchedLocation = MutableLiveData<SearchedLocationData>()
-    val searchedLocation: LiveData<SearchedLocationData> = _searchedLocation
     private val _currentWeatherData = MutableLiveData<CurrentWeatherData>()
     val currentWeatherData: LiveData<CurrentWeatherData> = _currentWeatherData
-
+    var showingDeviceLocationWeather: Boolean = true
 
     fun getSearchedLocationData(searchedLocation: String): LiveData<SearchedLocationData> {
         vmScope.loadingLaunch {
@@ -35,24 +34,29 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun applySelectedLocationWeatherData(selectedLocation: LocationResult){
-        vmScope.loadingLaunch {
-            val weatherData = getSearchedLocationWeatherUseCase(selectedLocation)
-            val currentWeatherAtSelectedLocation = weatherData.first
-            val sixteenDayWeatherAtSelectedLocation = weatherData.second
-            _currentWeatherData.postValue(currentWeatherAtSelectedLocation)
-            _sixteenDayWeatherData.postValue(sixteenDayWeatherAtSelectedLocation)
+        if(!showingDeviceLocationWeather){
+            vmScope.loadingLaunch {
+                val weatherData = getSearchedLocationWeatherUseCase(selectedLocation)
+                val currentWeatherAtSelectedLocation = weatherData.first
+                val sixteenDayWeatherAtSelectedLocation = weatherData.second
+                _currentWeatherData.postValue(currentWeatherAtSelectedLocation)
+                _sixteenDayWeatherData.postValue(sixteenDayWeatherAtSelectedLocation)
+            }
         }
     }
 
 
     @SuppressLint("MissingPermission")
     fun applyDeviceLocationWeatherData() {
-        vmScope.loadingLaunch {
-            val weatherData = getDeviceLocationWeatherUseCase()
-            val currentWeatherAtDeviceLocation = weatherData.first
-            val sixteenDayWeatherAtDeviceLocation = weatherData.second
-            _currentWeatherData.postValue(currentWeatherAtDeviceLocation)
-            _sixteenDayWeatherData.postValue(sixteenDayWeatherAtDeviceLocation)
+        if(showingDeviceLocationWeather){
+            vmScope.loadingLaunch {
+                val weatherData = getDeviceLocationWeatherUseCase()
+                val currentWeatherAtDeviceLocation = weatherData.first
+                val sixteenDayWeatherAtDeviceLocation = weatherData.second
+                _currentWeatherData.postValue(currentWeatherAtDeviceLocation)
+                _sixteenDayWeatherData.postValue(sixteenDayWeatherAtDeviceLocation)
+            }
         }
+        showingDeviceLocationWeather = false
     }
 }

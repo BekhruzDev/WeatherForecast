@@ -1,10 +1,7 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -14,23 +11,15 @@ import com.bekhruz.weatherforecast.presentation.adapter.SearchedLocationsAdapter
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
 import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 import com.bekhruz.weatherforecast.presentation.adapter.SearchedLocationsAdapter
+import com.bekhruz.weatherforecast.presentation.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExploreWeatherFragment : Fragment(), RecyclerViewItemClicked, SearchView.OnQueryTextListener {
+class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(FragmentExploreWeatherBinding::inflate), RecyclerViewItemClicked, SearchView.OnQueryTextListener {
     private val viewModel: WeatherViewModel by activityViewModels()
-    private var _binding: FragmentExploreWeatherBinding? = null
-    private val binding get() = _binding!!
     private lateinit var searchedLocationsRecyclerView: RecyclerView
     private lateinit var searchedLocationsAdapter: SearchedLocationsAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentExploreWeatherBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,9 +68,5 @@ class ExploreWeatherFragment : Fragment(), RecyclerViewItemClicked, SearchView.O
 
     private fun goBackHome() {
         findNavController().navigateUp()
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

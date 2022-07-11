@@ -16,10 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.bekhruz.weatherforecast.R
-import com.bekhruz.weatherforecast.presentation.core.BaseFragment.LocationPermissionInterface
 import com.bekhruz.weatherforecast.utils.Inflate
 import com.bekhruz.weatherforecast.utils.viewExt.showDialog
-import dagger.hilt.android.AndroidEntryPoint
 
 abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment() {
 
@@ -28,7 +26,6 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     val binding get() = _binding!!
     val bindingSafe get() = _binding
     lateinit var locationPermissionCallback: LocationPermissionInterface
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
