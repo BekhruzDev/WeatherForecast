@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bekhruz.weatherforecast.databinding.ItemSearchedCityBinding
 import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
+import com.bekhruz.weatherforecast.presentation.utils.RecyclerViewItemClick
 
-class SearchedLocationsAdapter(private val recyclerViewItemClick: RecyclerViewItemClicked):ListAdapter<LocationResult, SearchedLocationsAdapter.SearchedLocationsViewHolder>(DiffCall) {
+class SearchedLocationsAdapter(private val recyclerViewItemClick: RecyclerViewItemClick<LocationResult>):ListAdapter<LocationResult, SearchedLocationsAdapter.SearchedLocationsViewHolder>(DiffCall) {
     class SearchedLocationsViewHolder(private val binding: ItemSearchedCityBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(data: LocationResult){
             binding.apply {
@@ -33,9 +34,7 @@ class SearchedLocationsAdapter(private val recyclerViewItemClick: RecyclerViewIt
         holder.bind(item)
     }
 
-    interface RecyclerViewItemClicked{
-        fun onItemClicked(item:LocationResult)
-    }
+
     companion object DiffCall : DiffUtil.ItemCallback<LocationResult>() {
         override fun areItemsTheSame(oldItem: LocationResult, newItem: LocationResult): Boolean {
             return oldItem == newItem
