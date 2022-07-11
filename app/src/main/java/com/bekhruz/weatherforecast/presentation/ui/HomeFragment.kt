@@ -16,6 +16,7 @@ import com.bekhruz.weatherforecast.databinding.FragmentHomeBinding
 import com.bekhruz.weatherforecast.presentation.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.presentation.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
+import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
 import com.bekhruz.weatherforecast.presentation.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
@@ -57,6 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
 
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
+        observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
 
         swipeForSixteenDayForecast()
     }
@@ -80,6 +82,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             currentStatusTextview.text = data.text
         }
         hourlyDetailsAdapter.submitList(data.hourlyData)
+    }
+    private fun onSixteenDayWeatherDataLoaded(data: SixteenDayData){
+        sixteenDayDetailsAdapter.submitList(data.dailyForecasts)
     }
 
     private fun swipeForSixteenDayForecast() {
