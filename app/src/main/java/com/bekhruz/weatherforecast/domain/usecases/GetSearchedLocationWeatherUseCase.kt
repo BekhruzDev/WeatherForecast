@@ -18,7 +18,7 @@ class GetSearchedLocationWeatherUseCaseImpl
     private val getGeocodingLocationUseCase: GetGeocodingLocationUseCase
 ):GetSearchedLocationWeatherUseCase{
     override suspend fun invoke(locationResult: LocationResult): Pair<CurrentWeatherData, SixteenDayData> {
-        val currentWeather = getCurrentWeatherUseCase("${locationResult.lat},${locationResult.lon}")
+        val currentWeather = getCurrentWeatherUseCase(locationResult.locationName)
         val sixteenDayWeather = getSixteenDayWeatherUseCase(locationResult.lat.toString(), locationResult.lon.toString())
         return Pair(currentWeather, sixteenDayWeather)
     }

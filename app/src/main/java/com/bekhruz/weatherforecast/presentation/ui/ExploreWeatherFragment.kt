@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
 import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 import com.bekhruz.weatherforecast.presentation.adapter.SearchedLocationsAdapter
-import com.bekhruz.weatherforecast.presentation.core.BaseFragment
+import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.utils.RecyclerViewItemClick
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint

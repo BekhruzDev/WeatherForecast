@@ -17,7 +17,7 @@ import com.bekhruz.weatherforecast.presentation.adapter.HourlyDetailsAdapter
 import com.bekhruz.weatherforecast.presentation.adapter.SixteenDayDetailsAdapter
 import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
 import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
-import com.bekhruz.weatherforecast.presentation.core.BaseFragment
+import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
 import dagger.hilt.android.AndroidEntryPoint

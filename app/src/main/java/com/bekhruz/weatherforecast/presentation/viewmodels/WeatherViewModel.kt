@@ -9,7 +9,7 @@ import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherDa
 import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 import com.bekhruz.weatherforecast.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.bekhruz.weatherforecast.presentation.core.BaseViewModel
+import com.bekhruz.weatherforecast.core.BaseViewModel
 import javax.inject.Inject
 
 

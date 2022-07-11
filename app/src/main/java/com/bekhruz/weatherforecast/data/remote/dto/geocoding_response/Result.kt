@@ -29,7 +29,7 @@ data class Result(
 fun Result.asDomain(): LocationResult {
         return LocationResult(
             locationInfo = String.format("%s, %s",address_line1?:"",country?:""),
-            locationName = name?:address_line1?:"",
+            locationName = city?:address_line1?:"",
             lat = lat?:0.0,
             lon = lon?:0.0
         )
