@@ -54,7 +54,6 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             } else {
                 //Permission was denied
                 showPermissionDeniedDialog()
-                //TODO:showInContextUI(...) explaining the user that the location should be granted
             }
         }
 
