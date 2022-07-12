@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.utils.Inflate
-import com.bekhruz.weatherforecast.utils.viewExt.showDialog
+import com.bekhruz.weatherforecast.utils.showDialog
 
 abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment() {
 
@@ -92,7 +92,8 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             negativeBtnAction = Toast.makeText(requireContext(),"Unfortunately,Permission is denied", Toast.LENGTH_LONG).show(),
             positiveBtnText = resources.getString(R.string.accept),
             positiveBtnAction = requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        )}
+        )
+    }
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", requireContext().applicationContext.packageName, null)
