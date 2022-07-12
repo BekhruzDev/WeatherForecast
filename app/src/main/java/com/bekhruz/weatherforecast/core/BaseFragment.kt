@@ -9,6 +9,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -52,7 +53,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             if (isGranted) {
                 locationPermissionCallback.onLocationGranted()
             } else {
-                //Permission was denied
+                //Permission was denied twice
                 showPermissionDeniedDialog()
             }
         }
@@ -86,9 +87,11 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             context = requireContext(),
             title = resources.getString(R.string.attention_dialog_title),
             message = resources.getString(R.string.location_permission_denied),
-            //negativeBtnText = resources.getString(R.string.decline),
+            //TODO:SHOW SNACKBAR BAR FOR NEGATIVE BUTTON AND SHOW ANOTHER FRAGMENT FOR THIS CASE
+            negativeBtnText = resources.getString(R.string.decline),
+            negativeBtnAction = Toast.makeText(requireContext(),"Unfortunately,Permission is denied", Toast.LENGTH_LONG).show(),
             positiveBtnText = resources.getString(R.string.accept),
-            positiveBtnAction = openSettings()
+            positiveBtnAction = requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         )}
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
