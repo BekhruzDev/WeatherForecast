@@ -1,4 +1,4 @@
-package com.bekhruz.weatherforecast.utils.viewExt
+package com.bekhruz.weatherforecast.utils
 
 import android.app.Dialog
 import android.content.Context

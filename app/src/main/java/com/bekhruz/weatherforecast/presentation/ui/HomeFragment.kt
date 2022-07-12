@@ -20,7 +20,7 @@ import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayDat
 import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
-import com.bekhruz.weatherforecast.utils.viewExt.LottieLoaderDialog
+import com.bekhruz.weatherforecast.utils.LottieLoaderDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
