@@ -33,8 +33,8 @@ abstract class BaseViewModel : ViewModel() {
     fun CoroutineScope.loadingLaunch(suspendCall: suspend () -> Unit) {
         loading.postValue(true)
         launch {
-           loading.postValue(false)
             suspendCall.invoke()
+            loading.postValue(false)
         }
     }
 }
