@@ -20,6 +20,7 @@ import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayDat
 import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
+import com.bekhruz.weatherforecast.utils.viewExt.LottieLoaderDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,7 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
-
+        observe(viewModel.loading, ::controlLoading)
         swipeForSixteenDayForecast()
     }
 
@@ -83,9 +84,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
         hourlyDetailsAdapter.submitList(data.hourlyData)
     }
+
     private fun onSixteenDayWeatherDataLoaded(data: SixteenDayData){
         sixteenDayDetailsAdapter.submitList(data.dailyForecasts)
     }
+
+    private fun controlLoading(shouldLoad:Boolean){
+        if (shouldLoad) LottieLoaderDialog.showLoading(requireContext())
+        else LottieLoaderDialog.hideLoading(requireContext())
+    }
+
 
     private fun swipeForSixteenDayForecast() {
         var set = false
@@ -100,6 +108,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             set = !set
         }
     }
+
+
 
     override fun onLocationGranted() {
             viewModel.applyDeviceLocationWeatherData()

@@ -5,6 +5,7 @@ buildscript {
         lifecycle_version = "2.4.1"
         room_version = '2.4.2'
         hilt_version = '2.40.5'
+        lottie_version = "5.0.3"
     }
     repositories {
         google()

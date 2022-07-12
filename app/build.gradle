@@ -84,4 +84,6 @@ dependencies {
     // Make Hilt generate code in the androidTest folder
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0"
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
 }
