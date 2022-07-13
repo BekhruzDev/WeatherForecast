@@ -26,7 +26,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     val binding get() = _binding!!
     val bindingSafe get() = _binding
     lateinit var locationPermissionCallback: LocationPermissionInterface
-    lateinit var loadingFullScreenDialog : LottieLoaderFragmentDialog
+    lateinit var loadingFullScreenDialog: LottieLoaderFragmentDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,21 +64,21 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
 
     fun askLocationPermission() {
         when {
-                ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED -> {
-                    locationPermissionCallback.onLocationGranted()
-                }
-                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                    showPermissionDeniedDialog()
-                }
-                else -> {
-                    //Directly asking for the Location in the System Dialog
-                    requestPermissionLauncher.launch(
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                }
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                locationPermissionCallback.onLocationGranted()
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                showPermissionDeniedDialog()
+            }
+            else -> {
+                //Directly asking for the Location in the System Dialog
+                requestPermissionLauncher.launch(
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            }
         }
     }
 
@@ -86,27 +86,37 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         fun onLocationGranted()
     }
 
-    private fun showPermissionDeniedDialog(){
-        return showDialog(
+    private fun showPermissionDeniedDialog() {
+         showDialog(
             context = requireContext(),
             title = resources.getString(R.string.attention_dialog_title),
             message = resources.getString(R.string.location_permission_denied),
             //TODO:SHOW SNACKBAR BAR FOR NEGATIVE BUTTON AND SHOW ANOTHER FRAGMENT FOR THIS CASE
             negativeBtnText = resources.getString(R.string.decline),
-            negativeBtnAction = Toast.makeText(requireContext(),"Unfortunately,Permission is denied", Toast.LENGTH_LONG).show(),
+            negativeBtnAction = {
+                Toast.makeText(
+                    requireContext(),
+                    "Unfortunately,Permission is denied",
+                    Toast.LENGTH_LONG
+                ).show()
+                requireActivity().finish()
+            },
             positiveBtnText = resources.getString(R.string.accept),
-            positiveBtnAction = requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            positiveBtnAction = {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
         )
     }
 
 
-    open fun controlLoading(shouldLoad:Boolean){
-        if(shouldLoad) {
+    open fun controlLoading(shouldLoad: Boolean) {
+        if (shouldLoad) {
             loadingFullScreenDialog.show(
-                childFragmentManager, LottieLoaderFragmentDialog.TAG)
-        }
-        else loadingFullScreenDialog.dismiss()
+                childFragmentManager, LottieLoaderFragmentDialog.TAG
+            )
+        } else loadingFullScreenDialog.dismiss()
     }
+
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", requireContext().applicationContext.packageName, null)
