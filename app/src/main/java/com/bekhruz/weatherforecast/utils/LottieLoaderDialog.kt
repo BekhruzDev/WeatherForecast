@@ -8,24 +8,18 @@ import com.bekhruz.weatherforecast.R
 
 
 object LottieLoaderDialog {
-    private fun loadDialog(context:Context):Dialog{
-       val dialogBuilder = Dialog(context)
-        dialogBuilder.let {
+    var dialogBuilder:Dialog? = null
+     fun loadDialog(context:Context, shouldLoad:Boolean){
+       dialogBuilder = Dialog(context)
+        dialogBuilder?.let {
             it.show()
             it.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
-            it.setContentView(R.layout.lottie_loader)
+            it.setContentView(R.layout.fragment_lottie_loader_dialog)
             it.setCancelable(false)
             it.setCanceledOnTouchOutside(false)
-            return it
         }
+        if (shouldLoad) dialogBuilder
+        else dialogBuilder?.dismiss()
     }
-    fun hideLoading(context:Context){
-        loadDialog(context).let {
-            if (it.isShowing) it.cancel()
-        }
-    }
-    fun showLoading(context: Context){
-        hideLoading(context)
-        loadDialog(context)
-    }
+
 }

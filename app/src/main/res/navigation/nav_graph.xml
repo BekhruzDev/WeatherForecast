@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_exploreWeatherFragment"
             app:destination="@id/exploreWeatherFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_lottieLoaderFragmentDialog"
+            app:destination="@id/lottieLoaderFragmentDialog" />
     </fragment>
     <fragment
         android:id="@+id/manageLocationsFragment"
@@ -38,4 +41,14 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <dialog
+        android:id="@+id/lottieLoaderFragmentDialog"
+        android:name="com.bekhruz.weatherforecast.presentation.ui.LottieLoaderFragmentDialog"
+        android:label="LottieLoaderFragmentDialog" >
+        <action
+            android:id="@+id/action_lottieLoaderFragmentDialog_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
 </navigation>
