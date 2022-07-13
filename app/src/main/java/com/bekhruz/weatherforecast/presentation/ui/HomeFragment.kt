@@ -20,7 +20,6 @@ import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayDat
 import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
-import com.bekhruz.weatherforecast.utils.LottieLoaderDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -90,8 +89,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun controlLoading(shouldLoad:Boolean){
-        if (shouldLoad) LottieLoaderDialog.showLoading(requireContext())
-        else LottieLoaderDialog.hideLoading(requireContext())
+        if(shouldLoad) {
+            LottieLoaderFragmentDialog().show(
+                childFragmentManager, LottieLoaderFragmentDialog.TAG)
+        }
+        else LottieLoaderFragmentDialog().dismiss()
     }
 
 
