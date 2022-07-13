@@ -88,13 +88,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         sixteenDayDetailsAdapter.submitList(data.dailyForecasts)
     }
 
-    private fun controlLoading(shouldLoad:Boolean){
-        if(shouldLoad) {
-            LottieLoaderFragmentDialog().show(
-                childFragmentManager, LottieLoaderFragmentDialog.TAG)
-        }
-        else LottieLoaderFragmentDialog().dismiss()
-    }
 
 
     private fun swipeForSixteenDayForecast() {

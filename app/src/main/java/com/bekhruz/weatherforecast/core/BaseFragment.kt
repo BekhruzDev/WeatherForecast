@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.bekhruz.weatherforecast.R
+import com.bekhruz.weatherforecast.presentation.ui.LottieLoaderFragmentDialog
 import com.bekhruz.weatherforecast.utils.Inflate
 import com.bekhruz.weatherforecast.utils.showDialog
 
@@ -25,12 +26,15 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     val binding get() = _binding!!
     val bindingSafe get() = _binding
     lateinit var locationPermissionCallback: LocationPermissionInterface
+    lateinit var loadingFullScreenDialog : LottieLoaderFragmentDialog
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflater(inflater, container, false)
+        loadingFullScreenDialog = LottieLoaderFragmentDialog.getInstance()
         return binding.root
     }
 
@@ -93,6 +97,15 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             positiveBtnText = resources.getString(R.string.accept),
             positiveBtnAction = requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         )
+    }
+
+
+    open fun controlLoading(shouldLoad:Boolean){
+        if(shouldLoad) {
+            loadingFullScreenDialog.show(
+                childFragmentManager, LottieLoaderFragmentDialog.TAG)
+        }
+        else loadingFullScreenDialog.dismiss()
     }
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
