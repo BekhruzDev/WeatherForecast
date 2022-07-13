@@ -11,17 +11,17 @@ fun showDialog(
     message:String,
     negativeBtnText:String,
     positiveBtnText:String,
-    negativeBtnAction: Unit,
-    positiveBtnAction: Unit,
+    negativeBtnAction: ()->Unit,
+    positiveBtnAction: ()->Unit,
 ) {
     MaterialAlertDialogBuilder(context)
         .setTitle(title)
         .setMessage(message)
         .setNegativeButton(negativeBtnText) { dialog, which ->
-            negativeBtnAction
+            negativeBtnAction.invoke()
         }
         .setPositiveButton(positiveBtnText) { dialog, which ->
-            positiveBtnAction
+            positiveBtnAction.invoke()
         }
         .show()
 }

@@ -63,9 +63,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         swipeForSixteenDayForecast()
     }
 
-    override fun onResume() {
+    override fun onStart() {
         askLocationPermission()
-        super.onResume()
+        super.onStart()
     }
 
     private fun onCurrentWeatherDataLoaded(data: CurrentWeatherData) {
