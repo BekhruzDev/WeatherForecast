@@ -16,12 +16,14 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/drawable/ic_search.xml" value="0.1545" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/drawable/ic_search_focused.xml" value="0.1545" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/drawable/ic_sun_cloud_angled_rain.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/drawable/sad_cloud.xml" value="0.117" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/activity_main.xml" value="0.16757246376811594" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_explore_weather.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_home_v2.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_lottie_loader_dialog.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_manage_locations.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_permission_denied.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/fragment_search_for_locations.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/item_city_weather.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/WeatherForecast/app/src/main/res/layout/item_hourly_details.xml" value="0.8" />
