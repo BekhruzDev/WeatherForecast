@@ -12,6 +12,9 @@
     <string name="attention_dialog_title">Attention!</string>
     <string name="decline">No, thanks)</string>
     <string name="accept">Ok</string>
+    <string name="allow">Allow</string>
+    <string name="exit">Leave</string>
     <string name="open_settings">Open Settings</string>
+    <string name="location_denial_message">Oh, it looks like you\'/ve denied the location permission. \n To continue using the app, please allow the location permission</string>
     <string name="after_permission_twice">"Permission is denied Twice. Please turn it on in the settings!!!"</string>
 </resources>

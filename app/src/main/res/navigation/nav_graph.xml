@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_lottieLoaderFragmentDialog"
             app:destination="@id/lottieLoaderFragmentDialog" />
+        <action
+            android:id="@+id/action_homeFragment_to_permissionDeniedFragment"
+            app:destination="@id/permissionDeniedFragment" />
     </fragment>
     <fragment
         android:id="@+id/manageLocationsFragment"
@@ -51,4 +54,15 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </dialog>
+    <fragment
+        android:id="@+id/permissionDeniedFragment"
+        android:name="com.bekhruz.weatherforecast.presentation.ui.PermissionDeniedFragment"
+        android:label="fragment_permission_denied"
+        tools:layout="@layout/fragment_permission_denied" >
+        <action
+            android:id="@+id/action_permissionDeniedFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
