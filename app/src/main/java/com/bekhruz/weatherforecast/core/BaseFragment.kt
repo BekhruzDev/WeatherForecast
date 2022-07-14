@@ -54,31 +54,36 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
-            if (isGranted) {
-                locationPermissionCallback.onLocationGranted()
-            } else {
-                //Permission was denied twice
-                showPermissionDeniedDialog()
+            when (isGranted) {
+                true -> locationPermissionCallback.onLocationGranted()
+                false -> {
+                    if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        //denied
+                        //show denialDialog
+                        showPermissionDeniedDialog()
+                    } else {
+                        //never ask clicked
+                        //goto :( denialFragment and open settings
+                        Toast.makeText(requireContext(),"Never Ask Clicked!!!", Toast.LENGTH_LONG).show()
+                    }
+
+                }
+
             }
         }
 
     fun askLocationPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                locationPermissionCallback.onLocationGranted()
-            }
-            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                showPermissionDeniedDialog()
-            }
-            else -> {
-                //Directly asking for the Location in the System Dialog
-                requestPermissionLauncher.launch(
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            }
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationPermissionCallback.onLocationGranted()
+        } else {
+            //Directly asking for the Location in the System Dialog
+            requestPermissionLauncher.launch(
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
         }
     }
 
@@ -87,23 +92,44 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     }
 
     private fun showPermissionDeniedDialog() {
-         showDialog(
+        showDialog(
             context = requireContext(),
             title = resources.getString(R.string.attention_dialog_title),
             message = resources.getString(R.string.location_permission_denied),
+            //TODO:SHOW SNACKBAR BAR FOR NEGATIVE BUTTON AND SHOW ANOTHER FRAGMENT FOR THIS CASE
+            negativeBtnText = "Go to denial fragment",
+            negativeBtnAction = {
+                Toast.makeText(
+                    requireContext(),
+                    "denialFragment!!!",
+                    Toast.LENGTH_LONG
+                ).show()
+            },
+            positiveBtnText = resources.getString(R.string.accept),
+            positiveBtnAction = {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        )
+    }
+
+    private fun showAfterPermissionDeniedTwiceDialog() {
+        showDialog(
+            context = requireContext(),
+            title = resources.getString(R.string.attention_dialog_title),
+            message = resources.getString(R.string.after_permission_twice),
             //TODO:SHOW SNACKBAR BAR FOR NEGATIVE BUTTON AND SHOW ANOTHER FRAGMENT FOR THIS CASE
             negativeBtnText = resources.getString(R.string.decline),
             negativeBtnAction = {
                 Toast.makeText(
                     requireContext(),
-                    "Unfortunately,Permission is denied",
+                    "Permission is denied Twice",
                     Toast.LENGTH_LONG
                 ).show()
                 requireActivity().finish()
             },
             positiveBtnText = resources.getString(R.string.accept),
             positiveBtnAction = {
-                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                openSettings()
             }
         )
     }

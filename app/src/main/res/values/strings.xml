@@ -12,4 +12,6 @@
     <string name="attention_dialog_title">Attention!</string>
     <string name="decline">No, thanks)</string>
     <string name="accept">Ok</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="after_permission_twice">"Permission is denied Twice. Please turn it on in the settings!!!"</string>
 </resources>
