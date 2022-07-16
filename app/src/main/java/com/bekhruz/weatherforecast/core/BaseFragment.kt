@@ -27,6 +27,8 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     val bindingSafe get() = _binding
     lateinit var locationPermissionCallback: LocationPermissionInterface
     lateinit var loadingFullScreenDialog: LottieLoaderFragmentDialog
+    lateinit var navigationCallback: NavigationInterface
+    var neverAskClicked: Boolean? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +52,14 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         }
     }
 
-    private val requestPermissionLauncher =
+    interface LocationPermissionInterface {
+        fun onLocationGranted()
+    }
+    interface NavigationInterface{
+        fun navigateToPermissionDeniedFragment(neverAskClicked: Boolean)
+    }
+
+   private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
@@ -58,17 +67,15 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
                 true -> locationPermissionCallback.onLocationGranted()
                 false -> {
                     if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        //denied
+                        //denied clicked
                         //show denialDialog
-                        showPermissionDeniedDialog()
+                        showPermissionDeniedDialog(false)
                     } else {
                         //never ask clicked
                         //goto :( denialFragment and open settings
-                        Toast.makeText(requireContext(),"Never Ask Clicked!!!", Toast.LENGTH_LONG).show()
+                        navigationCallback.navigateToPermissionDeniedFragment(true)
                     }
-
                 }
-
             }
         }
 
@@ -81,59 +88,24 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             locationPermissionCallback.onLocationGranted()
         } else {
             //Directly asking for the Location in the System Dialog
-            requestPermissionLauncher.launch(
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
+            requestLocationSystemDialog()
         }
     }
 
-    interface LocationPermissionInterface {
-        fun onLocationGranted()
-    }
 
-    private fun showPermissionDeniedDialog() {
+    private fun showPermissionDeniedDialog(neverAskClicked:Boolean) {
         showDialog(
             context = requireContext(),
             title = resources.getString(R.string.attention_dialog_title),
             message = resources.getString(R.string.location_permission_denied),
-            //TODO:SHOW SNACKBAR BAR FOR NEGATIVE BUTTON AND SHOW ANOTHER FRAGMENT FOR THIS CASE
-            negativeBtnText = "Go to denial fragment",
-            negativeBtnAction = {
-                Toast.makeText(
-                    requireContext(),
-                    "denialFragment!!!",
-                    Toast.LENGTH_LONG
-                ).show()
-            },
-            positiveBtnText = resources.getString(R.string.accept),
-            positiveBtnAction = {
-                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-            }
-        )
-    }
-
-    private fun showAfterPermissionDeniedTwiceDialog() {
-        showDialog(
-            context = requireContext(),
-            title = resources.getString(R.string.attention_dialog_title),
-            message = resources.getString(R.string.after_permission_twice),
-            //TODO:SHOW SNACKBAR BAR FOR NEGATIVE BUTTON AND SHOW ANOTHER FRAGMENT FOR THIS CASE
             negativeBtnText = resources.getString(R.string.decline),
             negativeBtnAction = {
-                Toast.makeText(
-                    requireContext(),
-                    "Permission is denied Twice",
-                    Toast.LENGTH_LONG
-                ).show()
-                requireActivity().finish()
+                navigationCallback.navigateToPermissionDeniedFragment(neverAskClicked)
             },
             positiveBtnText = resources.getString(R.string.accept),
-            positiveBtnAction = {
-                openSettings()
-            }
+            positiveBtnAction = { requestLocationSystemDialog() }
         )
     }
-
 
     open fun controlLoading(shouldLoad: Boolean) {
         if (shouldLoad) {
@@ -142,11 +114,13 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             )
         } else loadingFullScreenDialog.dismiss()
     }
-
-    private fun openSettings() {
+     fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", requireContext().applicationContext.packageName, null)
         intent.data = uri
         startActivity(intent)
+    }
+     fun requestLocationSystemDialog() {
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 }
