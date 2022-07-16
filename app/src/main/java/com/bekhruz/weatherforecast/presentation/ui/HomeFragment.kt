@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,13 +24,19 @@ import com.bekhruz.weatherforecast.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate), BaseFragment.LocationPermissionInterface {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
+    BaseFragment.LocationPermissionInterface,
+    BaseFragment.NavigationInterface {
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var hourlyRecyclerView: RecyclerView
     private lateinit var hourlyDetailsAdapter: HourlyDetailsAdapter
     private lateinit var sixteenDayRecyclerView: RecyclerView
     private lateinit var sixteenDayDetailsAdapter: SixteenDayDetailsAdapter
 
+    override fun onStart() {
+        askLocationPermission()
+        super.onStart()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,6 +44,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         //on which we perform onLocationCallback() that triggers the viewModel's
         //getDeviceLocation()
         locationPermissionCallback = this
+        navigationCallback = this
 
         hourlyRecyclerView = binding.hourlyDetailsRecyclerview
         hourlyDetailsAdapter = HourlyDetailsAdapter()
@@ -63,13 +71,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         swipeForSixteenDayForecast()
     }
 
-    override fun onStart() {
-        askLocationPermission()
-        super.onStart()
-    }
 
     private fun onCurrentWeatherDataLoaded(data: CurrentWeatherData) {
-        binding.apply{
+        binding.apply {
             currentTemperature.text = data.tempC
             cityName.text = data.name
             currentStatusImageview.load(data.icon.toUri().buildUpon().scheme(HTTPS).build())
@@ -84,10 +88,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         hourlyDetailsAdapter.submitList(data.hourlyData)
     }
 
-    private fun onSixteenDayWeatherDataLoaded(data: SixteenDayData){
+    private fun onSixteenDayWeatherDataLoaded(data: SixteenDayData) {
         sixteenDayDetailsAdapter.submitList(data.dailyForecasts)
     }
-
 
 
     private fun swipeForSixteenDayForecast() {
@@ -105,9 +108,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
 
-
     override fun onLocationGranted() {
-            viewModel.applyDeviceLocationWeatherData()
+        viewModel.applyDeviceLocationWeatherData()
     }
 
     private fun goToManageLocationsFragment() {
@@ -120,6 +122,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         findNavController().navigate(
             R.id.action_homeFragment_to_exploreWeatherFragment
         )
+    }
+
+    override fun navigateToPermissionDeniedFragment(neverAskClicked:Boolean) {
+        findNavController().navigate(R.id.action_homeFragment_to_permissionDeniedFragment, bundleOf("neverAskClicked" to neverAskClicked))
+    }
+    companion object{
+        fun getInstance() = HomeFragment()
     }
 
 }

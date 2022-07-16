@@ -1,26 +1,33 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.databinding.FragmentPermissionDeniedBinding
 
-class PermissionDeniedFragment : BaseFragment<FragmentPermissionDeniedBinding>(FragmentPermissionDeniedBinding::inflate) {
+class PermissionDeniedFragment :
+    BaseFragment<FragmentPermissionDeniedBinding>(FragmentPermissionDeniedBinding::inflate) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.allowPermissionButton.setOnClickListener {
-            //TODO:handle both cases: 1. go to settings. 2. show sysDialog
+        val neverAskClicked = arguments?.getBoolean("neverAskClicked")!!
+
+        binding.allowPermissionButton.text = if (neverAskClicked) {
+            resources.getString(R.string.open_settings)
+        } else resources.getString(R.string.allow)
+
+        if (neverAskClicked) {
+            binding.allowPermissionButton.setOnClickListener {
+                openSettings()
+                requireActivity().finish()
+            }
+        } else binding.allowPermissionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_permissionDeniedFragment_to_homeFragment)
         }
         binding.exitAppButton.setOnClickListener {
             requireActivity().finish()
         }
-    }
-    companion object {
-        fun getInstance() = PermissionDeniedFragment()
     }
 }
