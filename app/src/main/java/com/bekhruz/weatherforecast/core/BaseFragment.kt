@@ -1,15 +1,18 @@
 package com.bekhruz.weatherforecast.core
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -120,7 +123,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         intent.data = uri
         startActivity(intent)
     }
-     fun requestLocationSystemDialog() {
+    open fun requestLocationSystemDialog() {
         requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 }

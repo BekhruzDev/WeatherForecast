@@ -33,10 +33,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private lateinit var sixteenDayRecyclerView: RecyclerView
     private lateinit var sixteenDayDetailsAdapter: SixteenDayDetailsAdapter
 
-    override fun onStart() {
-        askLocationPermission()
-        super.onStart()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,6 +67,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         swipeForSixteenDayForecast()
     }
 
+    override fun onStart() {
+        askLocationPermission()
+        super.onStart()
+    }
 
     private fun onCurrentWeatherDataLoaded(data: CurrentWeatherData) {
         binding.apply {
@@ -124,11 +124,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         )
     }
 
-    override fun navigateToPermissionDeniedFragment(neverAskClicked:Boolean) {
-        findNavController().navigate(R.id.action_homeFragment_to_permissionDeniedFragment, bundleOf("neverAskClicked" to neverAskClicked))
+    override fun navigateToPermissionDeniedFragment(neverAskClicked: Boolean) {
+        findNavController().navigate(
+            R.id.action_homeFragment_to_permissionDeniedFragment,
+            bundleOf("neverAskClicked" to neverAskClicked)
+        )
     }
-    companion object{
-        fun getInstance() = HomeFragment()
-    }
-
 }

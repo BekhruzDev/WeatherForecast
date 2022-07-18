@@ -15,6 +15,7 @@
     <string name="allow">Allow</string>
     <string name="exit">Leave</string>
     <string name="open_settings">Open Settings</string>
+    <string name="check_network_state">Connection Failure \nCheck your internet connection</string>
     <string name="location_denial_message">Oh, it looks like you\'ve denied the location permission. \nTo continue using the app, please allow the location permission</string>
     <string name="after_permission_twice">"Permission is denied Twice. Please turn it on in the settings!!!"</string>
 </resources>
