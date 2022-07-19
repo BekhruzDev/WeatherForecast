@@ -29,7 +29,6 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     val binding get() = _binding!!
     val bindingSafe get() = _binding
     lateinit var locationPermissionCallback: LocationPermissionInterface
-    lateinit var loadingFullScreenDialog: LottieLoaderFragmentDialog
     lateinit var navigationCallback: NavigationInterface
     var neverAskClicked: Boolean? = null
 
@@ -39,7 +38,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflater(inflater, container, false)
-        loadingFullScreenDialog = LottieLoaderFragmentDialog.getInstance()
+
         return binding.root
     }
 
@@ -58,11 +57,12 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     interface LocationPermissionInterface {
         fun onLocationGranted()
     }
-    interface NavigationInterface{
+
+    interface NavigationInterface {
         fun navigateToPermissionDeniedFragment(neverAskClicked: Boolean)
     }
 
-   private val requestPermissionLauncher =
+    private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
@@ -96,7 +96,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     }
 
 
-    private fun showPermissionDeniedDialog(neverAskClicked:Boolean) {
+    private fun showPermissionDeniedDialog(neverAskClicked: Boolean) {
         showDialog(
             context = requireContext(),
             title = resources.getString(R.string.attention_dialog_title),
@@ -112,17 +112,29 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
 
     open fun controlLoading(shouldLoad: Boolean) {
         if (shouldLoad) {
+            val fragment =
+                childFragmentManager.findFragmentByTag(LottieLoaderFragmentDialog::class.java.name)
+            if (fragment?.isAdded == true && fragment.isVisible) return
+            val loadingFullScreenDialog = LottieLoaderFragmentDialog.getInstance()
             loadingFullScreenDialog.show(
-                childFragmentManager, LottieLoaderFragmentDialog.TAG
+                childFragmentManager, LottieLoaderFragmentDialog::class.java.name
             )
-        } else loadingFullScreenDialog.dismiss()
+        } else {
+            val loadingDialogFragment =
+                childFragmentManager.findFragmentByTag(LottieLoaderFragmentDialog::class.java.name)
+            loadingDialogFragment?.let {
+                (it as LottieLoaderFragmentDialog).dismiss()
+            }
+        }
     }
-     fun openSettings() {
+
+    fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", requireContext().applicationContext.packageName, null)
         intent.data = uri
         startActivity(intent)
     }
+
     open fun requestLocationSystemDialog() {
         requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
