@@ -10,6 +10,7 @@ import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 import com.bekhruz.weatherforecast.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.bekhruz.weatherforecast.core.BaseViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -35,8 +36,7 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
 
     fun applySelectedLocationWeatherData(selectedLocation: LocationResult){
         if(!showingDeviceLocationWeather){
-            vmScope.loadingLaunch {
-                loading.postValue(false)
+            vmScope.launch {
                 val weatherData = getSearchedLocationWeatherUseCase(selectedLocation)
                 val currentWeatherAtSelectedLocation = weatherData.first
                 val sixteenDayWeatherAtSelectedLocation = weatherData.second
