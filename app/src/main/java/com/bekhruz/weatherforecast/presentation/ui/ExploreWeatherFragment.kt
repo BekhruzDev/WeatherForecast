@@ -14,7 +14,7 @@ import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.utils.RecyclerViewItemClick
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
-//TODO: HANDLE LOCATION CHECKING AND IMPLEMENT ANOTHER SUUITABLE LOADER FOR SEARCHVIEW
+//TODO: HANDLE LOCATION CHECKING AND IMPLEMENT ANOTHER SUITABLE LOADER FOR SEARCHVIEW
 @AndroidEntryPoint
 class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(FragmentExploreWeatherBinding::inflate),
     RecyclerViewItemClick<LocationResult>,
