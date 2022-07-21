@@ -1,5 +1,6 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
@@ -94,6 +95,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
 
+    //TODO: HANDLE THIS
     private fun swipeForSixteenDayForecast() {
         var set = false
         val startingConstraintSet = ConstraintSet()

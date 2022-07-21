@@ -25,7 +25,6 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
     private lateinit var searchedLocationsRecyclerView: RecyclerView
     private lateinit var searchedLocationsAdapter: SearchedLocationsAdapter
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchedLocationsRecyclerView = binding.searchedLocationsRecyclerview
@@ -67,8 +66,8 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
     }
 
     override fun onItemClicked(item: LocationResult) {
-        viewModel.applySelectedLocationWeatherData(item)
         goBackHome()
+        viewModel.applySelectedLocationWeatherData(item)
     }
 
     private fun goBackHome() {
