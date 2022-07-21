@@ -64,7 +64,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
-        observe(viewModel.loading, ::controlLoading)
+        observe(viewModel.loading, ::showLoader)
         swipeForSixteenDayForecast()
     }
 
@@ -108,6 +108,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+    private fun showLoader(isLoading:Boolean){
+        if(isLoading){
+            binding.lottieDotLoader.visibility = View.VISIBLE
+            binding.lottieDotLoader.playAnimation()
+        } else{
+            binding.lottieDotLoader.cancelAnimation()
+            binding.lottieDotLoader.visibility = View.GONE
+        }
+    }
 
     override fun onLocationGranted() {
         viewModel.applyDeviceLocationWeatherData()
