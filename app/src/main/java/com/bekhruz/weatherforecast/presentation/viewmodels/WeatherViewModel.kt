@@ -10,7 +10,6 @@ import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 import com.bekhruz.weatherforecast.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.bekhruz.weatherforecast.core.BaseViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
