@@ -7,12 +7,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
 import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 import com.bekhruz.weatherforecast.presentation.adapter.SearchedLocationsAdapter
 import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.utils.RecyclerViewItemClick
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
+import com.bekhruz.weatherforecast.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
 //TODO: HANDLE LOCATION CHECKING AND IMPLEMENT ANOTHER SUITABLE LOADER FOR SEARCHVIEW
 @AndroidEntryPoint
@@ -62,7 +64,6 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
                 location.let { searchedLocationsAdapter.submitList(it.locationResults) }
             }
     }
-
     override fun onItemClicked(item: LocationResult) {
         goBackHome()
         viewModel.applySelectedLocationWeatherData(item)
