@@ -18,13 +18,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.bekhruz.weatherforecast.R
-import com.bekhruz.weatherforecast.presentation.ui.LottieLoaderFragmentDialog
 import com.bekhruz.weatherforecast.utils.Inflate
 import com.bekhruz.weatherforecast.utils.showDialog
 
 abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment() {
 
-    //TODO: LEARN MORE ABOUT BINDING HERE
     private var _binding: VB? = null
     val binding get() = _binding!!
     val bindingSafe get() = _binding
@@ -47,7 +45,6 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         _binding = null
     }
 
-    //TODO: LEARN THIS!
     open fun handleError(throwable: Throwable) {
         when (throwable) {
             //showErrorDialog
@@ -108,24 +105,6 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             positiveBtnText = resources.getString(R.string.accept),
             positiveBtnAction = { requestLocationSystemDialog() }
         )
-    }
-
-    open fun controlLoading(shouldLoad: Boolean) {
-        if (shouldLoad) {
-            val fragment =
-                childFragmentManager.findFragmentByTag(LottieLoaderFragmentDialog::class.java.name)
-            if (fragment?.isAdded == true && fragment.isVisible) return
-            val loadingFullScreenDialog = LottieLoaderFragmentDialog.getInstance()
-            loadingFullScreenDialog.show(
-                childFragmentManager, LottieLoaderFragmentDialog::class.java.name
-            )
-        } else {
-            val loadingDialogFragment =
-                childFragmentManager.findFragmentByTag(LottieLoaderFragmentDialog::class.java.name)
-            loadingDialogFragment?.let {
-                (it as LottieLoaderFragmentDialog).dismiss()
-            }
-        }
     }
 
     fun openSettings() {

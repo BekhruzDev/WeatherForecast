@@ -16,7 +16,7 @@ import com.bekhruz.weatherforecast.presentation.utils.RecyclerViewItemClick
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
-
+//TODO: HANDLE LOCATION CHECKING AND IMPLEMENT ANOTHER SUITABLE LOADER FOR SEARCHVIEW
 @AndroidEntryPoint
 class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(FragmentExploreWeatherBinding::inflate),
     RecyclerViewItemClick<LocationResult>,
@@ -24,7 +24,6 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var searchedLocationsRecyclerView: RecyclerView
     private lateinit var searchedLocationsAdapter: SearchedLocationsAdapter
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,10 +64,9 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
                 location.let { searchedLocationsAdapter.submitList(it.locationResults) }
             }
     }
-
     override fun onItemClicked(item: LocationResult) {
-        viewModel.applySelectedLocationWeatherData(item)
         goBackHome()
+        viewModel.applySelectedLocationWeatherData(item)
     }
 
     private fun goBackHome() {

@@ -1,5 +1,6 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
@@ -33,6 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private lateinit var sixteenDayRecyclerView: RecyclerView
     private lateinit var sixteenDayDetailsAdapter: SixteenDayDetailsAdapter
 
+    //TODO: ADD LOTTIE LOADER ANIMATION WITHOUT USING DIALOG FRAGMENT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,7 +65,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
-        observe(viewModel.loading, ::controlLoading)
+        observe(viewModel.loading, ::showLoader)
         swipeForSixteenDayForecast()
     }
 
@@ -93,6 +95,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
 
+    //TODO: HANDLE THIS
     private fun swipeForSixteenDayForecast() {
         var set = false
         val startingConstraintSet = ConstraintSet()
@@ -107,6 +110,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+    private fun showLoader(isLoading:Boolean){
+        if(isLoading){
+            binding.lottieDotLoader.visibility = View.VISIBLE
+            binding.lottieDotLoader.playAnimation()
+        } else{
+            binding.lottieDotLoader.cancelAnimation()
+            binding.lottieDotLoader.visibility = View.GONE
+        }
+    }
 
     override fun onLocationGranted() {
         viewModel.applyDeviceLocationWeatherData()

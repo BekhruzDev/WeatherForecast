@@ -36,7 +36,7 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
 
     fun applySelectedLocationWeatherData(selectedLocation: LocationResult){
         if(!showingDeviceLocationWeather){
-            vmScope.launch {
+            vmScope.loadingLaunch {
                 val weatherData = getSearchedLocationWeatherUseCase(selectedLocation)
                 val currentWeatherAtSelectedLocation = weatherData.first
                 val sixteenDayWeatherAtSelectedLocation = weatherData.second
