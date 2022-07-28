@@ -1,5 +1,6 @@
 package com.bekhruz.weatherforecast.data.remote.retrofitservice
 
+import com.bekhruz.weatherforecast.data.remote.ErrorInterceptor
 import com.bekhruz.weatherforecast.data.remote.HttpLoggingInterceptor
 import com.bekhruz.weatherforecast.data.remote.api.GeocodingApiService
 import com.bekhruz.weatherforecast.data.remote.utils.Constants
@@ -14,6 +15,7 @@ object GeocodingApi {
     private val okHttpClient = OkHttpClient
         .Builder()
         .addInterceptor(HttpLoggingInterceptor().invoke())
+        .addInterceptor(ErrorInterceptor())
         .build()
 
     //moshi object

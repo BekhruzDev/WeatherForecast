@@ -1,10 +1,18 @@
 package com.bekhruz.weatherforecast.data.remote
 
-import okio.IOException
-import java.io.IOException as JavaIOException
+import java.io.IOException
+sealed class NetworkExceptions:IOException()
+    class ServerErrorException(private val errorMessage: String):NetworkExceptions(){
+        override val message: String
+            get() = errorMessage
+    }
+    class BadRequestException(private val errorMessage: String):NetworkExceptions(){
+        override val message: String
+            get() = errorMessage
+    }
+    class UnAuthorizedException(private val errorMessage: String):NetworkExceptions(){
+        override val message: String
+            get() = errorMessage
+    }
+    //UnknownHostException for no internet connectivity
 
-sealed class NetworkExceptions {
-    class ServerErrorException: IOException()
-    class BadRequestException: IOException()
-    class UnAuthorizedException: JavaIOException()
-}
