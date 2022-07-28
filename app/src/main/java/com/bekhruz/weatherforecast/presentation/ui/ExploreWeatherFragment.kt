@@ -37,6 +37,7 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
         binding.icNavigateUpButton.setOnClickListener {
             goBackHome()
         }
+        observe(viewModel.errorOther, ::handleError)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
