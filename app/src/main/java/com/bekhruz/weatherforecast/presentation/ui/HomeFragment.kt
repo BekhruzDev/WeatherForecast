@@ -66,6 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
         observe(viewModel.loading, ::showLoader)
+        observe(viewModel.errorOther, ::handleError)
         swipeForSixteenDayForecast()
     }
 

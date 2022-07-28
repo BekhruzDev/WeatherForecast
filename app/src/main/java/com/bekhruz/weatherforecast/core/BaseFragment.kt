@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -13,6 +15,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -20,9 +23,13 @@ import androidx.viewbinding.ViewBinding
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.utils.Inflate
 import com.bekhruz.weatherforecast.utils.showDialog
+import com.bekhruz.weatherforecast.utils.showSnackMessage
+import dagger.hilt.android.AndroidEntryPoint
+import java.io.IOException
+import java.net.UnknownHostException
+import javax.inject.Inject
 
-abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment() {
-
+abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment(){
     private var _binding: VB? = null
     val binding get() = _binding!!
     val bindingSafe get() = _binding
@@ -47,6 +54,12 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
 
     open fun handleError(throwable: Throwable) {
         when (throwable) {
+            is IOException -> {
+                Toast.makeText(requireContext(), resources.getString(R.string.check_network_state), Toast.LENGTH_LONG ).show()
+            }
+            else -> {
+
+            }
             //showErrorDialog
         }
     }
