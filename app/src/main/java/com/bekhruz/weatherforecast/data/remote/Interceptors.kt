@@ -8,6 +8,7 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import com.bekhruz.weatherforecast.data.remote.ResponseCodes.Companion.BAD_GATEWAY_ERROR
 import com.bekhruz.weatherforecast.data.remote.ResponseCodes.Companion.BAD_REQUEST_ERROR
+import com.bekhruz.weatherforecast.data.remote.ResponseCodes.Companion.OK
 
 class HttpLoggingInterceptor {
     private val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -22,11 +23,16 @@ class ErrorInterceptor : Interceptor {
         val request: Request = chain.request()
         val response = chain.proceed(request)
         val message = response.message
-        throw when (response.code) {
-            UNAUTHORIZED_ERROR -> UnAuthorizedException(message)
-            INTERNAL_SERVER_ERROR, BAD_GATEWAY_ERROR -> ServerErrorException(message)
-            BAD_REQUEST_ERROR -> BadRequestException(message)
-            else -> OtherException(message)
+        if (response.code == OK || response.isSuccessful){
+            return response
+        }
+        else {
+            throw when (response.code) {
+                UNAUTHORIZED_ERROR -> UnAuthorizedException(message)
+                INTERNAL_SERVER_ERROR, BAD_GATEWAY_ERROR -> ServerErrorException(message)
+                BAD_REQUEST_ERROR -> BadRequestException(message)
+                else -> OtherException(message)
+            }
         }
     }
 }

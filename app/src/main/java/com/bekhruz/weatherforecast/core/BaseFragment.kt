@@ -1,16 +1,22 @@
 package com.bekhruz.weatherforecast.core
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -45,7 +51,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         _binding = null
     }
 
-    open fun handleError(throwable: Throwable) {
+     fun handleError(throwable: Throwable) {
         when (throwable) {
             is UnknownHostException -> {
                 Toast.makeText(requireContext(), resources.getString(R.string.check_network_state), Toast.LENGTH_SHORT ).show()
@@ -62,7 +68,6 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
             else -> {
                 Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
             }
-
         }
     }
 
@@ -127,6 +132,30 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         val uri = Uri.fromParts("package", requireContext().applicationContext.packageName, null)
         intent.data = uri
         startActivity(intent)
+    }
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     open fun requestLocationSystemDialog() {
