@@ -36,4 +36,5 @@ object ApplicationModule {
     ): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(appContext)
     }
+
 }

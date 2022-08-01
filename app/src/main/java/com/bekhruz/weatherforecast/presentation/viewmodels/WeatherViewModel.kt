@@ -3,6 +3,7 @@ package com.bekhruz.weatherforecast.presentation.viewmodels
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.bekhruz.weatherforecast.domain.models.geocoding.SearchedLocationData
 import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
 import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
@@ -20,14 +21,14 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
     //useCases
     @Inject lateinit var getDeviceLocationWeatherUseCase: GetDeviceLocationWeatherUseCase
     @Inject lateinit var getSearchedLocationWeatherUseCase: GetSearchedLocationWeatherUseCase
-    @Inject lateinit var doDemoRequestUseCase: DoDemoRequestUseCase
     private val _sixteenDayWeatherData = MutableLiveData<SixteenDayData>()
     val sixteenDayWeatherData: LiveData<SixteenDayData> = _sixteenDayWeatherData
     private val _searchedLocation = MutableLiveData<SearchedLocationData>()
     private val _currentWeatherData = MutableLiveData<CurrentWeatherData>()
     val currentWeatherData: LiveData<CurrentWeatherData> = _currentWeatherData
     private var showingDeviceLocationWeather: Boolean = true
-
+    private val _hasInternetLiveData = MutableLiveData<Boolean>()
+    val hasInternetLiveData:LiveData<Boolean> = _hasInternetLiveData
     fun getSearchedLocationData(searchedLocation: String): LiveData<SearchedLocationData> {
         vmScope.loadingLaunch {
             val response = getSearchedLocationWeatherUseCase.getSearchedLocationResults(searchedLocation)
@@ -62,8 +63,15 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
         }
         showingDeviceLocationWeather = false
     }
-    /*fun sendDemoNetworkCall():Response<CurrentWeatherData>{
-
+    fun checkInternetConnection() {
+        vmScope.loadingLaunch {
+            getSearchedLocationData("london")
+            changeConnection(true) //success
         }
-    }*/
+    }
+
+    fun changeConnection(isConnected : Boolean){
+        _hasInternetLiveData.postValue(isConnected)
+    }
+
 }

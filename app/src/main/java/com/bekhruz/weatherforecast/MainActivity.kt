@@ -1,30 +1,28 @@
 package com.bekhruz.weatherforecast
 
-import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bekhruz.weatherforecast.databinding.ActivityMainBinding
+import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private lateinit var networkChangedReceiver:NetworkChangedReceiver
+    private lateinit var networkChangedReceiver: NetworkChangedReceiver
+    private val viewModel: WeatherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,17 +45,20 @@ class MainActivity : AppCompatActivity(){
         unregisterReceiver(networkChangedReceiver)
     }
 
-    inner class NetworkChangedReceiver:BroadcastReceiver(){
+    inner class NetworkChangedReceiver : BroadcastReceiver() {
         @RequiresApi(Build.VERSION_CODES.M)
         override fun onReceive(context: Context?, intent: Intent?) {
-            val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val connectivityManager =
+                context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = connectivityManager.activeNetwork
-            if(activeNetwork != null){
+            if (activeNetwork != null) {
+                viewModel.checkInternetConnection()
                 Toast.makeText(context, "we have network connection", Toast.LENGTH_LONG).show()
-            }else{
-                Toast.makeText(context, "we don't have network connection", Toast.LENGTH_LONG).show()
+            } else {
+                viewModel.changeConnection(false)
+                Toast.makeText(context, "we don't have network connection", Toast.LENGTH_LONG)
+                    .show()
             }
         }
-
     }
 }
