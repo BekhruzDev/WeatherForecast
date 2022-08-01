@@ -17,8 +17,9 @@
     <string name="open_settings">Open Settings</string>
     <string name="no_locations_found">No results found!</string>
     <string name="enter_location">Enter a correct location name</string>
-    <string name="check_network_state">Connection Failure \nCheck your internet connection</string>
+    <string name="check_network_state">Ooops!\nCheck your internet connection!</string>
     <string name="location_denial_message">Oh, it looks like you\'ve denied the location permission. \nTo continue using the app, please allow the location permission</string>
     <string name="after_permission_twice">"Permission is denied Twice. Please turn it on in the settings!!!"</string>
     <string name="server_error_exception">Something is wrong with the server\nPlease, try again later!</string>
+    <string name="refresh">refresh</string>
 </resources>

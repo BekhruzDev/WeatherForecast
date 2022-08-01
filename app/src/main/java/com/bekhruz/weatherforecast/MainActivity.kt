@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -15,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bekhruz.weatherforecast.databinding.ActivityMainBinding
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
+import com.bekhruz.weatherforecast.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(networkChangedReceiver, filter)
+        observe(viewModel.hasInternetLiveData, ::handleNetworkConnectivity)
     }
 
     override fun onPause() {
@@ -52,7 +55,10 @@ class MainActivity : AppCompatActivity() {
                 context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = connectivityManager.activeNetwork
             if (activeNetwork != null) {
-                viewModel.checkInternetConnection()
+                //viewModel.checkInternetConnection()
+                binding.refreshBtn.setOnClickListener {
+                    viewModel.checkInternetConnection()
+                }
                 Toast.makeText(context, "we have network connection", Toast.LENGTH_LONG).show()
             } else {
                 viewModel.changeConnection(false)
@@ -61,4 +67,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun handleNetworkConnectivity(hasConnection: Boolean) {
+        if(hasConnection){
+            binding.noConnectionCardLayout.visibility = View.GONE
+            binding.navHostFragment.visibility = View.VISIBLE
+        } else{
+            binding.noConnectionCardLayout.visibility = View.VISIBLE
+            binding.navHostFragment.visibility = View.GONE
+        }
+    }
 }
+
