@@ -10,6 +10,8 @@ import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 import com.bekhruz.weatherforecast.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.bekhruz.weatherforecast.core.BaseViewModel
+import kotlinx.coroutines.async
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -18,6 +20,7 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
     //useCases
     @Inject lateinit var getDeviceLocationWeatherUseCase: GetDeviceLocationWeatherUseCase
     @Inject lateinit var getSearchedLocationWeatherUseCase: GetSearchedLocationWeatherUseCase
+    @Inject lateinit var doDemoRequestUseCase: DoDemoRequestUseCase
     private val _sixteenDayWeatherData = MutableLiveData<SixteenDayData>()
     val sixteenDayWeatherData: LiveData<SixteenDayData> = _sixteenDayWeatherData
     private val _searchedLocation = MutableLiveData<SearchedLocationData>()
@@ -59,4 +62,8 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
         }
         showingDeviceLocationWeather = false
     }
+    /*fun sendDemoNetworkCall():Response<CurrentWeatherData>{
+
+        }
+    }*/
 }

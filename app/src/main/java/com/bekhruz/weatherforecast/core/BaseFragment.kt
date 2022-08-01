@@ -54,7 +54,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
      fun handleError(throwable: Throwable) {
         when (throwable) {
             is UnknownHostException -> {
-                Toast.makeText(requireContext(), resources.getString(R.string.check_network_state), Toast.LENGTH_SHORT ).show()
+                //Toast.makeText(requireContext(), resources.getString(R.string.check_network_state), Toast.LENGTH_SHORT ).show()
             }
             is ServerErrorException ->{
                 Toast.makeText(requireContext(), resources.getString(R.string.server_error_exception), Toast.LENGTH_SHORT ).show()
