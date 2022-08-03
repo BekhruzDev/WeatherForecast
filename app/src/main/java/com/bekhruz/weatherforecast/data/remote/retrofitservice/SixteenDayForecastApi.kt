@@ -1,24 +1,22 @@
 package com.bekhruz.weatherforecast.data.remote.retrofitservice
 
+import com.bekhruz.weatherforecast.data.remote.ErrorInterceptor
+import com.bekhruz.weatherforecast.data.remote.HttpLoggingInterceptor
 import com.bekhruz.weatherforecast.data.remote.api.SixteenDayApiService
 import com.bekhruz.weatherforecast.data.remote.utils.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object SixteenDayForecastApi {
-    //logging interceptor
-    private val interceptor = run {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.apply {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        }
-    }
     //OkHttpClient
-    private val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+    private val okHttpClient = OkHttpClient
+        .Builder()
+        .addInterceptor(HttpLoggingInterceptor().invoke())
+        .addInterceptor(ErrorInterceptor())
+        .build()
 
     //moshi object
     private val moshi = Moshi
@@ -33,6 +31,7 @@ object SixteenDayForecastApi {
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(okHttpClient)
         .build()
+
     //retrofit service
     val retrofitService: SixteenDayApiService by lazy {
         retrofit.create(SixteenDayApiService::class.java)

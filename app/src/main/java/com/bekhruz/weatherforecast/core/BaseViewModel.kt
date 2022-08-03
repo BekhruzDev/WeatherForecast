@@ -11,18 +11,13 @@ abstract class BaseViewModel : ViewModel() {
     val errorOther: MutableLiveData<Throwable> = MutableLiveData()
     var loading = MutableLiveData<Boolean>()
 
-    val handler = CoroutineExceptionHandler { _, exception ->
+    private val handler = CoroutineExceptionHandler { _, exception ->
         errorProcess(exception)
     }
 
-    fun <T> Flow<T>.handleErrors(): Flow<T> =
-        catch { exception ->
-            errorProcess(exception)
-        }
-
     val vmScope = viewModelScope + handler + Dispatchers.IO
 
-    fun errorProcess(throwable: Throwable, f: ((t: Throwable) -> Unit)? = null) {
+    private fun errorProcess(throwable: Throwable) {
         viewModelScope.launch {
             loading.postValue(false)
             errorOther.postValue(throwable)

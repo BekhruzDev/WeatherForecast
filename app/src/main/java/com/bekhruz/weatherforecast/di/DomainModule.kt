@@ -40,4 +40,5 @@ abstract class DomainModule {
         impl: GetSearchedLocationWeatherUseCaseImpl
     ): GetSearchedLocationWeatherUseCase
 
+
 }

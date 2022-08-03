@@ -3,6 +3,7 @@ package com.bekhruz.weatherforecast.presentation.viewmodels
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.bekhruz.weatherforecast.domain.models.geocoding.SearchedLocationData
 import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayData
 import com.bekhruz.weatherforecast.domain.models.currentweather.CurrentWeatherData
@@ -10,6 +11,9 @@ import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
 import com.bekhruz.weatherforecast.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.bekhruz.weatherforecast.core.BaseViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -24,7 +28,8 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
     private val _currentWeatherData = MutableLiveData<CurrentWeatherData>()
     val currentWeatherData: LiveData<CurrentWeatherData> = _currentWeatherData
     private var showingDeviceLocationWeather: Boolean = true
-
+    private val _hasInternetLiveData = MutableLiveData<Boolean>()
+    val hasInternetLiveData:LiveData<Boolean> = _hasInternetLiveData
     fun getSearchedLocationData(searchedLocation: String): LiveData<SearchedLocationData> {
         vmScope.loadingLaunch {
             val response = getSearchedLocationWeatherUseCase.getSearchedLocationResults(searchedLocation)
@@ -59,4 +64,15 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
         }
         showingDeviceLocationWeather = false
     }
+    fun checkInternetConnection() {
+        vmScope.launch {
+            getSearchedLocationData("london")
+            changeConnection(true) //success
+        }
+    }
+
+    fun changeConnection(isConnected : Boolean){
+        _hasInternetLiveData.postValue(isConnected)
+    }
+
 }

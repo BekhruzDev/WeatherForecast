@@ -1,7 +1,9 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -37,6 +39,7 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
         binding.icNavigateUpButton.setOnClickListener {
             goBackHome()
         }
+        observe(viewModel.errorOther, ::handleError)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

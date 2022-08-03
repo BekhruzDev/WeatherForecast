@@ -1,8 +1,10 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
@@ -65,7 +67,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
-        observe(viewModel.loading, ::showLoader)
+        observe(viewModel.errorOther, ::handleError)
         swipeForSixteenDayForecast()
     }
 
@@ -74,6 +76,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         super.onStart()
     }
 
+    override fun onResume() {
+        observe(viewModel.loading, ::showLoader)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        hideLoader()
+        super.onPause()
+    }
     private fun onCurrentWeatherDataLoaded(data: CurrentWeatherData) {
         binding.apply {
             currentTemperature.text = data.tempC
@@ -115,9 +126,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             binding.lottieDotLoader.visibility = View.VISIBLE
             binding.lottieDotLoader.playAnimation()
         } else{
-            binding.lottieDotLoader.cancelAnimation()
-            binding.lottieDotLoader.visibility = View.GONE
+          hideLoader()
         }
+    }
+    private fun hideLoader(){
+        binding.lottieDotLoader.cancelAnimation()
+        binding.lottieDotLoader.visibility = View.GONE
     }
 
     override fun onLocationGranted() {
@@ -141,5 +155,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             R.id.action_homeFragment_to_permissionDeniedFragment,
             bundleOf("neverAskClicked" to neverAskClicked)
         )
+    }
+    companion object{
+        fun getInstance() = HomeFragment()
     }
 }
