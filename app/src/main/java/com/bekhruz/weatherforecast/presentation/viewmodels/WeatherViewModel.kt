@@ -12,6 +12,7 @@ import com.bekhruz.weatherforecast.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.bekhruz.weatherforecast.core.BaseViewModel
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -64,7 +65,7 @@ class WeatherViewModel @Inject constructor() : BaseViewModel() {
         showingDeviceLocationWeather = false
     }
     fun checkInternetConnection() {
-        vmScope.loadingLaunch {
+        vmScope.launch {
             getSearchedLocationData("london")
             changeConnection(true) //success
         }

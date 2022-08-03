@@ -66,7 +66,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
                 Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
             }
             else -> {
-                Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
+                //Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
             }
         }
     }

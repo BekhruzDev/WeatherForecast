@@ -9,12 +9,12 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.bekhruz.weatherforecast.databinding.ActivityMainBinding
+import com.bekhruz.weatherforecast.presentation.ui.HomeFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,17 +34,13 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         networkChangedReceiver = NetworkChangedReceiver()
-    }
-
-    override fun onResume() {
-        super.onResume()
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(networkChangedReceiver, filter)
         observe(viewModel.hasInternetLiveData, ::handleNetworkConnectivity)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         unregisterReceiver(networkChangedReceiver)
     }
 
@@ -59,20 +55,22 @@ class MainActivity : AppCompatActivity() {
                 binding.refreshBtn.setOnClickListener {
                     viewModel.checkInternetConnection()
                 }
-                Toast.makeText(context, "we have network connection", Toast.LENGTH_LONG).show()
             } else {
                 viewModel.changeConnection(false)
-                Toast.makeText(context, "we don't have network connection", Toast.LENGTH_LONG)
-                    .show()
+                binding.refreshBtn.setOnClickListener {
+                    //do nothing
+                }
             }
         }
     }
 
     private fun handleNetworkConnectivity(hasConnection: Boolean) {
-        if(hasConnection){
+        if (hasConnection) {
+            HomeFragment.getInstance()
             binding.noConnectionCardLayout.visibility = View.GONE
             binding.navHostFragment.visibility = View.VISIBLE
-        } else{
+
+        } else {
             binding.noConnectionCardLayout.visibility = View.VISIBLE
             binding.navHostFragment.visibility = View.GONE
         }

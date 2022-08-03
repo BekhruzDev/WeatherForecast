@@ -73,8 +73,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun onStart() {
         askLocationPermission()
-        observe(viewModel.loading, ::showLoader)
         super.onStart()
+    }
+
+    override fun onResume() {
+        observe(viewModel.loading, ::showLoader)
+        super.onResume()
     }
 
     override fun onPause() {
@@ -151,5 +155,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             R.id.action_homeFragment_to_permissionDeniedFragment,
             bundleOf("neverAskClicked" to neverAskClicked)
         )
+    }
+    companion object{
+        fun getInstance() = HomeFragment()
     }
 }
