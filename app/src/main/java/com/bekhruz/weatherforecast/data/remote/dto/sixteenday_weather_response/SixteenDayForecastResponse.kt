@@ -6,8 +6,8 @@ import com.squareup.moshi.Json
 data class SixteenDayForecastResponse(
     val city_name: String?,
     val country_code: String?,
-    @Json(name = "`data`")
-    val data: List<Data>?,
+
+    val `data`: List<Data>?,
     val lat: String?,
     val lon: String?,
     val state_code: String?,
