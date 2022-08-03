@@ -19,9 +19,12 @@ fun CurrentForecastResponse.asDomain(): CurrentWeatherData =
         humidity = String.format("%d%%%nHumidity", current.humidity?:0),
         pressureMb = String.format(
             "%.1f mbar%nPressure", current.pressure_mb?:0.0),
+        lastUpdatedTime = TimeFormat.getTime(
+            current.last_updated_epoch?.toLong() ?: 0L,
+            TimeFormattingType.dateWithWeekdayShort),
         lastUpdateDate = TimeFormat.getTime(
             current.last_updated_epoch?.toLong() ?: 0L,
-            TimeFormattingType.dateWithWeekday
+            TimeFormattingType.dateWithWeekdayLong
         ),
         windKph = String.format("%.1f km/h%nWind", current.wind_kph?:0.0),
         dailyChanceOfRain = String.format(

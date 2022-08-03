@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = connectivityManager.activeNetwork
             if (activeNetwork != null) {
-                //viewModel.checkInternetConnection()
+                viewModel.checkInternetConnection()
                 binding.refreshBtn.setOnClickListener {
                     viewModel.checkInternetConnection()
                 }

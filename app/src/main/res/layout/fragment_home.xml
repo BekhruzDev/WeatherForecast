@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".presentation.ui.HomeFragment">
-    <com.airbnb.lottie.LottieAnimationView
+   <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_dot_loader"
         android:background="#80000000"
         android:elevation="10dp"
@@ -41,14 +41,13 @@
 
             <ImageView
                 android:id="@+id/ic_menu"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:importantForAccessibility="no"
                 android:padding="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_outline_menu_24"
-                tools:ignore="ImageContrastCheck" />
+                app:srcCompat="@drawable/ic_outline_menu_24" />
             <TextView
                 android:id="@+id/city_name"
                 android:layout_width="wrap_content"
@@ -63,13 +62,13 @@
 
             <ImageView
                 android:id="@+id/ic_add"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:importantForAccessibility="no"
                 android:padding="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/ic_menu"
-                app:srcCompat="@drawable/ic_baseline_add_24" />
+                app:srcCompat="@drawable/ic_baseline_search_24" />
 
             <ImageView
                 android:id="@+id/current_status_imageview"
@@ -77,42 +76,43 @@
                 android:layout_height="135dp"
                 android:layout_marginTop="48dp"
                 android:importantForAccessibility="no"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/current_temperature"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat = "@drawable/ic_fluent_weather_partly_cloudy_day_24_filled"/>
+                tools:srcCompat="@drawable/ic_fluent_weather_partly_cloudy_day_24_filled" />
 
             <TextView
-                android:id="@+id/last_updated_date"
+                android:id="@+id/last_updated_date1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/current_status_imageview"
-                tools:text="Sunday | Nov 14" />
+                app:layout_constraintEnd_toEndOf="@id/current_temperature"
+                app:layout_constraintStart_toStartOf="@id/current_temperature"
+                app:layout_constraintTop_toTopOf="@id/current_status_textview"
+                tools:text="Sun | Nov 14" />
 
             <TextView
                 android:id="@+id/current_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:textColor="@color/white"
-                android:textSize="72sp"
+                android:textSize="60sp"
+                app:layout_constraintBottom_toBottomOf="@id/current_status_imageview"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_updated_date"
-                tools:text="24" />
+                app:layout_constraintStart_toEndOf="@id/current_status_imageview"
+                app:layout_constraintTop_toBottomOf="@+id/city_name"
+                tools:text="24.7" />
 
             <TextView
                 android:id="@+id/current_status_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/current_temperature"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/current_status_imageview"
+                app:layout_constraintStart_toStartOf="@id/current_status_imageview"
+                app:layout_constraintTop_toBottomOf="@+id/current_status_imageview"
                 tools:text="Heavy Rain" />
 
             <View
@@ -126,15 +126,15 @@
                 app:layout_constraintTop_toBottomOf="@id/current_status_textview" />
 
             <ImageView
-                android:id="@+id/ic_plane"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:id="@+id/ic_wind_speed"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginStart="38dp"
                 android:layout_marginTop="16dp"
                 android:importantForAccessibility="no"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/card_divider"
-                app:srcCompat="@drawable/ic_direction" />
+                app:srcCompat="@drawable/ic_wind_speed" />
 
             <TextView
                 android:id="@+id/wind_speed"
@@ -143,8 +143,8 @@
                 android:layout_marginStart="4dp"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@id/ic_plane"
-                app:layout_constraintTop_toTopOf="@id/ic_plane"
+                app:layout_constraintStart_toEndOf="@id/ic_wind_speed"
+                app:layout_constraintTop_toTopOf="@id/ic_wind_speed"
                 tools:text="3.7 km/h \n Wind" />
 
             <ImageView
@@ -154,7 +154,7 @@
                 android:layout_marginEnd="4dp"
                 android:importantForAccessibility="no"
                 app:layout_constraintEnd_toStartOf="@id/chance_of_rain_textview"
-                app:layout_constraintTop_toTopOf="@id/ic_plane"
+                app:layout_constraintTop_toTopOf="@id/ic_wind_speed"
                 app:srcCompat="@drawable/ic_rain_chance" />
 
             <TextView
@@ -165,19 +165,19 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ic_plane"
+                app:layout_constraintTop_toTopOf="@id/ic_wind_speed"
                 tools:text="74% \n Chance of rain" />
 
             <ImageView
                 android:id="@+id/ic_thermometer"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginStart="38dp"
                 android:layout_marginTop="24dp"
                 android:importantForAccessibility="no"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ic_plane"
+                app:layout_constraintTop_toBottomOf="@id/ic_wind_speed"
                 app:srcCompat="@drawable/ic_termometer" />
 
             <TextView
@@ -218,14 +218,13 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="10dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_degree"
                 app:layout_constraintStart_toEndOf="@+id/current_temperature"
-                app:layout_constraintTop_toBottomOf="@+id/last_updated_date" />
+                app:layout_constraintTop_toTopOf="@id/current_temperature"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -283,39 +282,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hourly_details_card">
 
-        <TextView
-            android:id="@+id/sixteen_day_forecast_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="@string/forecasts_for_16_days"
-            android:textColor="@color/curious_blue"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/icon_swipe_down"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="4dp"
-            android:importantForAccessibility="no"
-            app:layout_constraintBottom_toBottomOf="@id/sixteen_day_forecast_textview"
-            app:layout_constraintStart_toEndOf="@id/sixteen_day_forecast_textview"
-            app:layout_constraintTop_toTopOf="@id/sixteen_day_forecast_textview"
-            app:srcCompat="@drawable/ic_down_arrow" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sixteen_day_forecast_recyclerview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sixteen_day_forecast_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="16"
             tools:listitem="@layout/item_sixteen_day_details" />
     </androidx.constraintlayout.widget.ConstraintLayout>

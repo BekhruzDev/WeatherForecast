@@ -10,6 +10,7 @@ data class CurrentWeatherData(
     val hourlyData: List<Hourly>,
     val tempC: String,
     val name: String,
+    val lastUpdatedTime:String,
     val lastUpdateDate: String,
     val lat: Double,
     val lon: Double

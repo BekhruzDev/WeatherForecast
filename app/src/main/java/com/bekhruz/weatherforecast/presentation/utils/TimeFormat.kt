@@ -7,9 +7,10 @@ object TimeFormat {
     fun getTime(epochSecond: Long, type:TimeFormattingType):String{
         val givenTime = Date(epochSecond * 1000)
         val timeFormat = when (type) {
-            TimeFormattingType.dateWithWeekday -> SimpleDateFormat("EEEE | MMMM d", Locale.getDefault())
+            TimeFormattingType.dateWithWeekdayLong -> SimpleDateFormat("EEEE | MMMM d", Locale.getDefault())
             TimeFormattingType.time -> SimpleDateFormat("HH:mm", Locale.getDefault())
             TimeFormattingType.date -> SimpleDateFormat("MMMM d", Locale.getDefault())
+            TimeFormattingType.dateWithWeekdayShort -> SimpleDateFormat("EE | MMMM d", Locale.getDefault())
         }
         timeFormat.timeZone = TimeZone.getTimeZone("UTC")
         return timeFormat.format(givenTime)
@@ -18,5 +19,5 @@ object TimeFormat {
 }
 
 enum class TimeFormattingType {
-    date, time, dateWithWeekday
+    date, time, dateWithWeekdayShort, dateWithWeekdayLong
 }

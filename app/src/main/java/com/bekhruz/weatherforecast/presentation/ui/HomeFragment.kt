@@ -36,7 +36,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private lateinit var sixteenDayRecyclerView: RecyclerView
     private lateinit var sixteenDayDetailsAdapter: SixteenDayDetailsAdapter
 
-    //TODO: ADD LOTTIE LOADER ANIMATION WITHOUT USING DIALOG FRAGMENT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,7 +67,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
         observe(viewModel.errorOther, ::handleError)
-        swipeForSixteenDayForecast()
     }
 
     override fun onStart() {
@@ -90,7 +88,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             currentTemperature.text = data.tempC
             cityName.text = data.name
             currentStatusImageview.load(data.icon.toUri().buildUpon().scheme(HTTPS).build())
-            lastUpdatedDate.text = data.lastUpdateDate
+            lastUpdatedDate1.text = data.lastUpdatedTime
             lastUpdatedDate2.text = data.lastUpdateDate
             humidityTextview.text = data.humidity
             chanceOfRainTextview.text = data.dailyChanceOfRain
@@ -105,21 +103,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         sixteenDayDetailsAdapter.submitList(data.dailyForecasts)
     }
 
-
-    //TODO: HANDLE THIS
-    private fun swipeForSixteenDayForecast() {
-        var set = false
-        val startingConstraintSet = ConstraintSet()
-        startingConstraintSet.clone(binding.root)
-        val finishingConstraintSet = ConstraintSet()
-        finishingConstraintSet.clone(requireContext(), R.layout.fragment_home_v2)
-        binding.sixteenDayForecastTextview.setOnClickListener {
-            TransitionManager.beginDelayedTransition(binding.root)
-            val constraintSet = if (set) startingConstraintSet else finishingConstraintSet
-            constraintSet.applyTo(binding.root)
-            set = !set
-        }
-    }
 
     private fun showLoader(isLoading:Boolean){
         if(isLoading){
