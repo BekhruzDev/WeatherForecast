@@ -67,16 +67,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
         observe(viewModel.errorOther, ::handleError)
+        observe(viewModel.loading, ::showLoader)
     }
 
     override fun onStart() {
         askLocationPermission()
         super.onStart()
-    }
-
-    override fun onResume() {
-        observe(viewModel.loading, ::showLoader)
-        super.onResume()
     }
 
     override fun onPause() {
