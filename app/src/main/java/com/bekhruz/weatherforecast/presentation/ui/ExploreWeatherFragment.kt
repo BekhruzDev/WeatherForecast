@@ -41,7 +41,6 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
         }
         observe(viewModel.errorOther, ::handleError)
     }
-
     override fun onQueryTextSubmit(query: String?): Boolean {
         binding.locationsSearchview.findViewById<View>(androidx.appcompat.R.id.search_close_btn).visibility = View.GONE
         binding.locationsSearchview.findViewById<View>(androidx.appcompat.R.id.search_go_btn).visibility = View.GONE

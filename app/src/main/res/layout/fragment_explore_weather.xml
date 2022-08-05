@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="37dp"
                 android:background="@drawable/custom_text_field"
-                android:focusable="auto"
+                android:focusable="true"
                 android:imeOptions="actionGo"
                 app:defaultQueryHint="@string/search"
                 app:goIcon="@null"
