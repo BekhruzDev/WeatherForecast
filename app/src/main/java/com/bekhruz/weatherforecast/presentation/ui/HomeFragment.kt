@@ -3,11 +3,15 @@ package com.bekhruz.weatherforecast.presentation.ui
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +28,7 @@ import com.bekhruz.weatherforecast.domain.models.sixteendayweather.SixteenDayDat
 import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,12 +61,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         sixteenDayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-
         binding.icAdd.setOnClickListener {
             goToExploreWeatherFragment()
         }
         binding.icMenu.setOnClickListener {
             goToManageLocationsFragment()
+        }
+
+
+        BottomSheetBehavior.from(binding.sixteenDayBottomSheet).apply {
+            peekHeight = 300
+            state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
@@ -72,6 +82,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun onStart() {
         askLocationPermission()
+
         super.onStart()
     }
 
@@ -134,6 +145,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             R.id.action_homeFragment_to_permissionDeniedFragment,
             bundleOf("neverAskClicked" to neverAskClicked)
         )
+    }
+    fun Int.toPixels():Int{
+        val metrics = resources.displayMetrics
+        val densityDpi = metrics.density.toInt()
+        return this * densityDpi/160
     }
     companion object{
         fun getInstance() = HomeFragment()

@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".presentation.ui.HomeFragment">
-   <com.airbnb.lottie.LottieAnimationView
+
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_dot_loader"
-        android:background="#80000000"
-        android:elevation="10dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="#80000000"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
         android:id="@+id/main_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:elevation="8dp"
         app:cardCornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +49,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_outline_menu_24" />
+
             <TextView
                 android:id="@+id/city_name"
                 android:layout_width="wrap_content"
@@ -96,8 +98,8 @@
                 android:id="@+id/current_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_marginEnd="16dp"
+                android:textColor="@color/white"
                 android:textSize="60sp"
                 app:layout_constraintBottom_toBottomOf="@id/current_status_imageview"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -225,7 +227,7 @@
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_degree"
                 app:layout_constraintStart_toEndOf="@+id/current_temperature"
-                app:layout_constraintTop_toTopOf="@id/current_temperature"/>
+                app:layout_constraintTop_toTopOf="@id/current_temperature" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -233,7 +235,10 @@
         android:id="@+id/hourly_details_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_card">
@@ -272,30 +277,55 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/forecast_constraint_layout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/card_bg_color"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:layout_marginTop="8dp"
+        android:elevation="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hourly_details_card"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sixteen_day_forecast_recyclerview"
-            android:layout_width="0dp"
+        <FrameLayout
+            android:id="@+id/sixteen_day_bottom_sheet"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="16"
-            tools:listitem="@layout/item_sixteen_day_details" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="@drawable/rounded"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/ic_minus"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_minus" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sixteen_day_forecast_recyclerview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:paddingBottom="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ic_minus"
+                    tools:itemCount="16"
+                    tools:listitem="@layout/item_sixteen_day_details" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
