@@ -9,10 +9,11 @@
 
     <TextView
         android:id="@+id/hour_textview"
+        android:background="@color/shimmerColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textColor="@color/white"
+        android:textColor="@color/shimmerColor"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +22,7 @@
 
     <ImageView
         android:id="@+id/ic_hourly_status"
+        android:background="@color/shimmerColor"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
@@ -32,31 +34,26 @@
         app:srcCompat="@drawable/ic_fluent_weather_rain_showers_day_24_regular" />
 
     <TextView
+        android:background="@color/shimmerColor"
         android:id="@+id/hourly_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/shimmerColor"
         android:textSize="12sp"
+        android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ic_hourly_status"
-        tools:text="25" />
+        android:text="25" />
 
-    <ImageView
-        android:id="@+id/ic_degree"
-        android:layout_width="4dp"
-        android:layout_height="4dp"
-        android:importantForAccessibility="no"
-        app:layout_constraintStart_toEndOf="@id/hourly_temperature"
-        app:layout_constraintTop_toTopOf="@id/hourly_temperature"
-        app:srcCompat="@drawable/ic_degree" />
 
     <TextView
+        android:background="@color/shimmerColor"
         android:id="@id/chance_of_rain_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/white"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/shimmerColor"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

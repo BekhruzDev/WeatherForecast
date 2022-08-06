@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="8dp"
+    tools:background="@drawable/card_bg_color">
+
+    <TextView
+        android:background="@color/shimmerColor"
+        android:id="@+id/week_days_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/shimmerColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Mon" />
+
+    <ImageView
+        android:background="@color/shimmerColor"
+        android:id="@+id/icon_weekdays_status"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/week_days_textview"
+        app:layout_constraintEnd_toStartOf="@id/low_temp_weekdays_textview"
+        app:layout_constraintStart_toStartOf="@id/week_days_textview"
+        app:layout_constraintTop_toTopOf="@id/week_days_textview"
+        app:srcCompat="@drawable/ic_fluent_weather_rain_showers_day_24_regular" />
+
+    <TextView
+        android:background="@color/shimmerColor"
+        android:id="@+id/rain_status_weekdays_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/shimmerColor"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/icon_weekdays_status"
+        app:layout_constraintStart_toEndOf="@+id/icon_weekdays_status"
+        app:layout_constraintTop_toTopOf="@id/icon_weekdays_status"
+        tools:text="74% rain" />
+
+    <TextView
+        android:background="@color/shimmerColor"
+        android:id="@+id/low_temp_weekdays_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:textColor="@color/shimmerColor"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/week_days_textview"
+        app:layout_constraintEnd_toStartOf="@+id/high_temp_weekdays_textview"
+        app:layout_constraintTop_toTopOf="@id/week_days_textview"
+        tools:text="20" />
+
+
+
+    <TextView
+        android:background="@color/shimmerColor"
+        android:id="@+id/high_temp_weekdays_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/shimmerColor"
+        android:layout_marginEnd="4dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="/ 24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

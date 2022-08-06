@@ -22,4 +22,6 @@
     <string name="after_permission_twice">"Permission is denied Twice. Please turn it on in the settings!!!"</string>
     <string name="server_error_exception">Something is wrong with the server\nPlease, try again later!</string>
     <string name="refresh">refresh</string>
+    <string name="tashkent">Tashkent</string>
+    <string name="sunday_nov_14">Sunday | Nov 14</string>
 </resources>

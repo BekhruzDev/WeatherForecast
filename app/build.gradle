@@ -86,4 +86,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0"
     // Lottie
     implementation "com.airbnb.android:lottie:$lottie_version"
+    // Facebook shimmer
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
 }
