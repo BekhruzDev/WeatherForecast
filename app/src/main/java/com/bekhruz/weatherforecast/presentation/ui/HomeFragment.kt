@@ -1,22 +1,14 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
-import androidx.core.view.doOnLayout
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionManager
 import coil.load
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.data.remote.utils.Constants.HTTPS
@@ -30,6 +22,7 @@ import com.bekhruz.weatherforecast.presentation.viewmodels.WeatherViewModel
 import com.bekhruz.weatherforecast.utils.observe
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -70,10 +63,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
         BottomSheetBehavior.from(binding.sixteenDayBottomSheet).apply {
-            peekHeight = 300
+            lifecycleScope.launchWhenStarted {
+                delay(500)
+                peekHeight =
+                    binding.root.height - (binding.mainCard.height + binding.hourlyDetailsCard.height)
+            }
             state = BottomSheetBehavior.STATE_COLLAPSED
         }
-
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
         observe(viewModel.errorOther, ::handleError)
@@ -82,7 +78,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun onStart() {
         askLocationPermission()
-
         super.onStart()
     }
 
@@ -90,6 +85,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         hideLoader()
         super.onPause()
     }
+
     private fun onCurrentWeatherDataLoaded(data: CurrentWeatherData) {
         binding.apply {
             currentTemperature.text = data.tempC
@@ -111,15 +107,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
 
-    private fun showLoader(isLoading:Boolean){
-        if(isLoading){
+    private fun showLoader(isLoading: Boolean) {
+        if (isLoading) {
             binding.lottieDotLoader.visibility = View.VISIBLE
             binding.lottieDotLoader.playAnimation()
-        } else{
-          hideLoader()
+        } else {
+            hideLoader()
         }
     }
-    private fun hideLoader(){
+
+    private fun hideLoader() {
         binding.lottieDotLoader.cancelAnimation()
         binding.lottieDotLoader.visibility = View.GONE
     }
@@ -146,12 +143,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             bundleOf("neverAskClicked" to neverAskClicked)
         )
     }
-    fun Int.toPixels():Int{
+
+    private fun Int.toPixels(): Int {
         val metrics = resources.displayMetrics
         val densityDpi = metrics.density.toInt()
-        return this * densityDpi/160
+        return this * densityDpi / 160
     }
-    companion object{
+
+    companion object {
         fun getInstance() = HomeFragment()
     }
 }
