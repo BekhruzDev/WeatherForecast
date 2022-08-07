@@ -45,6 +45,7 @@
                     android:id="@+id/city_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="@id/ic_menu"
@@ -78,6 +79,7 @@
                     android:id="@+id/last_updated_date1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@id/current_temperature"
@@ -90,6 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/roboto_light"
                     android:textColor="@color/white"
                     android:textSize="60sp"
                     app:layout_constraintBottom_toBottomOf="@id/current_status_imageview"
@@ -102,6 +105,7 @@
                     android:id="@+id/current_status_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@id/current_status_imageview"
@@ -135,6 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
+                    android:fontFamily="@font/roboto"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@id/ic_wind_speed"
@@ -152,6 +157,7 @@
                     app:srcCompat="@drawable/ic_rain_chance" />
 
                 <TextView
+                    android:fontFamily="@font/roboto"
                     android:id="@+id/chance_of_rain_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -175,6 +181,7 @@
                     app:srcCompat="@drawable/ic_termometer" />
 
                 <TextView
+                    android:fontFamily="@font/roboto"
                     android:id="@+id/pressure_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -199,6 +206,8 @@
 
 
                 <TextView
+                    android:fontFamily="@font/roboto"
+
                     android:id="@+id/humidity_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -242,6 +251,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:fontFamily="@font/roboto"
                     android:id="@+id/last_updated_date2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

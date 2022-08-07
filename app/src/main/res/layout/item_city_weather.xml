@@ -16,24 +16,25 @@
             android:layout_height="match_parent"
             android:padding="16dp">
         <TextView
+            android:fontFamily="@font/roboto_bold"
             android:id="@+id/searched_location_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/cloud_burst"
             android:layout_marginTop="3dp"
             tools:text="Tashkent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
             <TextView
+                android:fontFamily="@font/roboto"
                 android:id="@+id/searched_location_info_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="20"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/black_coral_pearl"
-                android:textSize="12sp"
-                android:layout_marginBottom="8dp"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/searched_location_textview"
                 app:layout_constraintTop_toBottomOf="@id/searched_location_textview"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -54,10 +55,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="15dp"/>
             <TextView
+                android:fontFamily="@font/roboto"
                 android:id="@+id/weather_status_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:textColor="@color/black_coral_pearl"
                 tools:text="Heavy rain"
                 android:layout_marginTop="2dp"

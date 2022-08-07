@@ -32,6 +32,7 @@
                 app:srcCompat="@drawable/ic_arrow_left" />
 
             <TextView
+                android:fontFamily="@font/roboto_medium"
                 android:id="@+id/manage_location_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

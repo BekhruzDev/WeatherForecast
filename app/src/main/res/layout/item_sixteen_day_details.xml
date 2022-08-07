@@ -11,6 +11,7 @@
     tools:background="@drawable/card_bg_color">
 
     <TextView
+        android:fontFamily="@font/roboto"
         android:id="@+id/week_days_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,24 +34,26 @@
         tools:srcCompat="@drawable/ic_rain_showers_day_outlined" />
 
     <TextView
+        android:fontFamily="@font/roboto"
         android:id="@+id/rain_status_weekdays_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/icon_weekdays_status"
         app:layout_constraintStart_toEndOf="@+id/icon_weekdays_status"
         app:layout_constraintTop_toTopOf="@id/icon_weekdays_status"
         tools:text="74% rain" />
 
     <TextView
+        android:fontFamily="@font/roboto"
         android:id="@+id/low_temp_weekdays_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/week_days_textview"
         app:layout_constraintEnd_toStartOf="@+id/high_temp_weekdays_textview"
         app:layout_constraintTop_toTopOf="@id/week_days_textview"
@@ -66,12 +69,13 @@
         app:srcCompat="@drawable/ic_degree" />
 
     <TextView
+        android:fontFamily="@font/roboto"
         android:id="@+id/high_temp_weekdays_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:layout_marginEnd="4dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
