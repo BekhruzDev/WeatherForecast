@@ -1,63 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp"
-    tools:background="@drawable/card_bg_color">
-
-    <TextView
+    android:paddingBottom="16dp">
+    <View
         android:id="@+id/hour_textview"
-        android:background="@color/shimmerColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/shimmerColor"
-        android:textSize="16sp"
+        android:background ="@drawable/shimmer_background"
+        android:layout_width="40dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="11:00" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <View
         android:id="@+id/ic_hourly_status"
-        android:background="@color/shimmerColor"
+        android:background ="@drawable/shimmer_background"
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:importantForAccessibility="no"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hour_textview"
-        app:srcCompat="@drawable/ic_fluent_weather_rain_showers_day_24_regular" />
+        app:layout_constraintTop_toBottomOf="@id/hour_textview" />
 
-    <TextView
-        android:background="@color/shimmerColor"
+    <View
+        android:background ="@drawable/shimmer_background"
         android:id="@+id/hourly_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/shimmerColor"
-        android:textSize="12sp"
-        android:layout_marginTop="2dp"
+        android:layout_width="40dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ic_hourly_status"
-        android:text="25" />
+        />
 
 
     <TextView
-        android:background="@color/shimmerColor"
+        android:background ="@drawable/shimmer_background"
         android:id="@id/chance_of_rain_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textColor="@color/shimmerColor"
-        android:textSize="12sp"
+        android:layout_width="45dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hourly_temperature"
-        tools:text="74% rain" />
+        app:layout_constraintTop_toBottomOf="@id/hourly_temperature" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

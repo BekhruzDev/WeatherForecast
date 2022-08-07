@@ -12,7 +12,7 @@
     <color name="gray">#F2F2F2</color>
     <color name="black_coral_pearl">#545B70</color>
     <color name="cloud_burst">#1B2541</color>
-    <color name="light_red">#F2F2F2</color>
+    <color name="light_red">#eeeeee</color>
     <color name="curious_blue">#3887D2</color>
-    <color name="shimmerColor">#FF018786</color>
+    <color name="shimmerColor">#BDBDBD</color>
 </resources>

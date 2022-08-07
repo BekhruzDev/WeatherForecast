@@ -66,7 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             lifecycleScope.launchWhenStarted {
                 delay(500)
                 peekHeight =
-                    binding.root.height - (binding.mainCard.height + binding.hourlyDetailsCard.height)
+                    binding.root.measuredHeight - (binding.mainCard.measuredHeight + binding.hourlyDetailsCard.measuredHeight)
             }
             state = BottomSheetBehavior.STATE_COLLAPSED
         }
@@ -109,16 +109,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun showLoader(isLoading: Boolean) {
         if (isLoading) {
-            binding.lottieDotLoader.visibility = View.VISIBLE
-            binding.lottieDotLoader.playAnimation()
+            binding.shimmerRoot.root.startShimmer()
+            binding.shimmerRoot.root.visibility = View.VISIBLE
+            binding.root.visibility = View.GONE
         } else {
             hideLoader()
         }
     }
 
     private fun hideLoader() {
-        binding.lottieDotLoader.cancelAnimation()
-        binding.lottieDotLoader.visibility = View.GONE
+        binding.shimmerRoot.root.stopShimmer()
+        binding.shimmerRoot.root.visibility = View.GONE
+        binding.root.visibility = View.VISIBLE
     }
 
     override fun onLocationGranted() {
