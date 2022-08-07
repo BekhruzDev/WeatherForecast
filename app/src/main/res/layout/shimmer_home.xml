@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_red"
         android:orientation="vertical"
         tools:context=".presentation.ui.HomeFragment">
 
@@ -28,7 +28,6 @@
                 android:id="@+id/current_weather_constraint_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:paddingBottom="16dp">
 
 
@@ -238,7 +237,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:elevation="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -249,8 +247,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rounded"
-                android:elevation="16dp">
+                android:background="@drawable/rounded">
 
                 <ImageView
                     android:id="@+id/ic_minus"

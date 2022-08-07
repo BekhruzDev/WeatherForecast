@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.ui.ExploreWeatherFragment">
@@ -71,6 +72,14 @@
                 app:layout_constraintStart_toStartOf="@id/locations_searchview"
                 app:layout_constraintTop_toBottomOf="@id/locations_searchview"
                 tools:listitem="@layout/item_searched_city" />
+            <include android:id="@+id/shimmer_root"
+                android:layout_marginTop="8dp"
+                layout="@layout/shimmer_explore_weather"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:layout_constraintEnd_toEndOf="@id/locations_searchview"
+                app:layout_constraintStart_toStartOf="@id/locations_searchview"
+                app:layout_constraintTop_toBottomOf="@id/locations_searchview"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

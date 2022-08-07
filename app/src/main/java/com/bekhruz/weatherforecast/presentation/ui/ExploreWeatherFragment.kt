@@ -40,6 +40,7 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
             goBackHome()
         }
         observe(viewModel.errorOther, ::handleError)
+        observe(viewModel.loading, ::showLoader)
     }
     override fun onQueryTextSubmit(query: String?): Boolean {
         binding.locationsSearchview.findViewById<View>(androidx.appcompat.R.id.search_close_btn).visibility = View.GONE
@@ -69,6 +70,21 @@ class ExploreWeatherFragment : BaseFragment<FragmentExploreWeatherBinding>(Fragm
     override fun onItemClicked(item: LocationResult) {
         goBackHome()
         viewModel.applySelectedLocationWeatherData(item)
+    }
+    private fun showLoader(isLoading: Boolean) {
+        if (isLoading) {
+            binding.shimmerRoot.root.startShimmer()
+            binding.shimmerRoot.root.visibility = View.VISIBLE
+            binding.searchedLocationsRecyclerview.visibility = View.GONE
+        } else {
+            hideLoader()
+        }
+    }
+
+    private fun hideLoader() {
+        binding.shimmerRoot.root.stopShimmer()
+        binding.shimmerRoot.root.visibility = View.GONE
+        binding.searchedLocationsRecyclerview.visibility = View.VISIBLE
     }
 
     private fun goBackHome() {
