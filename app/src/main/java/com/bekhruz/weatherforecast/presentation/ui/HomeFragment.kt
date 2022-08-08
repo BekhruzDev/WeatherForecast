@@ -1,6 +1,7 @@
 package com.bekhruz.weatherforecast.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
@@ -23,7 +24,6 @@ import com.bekhruz.weatherforecast.utils.observe
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
     BaseFragment.LocationPermissionInterface,
@@ -61,15 +61,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             goToManageLocationsFragment()
         }
 
+        Log.d("MYDPI", "${resources.displayMetrics.densityDpi} ")
 
         BottomSheetBehavior.from(binding.sixteenDayBottomSheet).apply {
-            lifecycleScope.launchWhenStarted {
-                delay(500)
-                peekHeight =
-                    binding.root.measuredHeight - (binding.mainCard.measuredHeight + binding.hourlyDetailsCard.measuredHeight)
-            }
+            peekHeight = (166.50 * resources.displayMetrics.densityDpi/160).toInt()
             state = BottomSheetBehavior.STATE_COLLAPSED
         }
+
         observe(viewModel.currentWeatherData, ::onCurrentWeatherDataLoaded)
         observe(viewModel.sixteenDayWeatherData, ::onSixteenDayWeatherDataLoaded)
         observe(viewModel.errorOther, ::handleError)

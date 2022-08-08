@@ -54,12 +54,11 @@ class MainActivity : AppCompatActivity() {
             if (activeNetwork != null) {
                 viewModel.checkInternetConnection()
                 binding.refreshBtn.setOnClickListener {
-                    viewModel.checkInternetConnection()
+                        viewModel.checkInternetConnection()
                 }
             } else {
                 viewModel.changeConnection(false)
                 binding.refreshBtn.setOnClickListener {
-                    //do nothing
                 }
             }
         }
