@@ -23,5 +23,6 @@ fun showDialog(
         .setPositiveButton(positiveBtnText) { dialog, which ->
             positiveBtnAction.invoke()
         }
+        .setCancelable(false)
         .show()
 }

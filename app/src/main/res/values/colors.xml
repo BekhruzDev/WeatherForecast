@@ -15,4 +15,8 @@
     <color name="light_red">#eeeeee</color>
     <color name="curious_blue">#3887D2</color>
     <color name="shimmerColor">#BDBDBD</color>
+    <color name="strong_blue">#2C79C1</color>
+    <color name="strong_blue_600">#115CCD</color>
+    <color name="light_blue">#62B8F6</color>
+
 </resources>
