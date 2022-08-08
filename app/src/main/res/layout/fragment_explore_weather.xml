@@ -8,7 +8,6 @@
     tools:context=".presentation.ui.ExploreWeatherFragment">
 
     <androidx.cardview.widget.CardView
-        android:animateLayoutChanges="true"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
@@ -21,7 +20,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
             android:background="@drawable/card_bg_color"
             android:padding="16dp">
 
