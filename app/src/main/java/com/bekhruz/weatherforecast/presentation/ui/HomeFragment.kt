@@ -126,13 +126,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun goToManageLocationsFragment() {
-        findNavController().navigate(
-            R.id.action_homeFragment_to_manageLocationsFragment
-        )
+        val currentNavController = findNavController()
+        if(currentNavController.currentDestination?.id == R.id.homeFragment)
+            currentNavController.navigate(
+                R.id.action_homeFragment_to_manageLocationsFragment)
     }
 
     private fun goToExploreWeatherFragment() {
-        findNavController().navigate(
+        val currentNavController = findNavController()
+        if(currentNavController.currentDestination?.id == R.id.homeFragment)
+        currentNavController.navigate(
             R.id.action_homeFragment_to_exploreWeatherFragment
         )
     }
@@ -143,13 +146,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             bundleOf("neverAskClicked" to neverAskClicked)
         )
     }
-
-    private fun Int.toPixels(): Int {
-        val metrics = resources.displayMetrics
-        val densityDpi = metrics.density.toInt()
-        return this * densityDpi / 160
-    }
-
     companion object {
         fun getInstance() = HomeFragment()
     }

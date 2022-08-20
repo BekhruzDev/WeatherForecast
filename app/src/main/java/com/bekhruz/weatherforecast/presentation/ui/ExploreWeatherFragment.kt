@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
 import com.bekhruz.weatherforecast.domain.models.geocoding.LocationResult
@@ -26,7 +27,12 @@ class ExploreWeatherFragment :
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var searchedLocationsRecyclerView: RecyclerView
     private lateinit var searchedLocationsAdapter: SearchedLocationsAdapter
+    /*override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
 
+    }*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchedLocationsRecyclerView = binding.searchedLocationsRecyclerview
@@ -105,6 +111,9 @@ class ExploreWeatherFragment :
     }
 
     private fun goBackHome() {
-        findNavController().navigateUp()
+        val currentNavController = findNavController()
+        if (currentNavController.currentDestination?.id == R.id.exploreWeatherFragment ){
+            currentNavController.navigateUp()
+        }
     }
 }

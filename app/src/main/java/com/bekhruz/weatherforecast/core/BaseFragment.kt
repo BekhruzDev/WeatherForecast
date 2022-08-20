@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.transition.TransitionInflater
 import androidx.viewbinding.ViewBinding
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.data.remote.BadRequestException
@@ -35,14 +36,18 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     lateinit var locationPermissionCallback: LocationPermissionInterface
     lateinit var navigationCallback: NavigationInterface
     var neverAskClicked: Boolean? = null
-
+/*
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        exitTransition = inflater.inflateTransition(R.transition.fade)
+    }*/
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflater(inflater, container, false)
-
         return binding.root
     }
 
@@ -54,16 +59,17 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
      fun handleError(throwable: Throwable) {
         when (throwable) {
             is UnknownHostException -> {
+                //Currently this exception is handled by BroadcastReceiver
                 //Toast.makeText(requireContext(), resources.getString(R.string.check_network_state), Toast.LENGTH_SHORT ).show()
             }
             is ServerErrorException ->{
                 Toast.makeText(requireContext(), resources.getString(R.string.server_error_exception), Toast.LENGTH_SHORT ).show()
             }
             is UnAuthorizedException -> {
-                Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
+               Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
             }
             is BadRequestException -> {
-                Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
+               Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
             }
             else -> {
                 //Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
