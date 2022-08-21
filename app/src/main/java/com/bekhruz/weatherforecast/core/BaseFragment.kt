@@ -29,19 +29,20 @@ import com.bekhruz.weatherforecast.utils.Inflate
 import com.bekhruz.weatherforecast.utils.showDialog
 import java.net.UnknownHostException
 
-abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment(){
+abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragment() {
     private var _binding: VB? = null
     val binding get() = _binding!!
     val bindingSafe get() = _binding
     lateinit var locationPermissionCallback: LocationPermissionInterface
     lateinit var navigationCallback: NavigationInterface
     var neverAskClicked: Boolean? = null
-/*
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
         exitTransition = inflater.inflateTransition(R.transition.fade)
-    }*/
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,20 +57,24 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         _binding = null
     }
 
-     fun handleError(throwable: Throwable) {
+    fun handleError(throwable: Throwable) {
         when (throwable) {
             is UnknownHostException -> {
                 //Currently this exception is handled by BroadcastReceiver
                 //Toast.makeText(requireContext(), resources.getString(R.string.check_network_state), Toast.LENGTH_SHORT ).show()
             }
-            is ServerErrorException ->{
-                Toast.makeText(requireContext(), resources.getString(R.string.server_error_exception), Toast.LENGTH_SHORT ).show()
+            is ServerErrorException -> {
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.server_error_exception),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             is UnAuthorizedException -> {
-               Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
+                Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT).show()
             }
             is BadRequestException -> {
-               Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
+                Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT).show()
             }
             else -> {
                 //Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT ).show()
@@ -139,6 +144,7 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
         intent.data = uri
         startActivity(intent)
     }
+
     open fun requestLocationSystemDialog() {
         requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }

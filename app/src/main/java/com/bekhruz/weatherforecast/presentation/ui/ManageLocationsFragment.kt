@@ -23,12 +23,12 @@ class ManageLocationsFragment : Fragment() {
         return binding.root
     }
 
-    /* override fun onCreate(savedInstanceState: Bundle?) {
-         super.onCreate(savedInstanceState)
-         val inflater = TransitionInflater.from(requireContext())
-         enterTransition = inflater.inflateTransition(R.transition.slide_left)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_left)
+    }
 
-     }*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.icNavigateUpButton.setOnClickListener {

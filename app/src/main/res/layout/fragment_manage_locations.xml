@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"
-            android:background="@drawable/card_bg_color">
+            android:background="@drawable/card_background">
 
             <ImageView
                 android:id="@+id/ic_navigate_up_button"

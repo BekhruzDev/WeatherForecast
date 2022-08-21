@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.bekhruz.weatherforecast.R
 import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.databinding.FragmentExploreWeatherBinding
@@ -27,12 +28,13 @@ class ExploreWeatherFragment :
     private val viewModel: WeatherViewModel by activityViewModels()
     private lateinit var searchedLocationsRecyclerView: RecyclerView
     private lateinit var searchedLocationsAdapter: SearchedLocationsAdapter
-    /*override fun onCreate(savedInstanceState: Bundle?) {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
         enterTransition = inflater.inflateTransition(R.transition.slide_right)
+    }
 
-    }*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchedLocationsRecyclerView = binding.searchedLocationsRecyclerview
@@ -59,6 +61,7 @@ class ExploreWeatherFragment :
         }
         super.onResume()
     }
+
     override fun onQueryTextSubmit(query: String?): Boolean {
         binding.locationsSearchview.findViewById<View>(androidx.appcompat.R.id.search_close_btn).visibility =
             View.GONE
@@ -112,7 +115,7 @@ class ExploreWeatherFragment :
 
     private fun goBackHome() {
         val currentNavController = findNavController()
-        if (currentNavController.currentDestination?.id == R.id.exploreWeatherFragment ){
+        if (currentNavController.currentDestination?.id == R.id.exploreWeatherFragment) {
             currentNavController.navigateUp()
         }
     }
