@@ -8,20 +8,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionInflater
 import com.bekhruz.weatherforecast.R
+import com.bekhruz.weatherforecast.core.BaseFragment
 import com.bekhruz.weatherforecast.databinding.FragmentManageLocationsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ManageLocationsFragment : Fragment() {
-    private var _binding: FragmentManageLocationsBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentManageLocationsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
+class ManageLocationsFragment : BaseFragment<FragmentManageLocationsBinding>(FragmentManageLocationsBinding::inflate) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +32,5 @@ class ManageLocationsFragment : Fragment() {
         val currentNavController = findNavController()
         if (currentNavController.currentDestination?.id == R.id.manageLocationsFragment)
             currentNavController.navigateUp()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
