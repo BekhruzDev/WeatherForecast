@@ -18,5 +18,6 @@
     <color name="strong_blue">#2C79C1</color>
     <color name="strong_blue_600">#115CCD</color>
     <color name="light_blue">#62B8F6</color>
-
+    <color name="light_blue_100">#BBDEFB</color>
+    <color name="searched_location">@color/black_coral_pearl</color>
 </resources>
