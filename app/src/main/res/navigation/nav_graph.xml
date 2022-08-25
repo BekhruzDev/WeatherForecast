@@ -12,13 +12,19 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_manageLocationsFragment"
-            app:destination="@id/manageLocationsFragment" />
+            app:destination="@id/manageLocationsFragment"
+            app:enterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_left" />
         <action
             android:id="@+id/action_homeFragment_to_exploreWeatherFragment"
-            app:destination="@id/exploreWeatherFragment" />
+            app:destination="@id/exploreWeatherFragment"
+            app:enterAnim="@anim/anim_enter_from_up"
+            app:popExitAnim="@anim/anim_exit_to_up" />
         <action
             android:id="@+id/action_homeFragment_to_permissionDeniedFragment"
-            app:destination="@id/permissionDeniedFragment" />
+            app:destination="@id/permissionDeniedFragment"
+            app:enterAnim="@anim/anim_enter_from_down"
+            app:popExitAnim="@anim/anim_exit_to_down" />
     </fragment>
     <fragment
         android:id="@+id/manageLocationsFragment"

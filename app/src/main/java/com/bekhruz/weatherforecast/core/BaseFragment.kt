@@ -36,12 +36,15 @@ abstract class BaseFragment<VB : ViewBinding>(val inflater: Inflate<VB>) : Fragm
     lateinit var locationPermissionCallback: LocationPermissionInterface
     lateinit var navigationCallback: NavigationInterface
     var neverAskClicked: Boolean? = null
+/*
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
         exitTransition = inflater.inflateTransition(R.transition.fade)
+        enterTransition = inflater.inflateTransition(R.transition.slide_left)
     }
+*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
